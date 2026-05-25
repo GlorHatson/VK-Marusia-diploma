@@ -1,0 +1,213 @@
+@import url('https://fonts.googleapis.com/css2?family=Play:wght@400;700&display=swap');
+
+// .container {
+//   font-family: 'Play', sans-serif;
+//   color: #fff;
+// }
+
+/* Блок случайного фильма (wallpaper) */
+.wallpaper {
+  padding: 0;
+  margin-bottom: 36px;
+}
+
+.wallpaperContent {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  gap: 10px;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.filmInfo {
+  flex: 1;
+  max-width: 600px;
+  padding-top: 74px;
+}
+
+.metaRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.rating {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: #308E21;
+  padding: 4px 12px;
+  border-radius: 16px;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 24px;
+
+  .starIcon {
+    font-size: 16px;
+  }
+}
+
+.year,
+.genre,
+.duration {
+  font-size: 18px;
+  line-height: 24px;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.title {
+  font-weight: 700;
+  font-size: 48px;
+  line-height: 56px;
+  margin-bottom: 16px;
+}
+
+.description {
+  font-size: 24px;
+  line-height: 32px;
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: 60px;
+}
+
+.buttonGroup {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 30px;
+}
+
+.buttonPrimary {
+  background: #67A5EB;
+  border: none;
+  padding: 16px 48px;
+  border-radius: 28px;
+  font-family: 'Play', sans-serif;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 24px;
+  color: #fff;
+  cursor: pointer;
+  transition: 0.2s;
+
+  &:hover {
+    background: #5590d0;
+  }
+}
+
+.buttonSecondary {
+  background: #393B3C;
+  border: 1px solid rgba(0, 0, 0, 0.4);
+  padding: 16px 48px;
+  border-radius: 28px;
+  font-family: 'Play', sans-serif;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 24px;
+  color: #fff;
+  cursor: pointer;
+  transition: 0.2s;
+
+  &:hover {
+    background: #4a4d4e;
+  }
+}
+
+.iconButton {
+  background: #333333;
+  border: 1px solid rgba(0, 0, 0, 0.4);
+  width: 68px;
+  height: 56px;
+  border-radius: 28px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  cursor: pointer;
+  transition: 0.2s;
+
+  &:hover {
+    background: #444;
+  }
+}
+
+.posterWrapper {
+  flex-shrink: 0;
+  // margin-bottom: 36px;
+
+  .poster {
+    max-height: 552px;
+    aspect-ratio: 680 / 552;
+    object-fit: cover;
+    border-radius: 16px;
+    // box-shadow: 0 0 80px rgba(255, 255, 255, 0.33);
+  }
+}
+
+
+/* Топ-10 фильмов */
+.topSection {
+  padding: 0 0 120px;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.topTitle {
+  font-weight: 700;
+  font-size: 40px;
+  line-height: 48px;
+  margin-bottom: 64px;
+}
+
+.topGrid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 40px;
+  row-gap: 64px;
+}
+
+.topCard {
+  position: relative;
+  width: 224px;
+  height: 336px;
+  // background: url('./public/poster1.png') center/cover no-repeat;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  box-shadow: 0px 0px 80px rgba(255, 255, 255, 0.33);
+  border-radius: 16px;
+}
+
+.topPosterContainer {
+  width: 100%;
+  height: 100%;
+  border-radius: 16px;
+  overflow: hidden; 
+}
+
+.topRank {
+  position: absolute;
+  left: -12px;
+  top: -12px;
+  background: #FFFFFF;
+  border-radius: 50px;
+  padding: 8px 24px;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 32px;
+  color: #6A5DC2;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 62px;
+  height: 48px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  z-index: 2;
+}
+
+.topPoster {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
