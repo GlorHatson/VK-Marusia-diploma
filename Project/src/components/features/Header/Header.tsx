@@ -1,9 +1,10 @@
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import styles from './Header.module.scss';
 import Container from '../../UI/Container/Container';
 
+
 const SearchIcon = () => (
-    <img src="/images/icon-find.svg" alt="Поиск" className={styles.searchIcon} />
+  <img src="/images/icon-find.svg" alt="Поиск" className={styles.searchIcon} />
 );
 
 const Header = () => {
@@ -18,8 +19,19 @@ const Header = () => {
             </Link>
           </div>
           <nav className={styles.nav}>
-            <Link to="/" className={styles.navLink}>Главная</Link>
-            <Link to="/genres" className={styles.navLink}>Жанры</Link>
+            <NavLink
+              to="/"
+              className={({ isActive }) => `${styles.navLink} ${isActive ? styles.active : ''}`}
+              end
+            >
+              Главная
+            </NavLink>
+            <NavLink
+              to="/genres"
+              className={({ isActive }) => `${styles.navLink} ${isActive ? styles.active : ''}`}
+            >
+              Жанры
+            </NavLink>
           </nav>
           <div className={styles.search}>
             <div className={styles.searchWrapper}>

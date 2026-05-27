@@ -14,7 +14,7 @@
 }
 
 .logo {
-    margin-right:80px;
+    margin-right: 80px;
 }
 
 .nav {
@@ -51,7 +51,6 @@
 }
 
 .navLink {
-    font-family: 'Play', sans-serif;
     font-weight: 400;
     font-size: 24px;
     line-height: 32px;
@@ -80,7 +79,6 @@
     flex: 1;
     background: transparent;
     border: none;
-    font-family: 'Play', sans-serif;
     font-size: 18px;
     line-height: 24px;
     color: rgba(255, 255, 255, 0.8);
@@ -89,6 +87,22 @@
 }
 
 .authLink {
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 32px;
+    color: #fff;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: background 0.2s ease;
+    padding: 8px 0;
+    border-radius: 8px;
+    &:hover {
+        color: #B4A9FF;
+    }
+}
+
+.navLink {
+    // существующие стили
     font-family: 'Play', sans-serif;
     font-weight: 400;
     font-size: 24px;
@@ -96,4 +110,15 @@
     color: #fff;
     text-decoration: none;
     white-space: nowrap;
+    padding: 8px 0; // чтобы фон и рамка имели пространство
+    transition: all 0.2s ease;
+    border-bottom: 1.5px solid transparent; // резервируем место, чтобы не было скачка
+}
+
+.navLink:hover {
+    color: #B4A9FF;
+}
+
+.active {
+    border-bottom: 1.5px solid #DC5DFC;
 }
