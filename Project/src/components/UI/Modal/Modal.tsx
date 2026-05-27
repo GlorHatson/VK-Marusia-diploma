@@ -26,11 +26,11 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children, title }) => {
   if (!isOpen) return null;
 
   return (
-    <div className={styles.overlay} onClick={onClose}>
+    <div className={styles['modal__overlay']} onClick={onClose}>
       <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
-        {title && <div className={styles.header}>{title}</div>}
-        <div className={styles.content}>{children}</div>
-        <button className={styles.closeBtn} onClick={onClose}>×</button>
+        {title && <div className={styles['modal__header']}>{title}</div>}
+        <div className={styles['modal__content']}>{children}</div>
+        <button className={styles['modal__close']} onClick={onClose}>×</button>
       </div>
     </div>
   );

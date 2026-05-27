@@ -1,124 +1,114 @@
 .header {
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    backdrop-filter: blur(10px);
-    padding: 24px 0;
-    margin-bottom: 32px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  backdrop-filter: blur(10px);
+  padding: 24px 0;
+  margin-bottom: 32px;
 }
 
-.innerContainer {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+.header__container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
-.logo {
-    margin-right: 80px;
+.header__logo {
+  margin-right: 80px;
 }
 
-.nav {
-    display: flex;
-    gap: 40px;
-    margin-right: 40px;
+.header__nav {
+  display: flex;
+  gap: 40px;
+  margin-right: 40px;
 }
 
-.search {
-    flex: 1;
-    margin-right: 80px;
+.header__search {
+  flex: 1;
+  margin-right: 80px;
 }
 
-.auth {
-    flex-shrink: 0;
+.header__auth {
+  flex-shrink: 0;
 }
 
-.logoLink {
-    display: flex;
-    align-items: end;
-    gap: 12px;
-    text-decoration: none;
+.header__logo-link {
+  display: flex;
+  align-items: end;
+  gap: 12px;
+  text-decoration: none;
 }
 
-.logoIcon {
-    height: auto;
-    width: 32px;
-    padding-left: 7px;
+.header__logo-icon {
+  height: auto;
+  width: 32px;
+  padding-left: 7px;
 }
 
-.logoText {
-    height: 21px;
-    width: auto;
+.header__logo-text {
+  height: 21px;
+  width: auto;
 }
 
-.navLink {
-    font-weight: 400;
-    font-size: 24px;
-    line-height: 32px;
-    color: #fff;
-    text-decoration: none;
-    white-space: nowrap;
+.header__nav-link {
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 32px;
+  color: #fff;
+  text-decoration: none;
+  white-space: nowrap;
+  padding: 8px 0;
+  transition: all 0.2s ease;
+  border-bottom: 1.5px solid transparent;
 }
 
-.searchWrapper {
-    display: flex;
-    align-items: center;
-    background: rgba(57, 59, 60, 0.8);
-    border-radius: 8px;
-    padding: 0 16px;
-    height: 48px;
-    gap: 12px;
+.header__nav-link:hover {
+  color: #B4A9FF;
 }
 
-.searchWrapper svg {
-    width: 24px;
-    height: 24px;
-    flex-shrink: 0;
+.header__nav-link--active {
+  border-bottom: 1.5px solid #DC5DFC;
 }
 
-.searchInput {
-    flex: 1;
-    background: transparent;
-    border: none;
-    font-size: 18px;
-    line-height: 24px;
-    color: rgba(255, 255, 255, 0.8);
-    padding: 12px 0;
-    outline: none;
+.header__search-wrapper {
+  display: flex;
+  align-items: center;
+  background: rgba(57, 59, 60, 0.8);
+  border-radius: 8px;
+  padding: 0 16px;
+  height: 48px;
+  gap: 12px;
 }
 
-.authLink {
-    font-weight: 400;
-    font-size: 24px;
-    line-height: 32px;
-    color: #fff;
-    text-decoration: none;
-    white-space: nowrap;
-    transition: background 0.2s ease;
-    padding: 8px 0;
-    border-radius: 8px;
-    &:hover {
-        color: #B4A9FF;
-    }
+.header__search-wrapper svg {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
 }
 
-.navLink {
-    // существующие стили
-    font-family: 'Play', sans-serif;
-    font-weight: 400;
-    font-size: 24px;
-    line-height: 32px;
-    color: #fff;
-    text-decoration: none;
-    white-space: nowrap;
-    padding: 8px 0; // чтобы фон и рамка имели пространство
-    transition: all 0.2s ease;
-    border-bottom: 1.5px solid transparent; // резервируем место, чтобы не было скачка
+.header__search-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  font-size: 18px;
+  line-height: 24px;
+  color: rgba(255, 255, 255, 0.8);
+  padding: 12px 0;
+  outline: none;
 }
 
-.navLink:hover {
-    color: #B4A9FF;
+.header__auth-link {
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 32px;
+  color: #fff;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background 0.2s ease;
+  padding: 8px 0;
+  border-radius: 8px;
 }
 
-.active {
-    border-bottom: 1.5px solid #DC5DFC;
+.header__auth-link:hover {
+  color: #B4A9FF;
 }

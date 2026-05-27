@@ -23,7 +23,7 @@ const Input: React.FC<InputProps> = ({
       value={value}
       onChange={onChange}
       placeholder={placeholder}
-      className={`${styles.input} ${error ? styles.error : ''} ${className}`}
+      className={`${styles.input} ${error ? styles['input--error'] : ''} ${className}`}
     />
   );
 };

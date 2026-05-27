@@ -1,11 +1,10 @@
 import styles from './MainPage.module.scss';
 import Container from '../components/UI/Container/Container';
 
-// Моковые данные (заглушки, позже заменим на API)
 const mockRandomMovie = {
   id: 1,
   title: 'Шерлок Холмс и доктор Ватсон: Знакомство',
-  poster: '/poster1.png', // замените на реальный URL
+  poster: '/poster1.png',
   rating: 7.5,
   year: 1979,
   genre: 'детектив',
@@ -23,45 +22,45 @@ const mockTopMovies = Array.from({ length: 10 }, (_, i) => ({
 const MainPage = () => {
   return (
     <Container>
-      {/* Блок случайного фильма (wallpaper) */}
-      <section className={styles.wallpaper}>
-        <div className={styles.wallpaperContent}>
-          {/* Левая часть с информацией */}
-          <div className={styles.filmInfo}>
-            <div className={styles.metaRow}>
-              <div className={styles.rating}>
-                <span className={styles.starIcon}>★</span>
+      <section className={styles['main-page__wallpaper']}>
+        <div className={styles['main-page__wallpaper-content']}>
+          <div className={styles['main-page__film-info']}>
+            <div className={styles['main-page__meta-row']}>
+              <div className={styles['main-page__rating']}>
+                <span className={styles['main-page__star-icon']}>★</span>
                 <span>{mockRandomMovie.rating}</span>
               </div>
-              <span className={styles.year}>{mockRandomMovie.year}</span>
-              <span className={styles.genre}>{mockRandomMovie.genre}</span>
-              <span className={styles.duration}>{mockRandomMovie.duration}</span>
+              <span className={styles['main-page__year']}>{mockRandomMovie.year}</span>
+              <span className={styles['main-page__genre']}>{mockRandomMovie.genre}</span>
+              <span className={styles['main-page__duration']}>{mockRandomMovie.duration}</span>
             </div>
-            <h1 className={styles.title}>{mockRandomMovie.title}</h1>
-            <p className={styles.description}>{mockRandomMovie.description}</p>
-            <div className={styles.buttonGroup}>
-              <button className={styles.buttonPrimary}>Трейлер</button>
-              <button className={styles.buttonSecondary}>О фильме</button>
-              <button className={styles.iconButton} aria-label="В избранное"><img src="/images/icon-favorit.svg" alt="В избранное" /></button>
-              <button className={styles.iconButton} aria-label="Обновить фильм"><img src="/images/icon-refresh.svg" alt="Обновить" /></button>
+            <h1 className={styles['main-page__title']}>{mockRandomMovie.title}</h1>
+            <p className={styles['main-page__description']}>{mockRandomMovie.description}</p>
+            <div className={styles['main-page__button-group']}>
+              <button className={styles['main-page__button--primary']}>Трейлер</button>
+              <button className={styles['main-page__button--secondary']}>О фильме</button>
+              <button className={styles['main-page__icon-button']} aria-label="В избранное">
+                <img src="/images/icon-favorit.svg" alt="В избранное" />
+              </button>
+              <button className={styles['main-page__icon-button']} aria-label="Обновить фильм">
+                <img src="/images/icon-refresh.svg" alt="Обновить" />
+              </button>
             </div>
           </div>
-          {/* Правая часть — постер */}
-          <div className={styles.posterWrapper}>
-            <img src={mockRandomMovie.poster} alt={mockRandomMovie.title} className={styles.poster} />
+          <div className={styles['main-page__poster-wrapper']}>
+            <img src={mockRandomMovie.poster} alt={mockRandomMovie.title} className={styles['main-page__poster']} />
           </div>
         </div>
       </section>
 
-      {/* Блок топ-10 фильмов */}
-      <section className={styles.topSection}>
-        <h2 className={styles.topTitle}>Топ 10 фильмов</h2>
-        <div className={styles.topGrid}>
+      <section className={styles['main-page__top-section']}>
+        <h2 className={styles['main-page__top-title']}>Топ 10 фильмов</h2>
+        <div className={styles['main-page__top-grid']}>
           {mockTopMovies.map((movie, index) => (
-            <div key={movie.id} className={styles.topCard}>
-              <div className={styles.topRank}>{index + 1}</div>
-              <div className={styles.topPosterContainer}>
-                <img src={movie.poster} alt={movie.title} className={styles.topPoster} />
+            <div key={movie.id} className={styles['main-page__top-card']}>
+              <div className={styles['main-page__top-rank']}>{index + 1}</div>
+              <div className={styles['main-page__top-poster-container']}>
+                <img src={movie.poster} alt={movie.title} className={styles['main-page__top-poster']} />
               </div>
             </div>
           ))}

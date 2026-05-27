@@ -9,8 +9,9 @@
   &:focus {
     border-color: #2c2c2c;
   }
-  &.error {
-    border-color: #e74c3c;
-    background-color: #fee;
-  }
+}
+
+.input--error {
+  border-color: #e74c3c;
+  background-color: #fee;
 }

@@ -8,7 +8,7 @@
   font-size: 14px;
 }
 
-.primary {
+.button--primary {
   background-color: #2c2c2c;
   color: white;
   &:hover {
@@ -16,7 +16,7 @@
   }
 }
 
-.secondary {
+.button--secondary {
   background-color: #6c6c6c;
   color: white;
   &:hover {
@@ -24,7 +24,7 @@
   }
 }
 
-.outline {
+.button--outline {
   background-color: transparent;
   border: 1px solid #2c2c2c;
   color: #2c2c2c;
