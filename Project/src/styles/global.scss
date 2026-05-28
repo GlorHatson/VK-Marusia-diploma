@@ -4,7 +4,8 @@
   box-sizing: border-box;
 }
 
-html, body {
+html,
+body {
   height: 100%;
 }
 
@@ -39,6 +40,13 @@ body::before {
   min-height: 100vh;
 }
 
-input, textarea, button, select {
+main {
+  flex: 1;
+}
+
+input,
+textarea,
+button,
+select {
   font-family: inherit;
 }

@@ -1,34 +1,52 @@
 .button {
-  padding: 8px 16px;
-  border-radius: 8px;
-  font-weight: 500;
-  cursor: pointer;
   border: none;
-  transition: all 0.2s ease;
-  font-size: 14px;
-}
+  padding: 16px 48px;
+  border-radius: 28px;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 24px;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+  text-align: center;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
 
-.button--primary {
-  background-color: #2c2c2c;
-  color: white;
-  &:hover {
-    background-color: #3a3a3a;
+  // Primary (по умолчанию)
+  background: #393B3C;
+  color: #FFFFFF;
+
+  // Secondary (disabled)
+  &.button--secondary {
+    background: #747474;
+    color: rgba(255, 255, 255, 0.5);
+    cursor: not-allowed;
   }
-}
 
-.button--secondary {
-  background-color: #6c6c6c;
-  color: white;
-  &:hover {
-    background-color: #7a7a7a;
+  // Light (белая)
+  &.button--light {
+    background: #FFFFFF;
+    color: #000000;
   }
-}
 
-.button--outline {
-  background-color: transparent;
-  border: 1px solid #2c2c2c;
-  color: #2c2c2c;
-  &:hover {
-    background-color: rgba(44, 44, 44, 0.1);
+  // Hover (для всех, кроме disabled)
+  &:hover:not(:disabled) {
+    background: #67A5EB;
+    color: #FFFFFF;
+  }
+
+  // Focused (для всех)
+  &:focus-visible {
+    outline: none;
+    background: #45526E;
+    color: rgba(255, 255, 255, 0.5);
+  }
+
+  // Disabled состояние (если используется атрибут disabled)
+  &:disabled {
+    background: #747474;
+    color: rgba(255, 255, 255, 0.5);
+    cursor: not-allowed;
   }
 }

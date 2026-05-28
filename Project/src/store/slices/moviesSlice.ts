@@ -14,15 +14,23 @@ export interface Movie {
   plot?: string;
   runtime?: number;
   trailerUrl?: string;
+  trailerYouTubeId?: string;
   language?: string;
+  director?: string | null;
+  budget?: number | null;
+  revenue?: number | null;
+  awardsSummary?: string | null;
+  production?: string | null;
 }
 
 interface MoviesState {
   top10: Movie[];
   randomMovie: Movie | null;
+  currentMovie: Movie | null;
   loading: {
     top10: boolean;
     random: boolean;
+    current: boolean;
   };
   error: string | null;
 }
@@ -30,9 +38,11 @@ interface MoviesState {
 const initialState: MoviesState = {
   top10: [],
   randomMovie: null,
+  currentMovie: null,
   loading: {
     top10: false,
     random: false,
+    current: false,
   },
   error: null,
 };
@@ -61,6 +71,18 @@ export const fetchRandomMovie = createAsyncThunk(
   }
 );
 
+export const fetchMovieById = createAsyncThunk(
+  'movies/fetchMovieById',
+  async (id: number, { rejectWithValue }) => {
+    try {
+      const response = await apiClient.get(`/movie/${id}`);
+      return response.data as Movie;
+    } catch (error: any) {
+      return rejectWithValue(error.response?.data?.message || 'Ошибка загрузки фильма');
+    }
+  }
+);
+
 const moviesSlice = createSlice({
   name: 'movies',
   initialState,
@@ -68,10 +90,12 @@ const moviesSlice = createSlice({
     clearError: (state) => {
       state.error = null;
     },
+    clearCurrentMovie: (state) => {
+      state.currentMovie = null;
+    },
   },
   extraReducers: (builder) => {
     builder
-      // Топ-10
       .addCase(fetchTop10.pending, (state) => {
         state.loading.top10 = true;
         state.error = null;
@@ -84,7 +108,6 @@ const moviesSlice = createSlice({
         state.loading.top10 = false;
         state.error = action.payload as string;
       })
-      // Случайный фильм
       .addCase(fetchRandomMovie.pending, (state) => {
         state.loading.random = true;
         state.error = null;
@@ -96,9 +119,22 @@ const moviesSlice = createSlice({
       .addCase(fetchRandomMovie.rejected, (state, action) => {
         state.loading.random = false;
         state.error = action.payload as string;
+      })
+      .addCase(fetchMovieById.pending, (state) => {
+        state.loading.current = true;
+        state.error = null;
+        state.currentMovie = null;
+      })
+      .addCase(fetchMovieById.fulfilled, (state, action: PayloadAction<Movie>) => {
+        state.loading.current = false;
+        state.currentMovie = action.payload;
+      })
+      .addCase(fetchMovieById.rejected, (state, action) => {
+        state.loading.current = false;
+        state.error = action.payload as string;
       });
   },
 });
 
-export const { clearError } = moviesSlice.actions;
+export const { clearError, clearCurrentMovie } = moviesSlice.actions;
 export default moviesSlice.reducer;

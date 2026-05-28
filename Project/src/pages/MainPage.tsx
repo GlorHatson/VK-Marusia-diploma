@@ -1,7 +1,13 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../app/hooks';
 import { fetchTop10, fetchRandomMovie } from '../store/slices/moviesSlice';
 import Container from '../components/UI/Container/Container';
+import Button from '../components/UI/Button/Button';
+import Rating from '../components/UI/Rating/Rating';
+import FavoriteButton from '../components/UI/FavoriteButton/FavoriteButton';
+import RefreshButton from '../components/UI/RefreshButton/RefreshButton';
+import Modal from '../components/UI/Modal/Modal';
 import styles from './MainPage.module.scss';
 
 const formatRuntime = (minutes?: number): string => {
@@ -13,16 +19,20 @@ const formatRuntime = (minutes?: number): string => {
 
 const MainPage = () => {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const { top10, randomMovie, loading, error } = useAppSelector((state) => state.movies);
+  const [isTrailerOpen, setIsTrailerOpen] = useState(false);
 
   useEffect(() => {
     dispatch(fetchTop10());
     dispatch(fetchRandomMovie());
   }, [dispatch]);
 
-  const handleRefreshRandom = () => {
-    dispatch(fetchRandomMovie());
-  };
+  const handleRefreshRandom = () => dispatch(fetchRandomMovie());
+  const handleOpenTrailer = () => setIsTrailerOpen(true);
+  const handleCloseTrailer = () => setIsTrailerOpen(false);
+  const handleMoreClick = () => randomMovie && navigate(`/movie/${randomMovie.id}`);
+  const handleCardClick = (id: number) => navigate(`/movie/${id}`);
 
   if (loading.top10 || loading.random) {
     return <div className={styles['main-page__loader']}>Загрузка...</div>;
@@ -35,51 +45,72 @@ const MainPage = () => {
   return (
     <Container>
       {randomMovie && (
-        <section className={styles['main-page__wallpaper']}>
-          <div className={styles['main-page__wallpaper-content']}>
-            <div className={styles['main-page__film-info']}>
-              <div className={styles['main-page__meta-row']}>
-                <div className={styles['main-page__rating']}>
-                  <span className={styles['main-page__star-icon']}>★</span>
-                  <span>{randomMovie.tmdbRating?.toFixed(1) ?? '—'}</span>
-                </div>
-                <span className={styles['main-page__year']}>{randomMovie.releaseYear ?? '—'}</span>
-                <span className={styles['main-page__genre']}>{randomMovie.genres?.[0] ?? '—'}</span>
-                <span className={styles['main-page__duration']}>{formatRuntime(randomMovie.runtime)}</span>
+        <section className={styles['main-page__random']}>
+          <div className={styles['main-page__random-content']}>
+            <div className={styles['main-page__random-info']}>
+              <div className={styles['main-page__random-meta']}>
+                <Rating value={randomMovie.tmdbRating} />
+                <span className={styles['main-page__random-year']}>{randomMovie.releaseYear ?? '—'}</span>
+                <span className={styles['main-page__random-genre']}>{randomMovie.genres?.[0] ?? '—'}</span>
+                <span className={styles['main-page__random-duration']}>{formatRuntime(randomMovie.runtime)}</span>
               </div>
-              <h1 className={styles['main-page__title']}>{randomMovie.title}</h1>
-              <p className={styles['main-page__description']}>{randomMovie.plot ?? ''}</p>
-              <div className={styles['main-page__button-group']}>
-                <button className={styles['main-page__button--primary']}>Трейлер</button>
-                <button className={styles['main-page__button--secondary']}>О фильме</button>
-                <button className={styles['main-page__icon-button']} aria-label="В избранное">
-                  <img src="/images/icon-favorit.svg" alt="В избранное" />
-                </button>
-                <button className={styles['main-page__icon-button']} aria-label="Обновить фильм" onClick={handleRefreshRandom}>
-                  <img src="/images/icon-refresh.svg" alt="Обновить" />
-                </button>
+              <h1 className={styles['main-page__random-title']}>{randomMovie.title}</h1>
+              <p className={styles['main-page__random-description']}>{randomMovie.plot ?? ''}</p>
+              <div className={styles['main-page__random-actions']}>
+                <Button variant="primary" onClick={handleOpenTrailer}>Трейлер</Button>
+                <Button variant="primary" onClick={handleMoreClick}>О фильме</Button>
+                <FavoriteButton isFavorite={false} />
+                <RefreshButton onClick={handleRefreshRandom} isSpinning={loading.random} />
               </div>
             </div>
-            <div className={styles['main-page__poster-wrapper']}>
-              <img src={randomMovie.posterUrl || '/images/no-poster.png'} alt={randomMovie.title} className={styles['main-page__poster']} />
+            <div className={styles['main-page__random-poster-wrapper']}>
+              <img
+                src={randomMovie.posterUrl || '/images/no-poster.png'}
+                alt={randomMovie.title}
+                className={styles['main-page__random-poster']}
+              />
             </div>
           </div>
         </section>
       )}
 
-      <section className={styles['main-page__top-section']}>
+      <section className={styles['main-page__top']}>
         <h2 className={styles['main-page__top-title']}>Топ 10 фильмов</h2>
         <div className={styles['main-page__top-grid']}>
           {top10.map((movie, index) => (
-            <div key={movie.id} className={styles['main-page__top-card']}>
+            <div
+              key={movie.id}
+              className={styles['main-page__top-card']}
+              onClick={() => handleCardClick(movie.id)}
+            >
               <div className={styles['main-page__top-rank']}>{index + 1}</div>
               <div className={styles['main-page__top-poster-container']}>
-                <img src={movie.posterUrl ||'/images/no-poster.png'} alt={movie.title} className={styles['main-page__top-poster']} />
+                <img
+                  src={movie.posterUrl || '/images/no-poster.png'}
+                  alt={movie.title}
+                  className={styles['main-page__top-poster']}
+                />
               </div>
             </div>
           ))}
         </div>
       </section>
+
+      <Modal isOpen={isTrailerOpen} onClose={handleCloseTrailer} title="Трейлер">
+        {randomMovie?.trailerYouTubeId ? (
+          <iframe
+            width="100%"
+            height="400"
+            src={`https://www.youtube.com/embed/${randomMovie.trailerYouTubeId}`}
+            title="YouTube trailer"
+            frameBorder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+          ></iframe>
+        ) : (
+          <p>Трейлер недоступен</p>
+        )}
+      </Modal>
     </Container>
   );
 };

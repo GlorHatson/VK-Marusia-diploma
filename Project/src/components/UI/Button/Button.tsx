@@ -1,27 +1,18 @@
+import React from 'react';
 import styles from './Button.module.scss';
 
-type ButtonVariant = 'primary' | 'secondary' | 'outline';
+type ButtonVariant = 'primary' | 'secondary' | 'light';
 
-interface ButtonProps {
-  children: React.ReactNode;
-  onClick?: () => void;
+interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: ButtonVariant;
-  disabled?: boolean;
-  className?: string;
+  children: React.ReactNode;
 }
 
-const Button: React.FC<ButtonProps> = ({
-  children,
-  onClick,
-  variant = 'primary',
-  disabled = false,
-  className = '',
-}) => {
+const Button: React.FC<ButtonProps> = ({ variant = 'primary', children, className, ...props }) => {
   return (
     <button
-      className={`${styles.button} ${styles[`button--${variant}`]} ${className}`}
-      onClick={onClick}
-      disabled={disabled}
+      className={`${styles.button} ${styles[`button--${variant}`]} ${className || ''}`}
+      {...props}
     >
       {children}
     </button>
