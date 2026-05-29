@@ -1,0 +1,83 @@
+.genres-page {
+  padding: 32px 0 80px;
+}
+
+.genres-page__title {
+  font-weight: 700;
+  font-size: 48px;
+  line-height: 56px;
+  margin-bottom: 64px;
+  color: #fff;
+}
+
+.genres-page__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 64px 40px;
+}
+
+.genres-page__card {
+  position: relative;
+  width: auto;
+  height: 304px;
+  background: #0A0B0B;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.75);
+  border-radius: 24px;
+  overflow: hidden;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.33), 0px 0px 80px rgba(255, 255, 255, 0.33);
+  }
+}
+
+.genres-page__card-grid {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+}
+
+.genres-page__card-image {
+  width: 100%;
+  aspect-ratio: 1 / 1.05;
+  object-fit: cover;
+  object-position: center;
+}
+
+.genres-page__card-placeholder {
+  background: #2a2a2a;
+  width: 100%;
+  height: 100%;
+}
+
+.genres-page__card-title {
+  position: absolute;
+  min-height: 84px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(4px);
+  color: #fff;
+  font-size: 24px;
+  font-weight: 700;
+  text-align: center;
+  padding: 22px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  border-radius: 0 0 24px 24px;
+}
+
+.genres-page__loader,
+.genres-page__error {
+  text-align: center;
+  padding: 40px;
+  font-size: 20px;
+  color: #fff;
+}
