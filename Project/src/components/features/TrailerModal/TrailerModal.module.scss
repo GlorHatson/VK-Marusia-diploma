@@ -1,0 +1,161 @@
+.trailer-modal__overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(10, 11, 11, 0.9);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+}
+
+.trailer-modal__container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.trailer-modal__video-wrapper {
+    position: relative;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    overflow: hidden;
+    background-color: #747474;
+}
+
+.trailer-modal__player {
+    display: block;
+    width: 960px;
+    height: 540px;
+}
+
+.trailer-modal__loader {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1;
+}
+
+.trailer-modal__spinner {
+    width: 48px;
+    height: 48px;
+    border: 6px solid #fff;
+    border-top-color: transparent;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.trailer-modal__control-btn {
+    position: absolute;
+    padding: 10px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80px;
+    height: 80px;
+    background: #fff;
+    border: none;
+    border-radius: 50%;
+    font-size: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.2s ease;
+    z-index: 2;
+    color: #000;
+
+    &:hover {
+        background: #67A5EB;
+        color: #fff;
+    }
+
+    &:focus-visible {
+        outline: none;
+        background: #45526E;
+        color: rgba(255, 255, 255, 0.5);
+    }
+}
+
+
+.trailer-modal__title {
+    position: absolute;
+    bottom: 24px;
+    left: 20px;
+    right: 20px;
+    background: rgba(10, 11, 11, 0.6);
+    backdrop-filter: blur(4px);
+    color: #fff;
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 32px;
+    padding: 24px 40px;
+    text-align: start;
+    z-index: 2;
+    white-space: nowrap;
+    overflow-x: auto;
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
+}
+
+.trailer-modal__close-btn {
+    position: absolute;
+    top: 0px;
+    right: -72px;
+    width: 48px;
+    height: 48px;
+    background: #fff;
+    border: none;
+    border-radius: 50%;
+    font-size: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.2s;
+    color: #000;
+
+    &:hover {
+        background: #67A5EB;
+        color: #fff;
+    }
+
+    &:focus-visible {
+        outline: none;
+        background: #45526E;
+        color: rgba(255, 255, 255, 0.5);
+    }
+}
+
+@media (max-width: 1024px) {
+    .trailer-modal__close-btn {
+        top: -48px;
+        right: -48px;
+    }
+
+    .trailer-modal__title {
+        font-size: 18px;
+        padding: 8px 16px;
+        left: 20px;
+        right: 20px;
+    }
+
+    .trailer-modal__control-btn {
+        width: 60px;
+        height: 60px;
+        font-size: 36px;
+    }
+}

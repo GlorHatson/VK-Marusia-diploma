@@ -21,7 +21,7 @@
   width: auto;
   height: 304px;
   background: #0A0B0B;
-  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.75);
+  box-shadow: 0 0 1px 1px rgba(255, 255, 255, 0.2), 0px 0px 80px 0px rgba(255, 255, 255, 0.33);
   border-radius: 24px;
   overflow: hidden;
   cursor: pointer;
@@ -30,8 +30,8 @@
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 
   &:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.33), 0px 0px 80px rgba(255, 255, 255, 0.33);
+    transform: scale(1.04);
+    box-shadow: 0 0 1px 1px #B4A9FF, 0px 0px 80px #B4A9FF;
   }
 }
 
@@ -44,7 +44,7 @@
 
 .genres-page__card-image {
   width: 100%;
-  aspect-ratio: 1 / 1.05;
+  aspect-ratio: 1 / 0.9;
   object-fit: cover;
   object-position: center;
 }
@@ -61,7 +61,7 @@
   bottom: 0;
   left: 0;
   right: 0;
-  background: rgba(0, 0, 0, 0.85);
+  background: linear-gradient(to top, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0.8));
   backdrop-filter: blur(4px);
   color: #fff;
   font-size: 24px;
@@ -69,9 +69,12 @@
   text-align: center;
   padding: 22px;
   white-space: nowrap;
-  overflow: hidden;
   text-overflow: ellipsis;
   border-radius: 0 0 24px 24px;
+
+  &:hover {
+    color: #B4A9FF;
+  }
 }
 
 .genres-page__loader,

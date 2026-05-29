@@ -13,20 +13,26 @@ const GenreMoviesPage = () => {
   const { movies, loading, hasMore, page, error } = useAppSelector((state) => state.genreMovies);
 
   useEffect(() => {
-    if (genreName) {
-      dispatch(resetGenreMovies());
-      dispatch(fetchMoviesByGenre({ genre: genreName, page: 1 }));
+    if (!genreName) {
+      navigate('/genres', { replace: true });
+      return;
     }
+    dispatch(resetGenreMovies());
+    dispatch(fetchMoviesByGenre({ genre: genreName, page: 1 }));
     return () => {
       dispatch(resetGenreMovies());
     };
-  }, [dispatch, genreName]);
+  }, [dispatch, genreName, navigate]);
 
-  const loadMore = useCallback(() => {
-    if (genreName && hasMore && !loading) {
-      dispatch(fetchMoviesByGenre({ genre: genreName, page: page + 1 }));
-    }
-  }, [dispatch, genreName, hasMore, loading, page]);
+const loadMore = useCallback(async () => {
+  if (genreName && hasMore && !loading) {
+    const currentScrollY = window.scrollY;
+    await dispatch(fetchMoviesByGenre({ genre: genreName, page: page + 1 }));
+    setTimeout(() => {
+      window.scrollTo(0, currentScrollY);
+    }, 50);
+  }
+}, [dispatch, genreName, hasMore, loading, page]);
 
   const handleCardClick = (id: number) => navigate(`/movie/${id}`);
 
@@ -38,14 +44,20 @@ const GenreMoviesPage = () => {
     return <div className={styles['genre-movies__error']}>Ошибка: {error}</div>;
   }
 
+  const displayGenreName = genreName
+    ? genreName.charAt(0).toUpperCase() + genreName.slice(1)
+    : 'Жанр';
+
   return (
     <Container>
       <div className={styles['genre-movies']}>
         <div className={styles['genre-movies__header']}>
           <button className={styles['genre-movies__back']} onClick={() => navigate(-1)}>
-            ←
+            <svg width="13" height="22" viewBox="0 0 13 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M4.714 10.6066L12.9637 18.8561L10.6067 21.2131L0 10.6066L10.6067 0L12.9637 2.35702L4.714 10.6066Z" fill="currentColor" />
+            </svg>
           </button>
-          <h1 className={styles['genre-movies__title']}>{genreName}</h1>
+          <h1 className={styles['genre-movies__title']}>{displayGenreName}</h1>
         </div>
 
         <div className={styles['genre-movies__grid']}>

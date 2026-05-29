@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../app/hooks';
 import { fetchMovieById, clearCurrentMovie } from '../store/slices/moviesSlice';
@@ -6,7 +6,7 @@ import Container from '../components/UI/Container/Container';
 import Button from '../components/UI/Button/Button';
 import Rating from '../components/UI/Rating/Rating';
 import FavoriteButton from '../components/UI/FavoriteButton/FavoriteButton';
-import Modal from '../components/UI/Modal/Modal';
+import TrailerModal from '../components/features/TrailerModal/TrailerModal';
 import styles from './MoviePage.module.scss';
 
 const formatCurrency = (value?: number | null): string => {
@@ -92,36 +92,27 @@ const MoviePage = () => {
             <h2 className={styles['movie-page__details-title']}>О фильме</h2>
             <div className={styles['movie-page__details-grid']}>
               {details.map((detail, idx) => (
-                <>
-                  <div className={styles['movie-page__detail-left']} key={`left-${idx}`}>
+                <React.Fragment key={idx}>
+                  <div className={styles['movie-page__detail-left']}>
                     <span className={styles['movie-page__detail-label']}>{detail.label}</span>
                     <span className={styles['movie-page__detail-dots']}></span>
                   </div>
-                  <div className={styles['movie-page__detail-value']} key={`value-${idx}`}>
+                  <div className={styles['movie-page__detail-value']}>
                     {detail.value}
                   </div>
-                </>
+                </React.Fragment>
               ))}
             </div>
           </div>
         )}
       </div>
-
-      <Modal isOpen={isTrailerOpen} onClose={handleCloseTrailer} title="Трейлер">
-        {movie.trailerYouTubeId ? (
-          <iframe
-            width="100%"
-            height="400"
-            src={`https://www.youtube.com/embed/${movie.trailerYouTubeId}`}
-            title="YouTube trailer"
-            frameBorder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen
-          ></iframe>
-        ) : (
-          <p>Трейлер недоступен</p>
-        )}
-      </Modal>
+      
+<TrailerModal
+  isOpen={isTrailerOpen}
+  onClose={handleCloseTrailer}
+  videoId={movie?.trailerYouTubeId || ''}
+  title={movie?.title || ''}
+/>
     </Container>
   );
 };

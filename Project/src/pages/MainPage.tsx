@@ -7,7 +7,7 @@ import Button from '../components/UI/Button/Button';
 import Rating from '../components/UI/Rating/Rating';
 import FavoriteButton from '../components/UI/FavoriteButton/FavoriteButton';
 import RefreshButton from '../components/UI/RefreshButton/RefreshButton';
-import Modal from '../components/UI/Modal/Modal';
+import TrailerModal from '../components/features/TrailerModal/TrailerModal';
 import styles from './MainPage.module.scss';
 
 const formatRuntime = (minutes?: number): string => {
@@ -33,6 +33,7 @@ const MainPage = () => {
   const handleCloseTrailer = () => setIsTrailerOpen(false);
   const handleMoreClick = () => randomMovie && navigate(`/movie/${randomMovie.id}`);
   const handleCardClick = (id: number) => navigate(`/movie/${id}`);
+
 
   if (loading.top10 || loading.random) {
     return <div className={styles['main-page__loader']}>Загрузка...</div>;
@@ -96,21 +97,12 @@ const MainPage = () => {
         </div>
       </section>
 
-      <Modal isOpen={isTrailerOpen} onClose={handleCloseTrailer} title="Трейлер">
-        {randomMovie?.trailerYouTubeId ? (
-          <iframe
-            width="100%"
-            height="400"
-            src={`https://www.youtube.com/embed/${randomMovie.trailerYouTubeId}`}
-            title="YouTube trailer"
-            frameBorder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen
-          ></iframe>
-        ) : (
-          <p>Трейлер недоступен</p>
-        )}
-      </Modal>
+      <TrailerModal
+        isOpen={isTrailerOpen}
+        onClose={handleCloseTrailer}
+        videoId={randomMovie?.trailerYouTubeId || ''}
+        title={randomMovie?.title || ''}
+      />
     </Container>
   );
 };
