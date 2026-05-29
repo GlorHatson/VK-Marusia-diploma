@@ -2,25 +2,19 @@ import styles from './RefreshButton.module.scss';
 
 interface RefreshButtonProps {
   onClick: () => void;
-  isSpinning?: boolean; // флаг вращения
   className?: string;
+  disabled?: boolean;
 }
 
-const RefreshButton: React.FC<RefreshButtonProps> = ({ onClick, isSpinning = false, className = '' }) => {
+const RefreshButton: React.FC<RefreshButtonProps> = ({ onClick, className = '', disabled = false }) => {
   return (
     <button
-      className={`${styles['refresh-button']} ${className}`}
+      className={`button-base ${styles['refresh-button']} ${className}`}
       onClick={onClick}
       aria-label="Обновить фильм"
+      disabled={disabled}
     >
-      <svg
-        width="20"
-        height="20"
-        viewBox="0 0 20 20"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-        className={isSpinning ? styles['refresh-button__icon--spin'] : ''}
-      >
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path
           d="M10 2C12.7486 2 15.1749 3.38626 16.6156 5.5H14V7.5H20V1.5H18V3.99936C16.1762 1.57166 13.2724 0 10 0C4.47715 0 0 4.47715 0 10H2C2 5.58172 5.58172 2 10 2ZM18 10C18 14.4183 14.4183 18 10 18C7.25144 18 4.82508 16.6137 3.38443 14.5H6V12.5H0V18.5H2V16.0006C3.82381 18.4283 6.72764 20 10 20C15.5228 20 20 15.5228 20 10H18Z"
           fill="currentColor"

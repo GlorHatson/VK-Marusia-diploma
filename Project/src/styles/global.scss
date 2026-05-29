@@ -50,3 +50,42 @@ button,
 select {
   font-family: inherit;
 }
+
+/* Базовый класс для всех кнопок (Primary стиль) */
+.button-base {
+  border: 1px solid rgba(0, 0, 0, 0.4);
+  border-radius: 28px;
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 24px;
+
+  // Primary стили (фон по умолчанию)
+  background: #393B3C;
+
+  &:hover {
+    background: #67A5EB;
+  }
+
+  &:focus-visible {
+    outline: none;
+    background: #45526E;
+    color: rgba(255, 255, 255, 0.5);
+  }
+
+  &:disabled {
+    background: #747474;
+    color: rgba(255, 255, 255, 0.5);
+    cursor: not-allowed;
+  }
+}
+
+// Класс для текстовых кнопок (добавляет отступы)
+.button-text {
+  padding: 16px 48px;
+}

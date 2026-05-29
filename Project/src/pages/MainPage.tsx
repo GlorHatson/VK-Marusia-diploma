@@ -60,7 +60,7 @@ const MainPage = () => {
                 <Button variant="primary" onClick={handleOpenTrailer}>Трейлер</Button>
                 <Button variant="primary" onClick={handleMoreClick}>О фильме</Button>
                 <FavoriteButton isFavorite={false} />
-                <RefreshButton onClick={handleRefreshRandom} isSpinning={loading.random} />
+                <RefreshButton onClick={handleRefreshRandom} />
               </div>
             </div>
             <div className={styles['main-page__random-poster-wrapper']}>

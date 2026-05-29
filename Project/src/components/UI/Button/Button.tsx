@@ -9,9 +9,10 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 const Button: React.FC<ButtonProps> = ({ variant = 'primary', children, className, ...props }) => {
+  const variantClass = variant !== 'primary' ? styles[`button--${variant}`] : '';
   return (
     <button
-      className={`${styles.button} ${styles[`button--${variant}`]} ${className || ''}`}
+      className={`button-base button-text ${variantClass} ${className || ''}`}
       {...props}
     >
       {children}
