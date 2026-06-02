@@ -67,7 +67,6 @@
     background: #fff;
     border: none;
     border-radius: 50%;
-    font-size: 48px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -76,16 +75,11 @@
     z-index: 2;
     color: #000;
 
-    &:hover {
-        background: #67A5EB;
-        color: #fff;
+    svg {
+        width: 26px;
+        height: 30px;
     }
 
-    &:focus-visible {
-        outline: none;
-        background: #45526E;
-        color: rgba(255, 255, 255, 0.5);
-    }
 }
 
 
@@ -120,11 +114,12 @@
     background: #fff;
     border: none;
     border-radius: 50%;
-    font-size: 24px;
+    font-weight: 700;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
+    z-index: 10;
     transition: background 0.2s;
     color: #000;
 
@@ -137,6 +132,11 @@
         outline: none;
         background: #45526E;
         color: rgba(255, 255, 255, 0.5);
+    }
+
+    svg {
+        width: 18px;
+        height: 18px;
     }
 }
 
@@ -156,6 +156,6 @@
     .trailer-modal__control-btn {
         width: 60px;
         height: 60px;
-        font-size: 36px;
+        font-size: 30px;
     }
 }

@@ -4,6 +4,7 @@ import { useAppDispatch, useAppSelector } from '../app/hooks';
 import { fetchMoviesByGenre, resetGenreMovies } from '../store/slices/genreMoviesSlice';
 import Container from '../components/UI/Container/Container';
 import Button from '../components/UI/Button/Button';
+import NoPoster from '../components/UI/NoPoster/NoPoster';
 import styles from './GenreMoviesPage.module.scss';
 
 const GenreMoviesPage = () => {
@@ -24,15 +25,15 @@ const GenreMoviesPage = () => {
     };
   }, [dispatch, genreName, navigate]);
 
-const loadMore = useCallback(async () => {
-  if (genreName && hasMore && !loading) {
-    const currentScrollY = window.scrollY;
-    await dispatch(fetchMoviesByGenre({ genre: genreName, page: page + 1 }));
-    setTimeout(() => {
-      window.scrollTo(0, currentScrollY);
-    }, 50);
-  }
-}, [dispatch, genreName, hasMore, loading, page]);
+  const loadMore = useCallback(async () => {
+    if (genreName && hasMore && !loading) {
+      const currentScrollY = window.scrollY;
+      await dispatch(fetchMoviesByGenre({ genre: genreName, page: page + 1 }));
+      setTimeout(() => {
+        window.scrollTo(0, currentScrollY);
+      }, 50);
+    }
+  }, [dispatch, genreName, hasMore, loading, page]);
 
   const handleCardClick = (id: number) => navigate(`/movie/${id}`);
 
@@ -68,11 +69,15 @@ const loadMore = useCallback(async () => {
               onClick={() => handleCardClick(movie.id)}
             >
               <div className={styles['genre-movies__poster-container']}>
-                <img
-                  src={movie.posterUrl || '/images/no-poster.png'}
-                  alt={movie.title}
-                  className={styles['genre-movies__poster']}
-                />
+                {movie.posterUrl ? (
+                  <img
+                    src={movie.posterUrl}
+                    alt={movie.title}
+                    className={styles['genre-movies__poster']}
+                  />
+                ) : (
+                  <NoPoster title={movie.title}  variant="compact" />
+                )}
               </div>
               {/* Название фильма не отображается – только постер, как в макете */}
             </div>

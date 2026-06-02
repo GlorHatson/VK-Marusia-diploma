@@ -7,6 +7,7 @@ import Button from '../components/UI/Button/Button';
 import Rating from '../components/UI/Rating/Rating';
 import FavoriteButton from '../components/UI/FavoriteButton/FavoriteButton';
 import RefreshButton from '../components/UI/RefreshButton/RefreshButton';
+import NoPoster from '../components/UI/NoPoster/NoPoster';
 import TrailerModal from '../components/features/TrailerModal/TrailerModal';
 import styles from './MainPage.module.scss';
 
@@ -65,11 +66,15 @@ const MainPage = () => {
               </div>
             </div>
             <div className={styles['main-page__random-poster-wrapper']}>
-              <img
-                src={randomMovie.posterUrl || '/images/no-poster.png'}
-                alt={randomMovie.title}
-                className={styles['main-page__random-poster']}
-              />
+              {randomMovie.posterUrl ? (
+                <img
+                  src={randomMovie.posterUrl}
+                  alt={randomMovie.title}
+                  className={styles['main-page__random-poster']}
+                />
+              ) : (
+                <NoPoster title={randomMovie.title} />
+              )}
             </div>
           </div>
         </section>
@@ -86,11 +91,15 @@ const MainPage = () => {
             >
               <div className={styles['main-page__top-rank']}>{index + 1}</div>
               <div className={styles['main-page__top-poster-container']}>
-                <img
-                  src={movie.posterUrl || '/images/no-poster.png'}
-                  alt={movie.title}
-                  className={styles['main-page__top-poster']}
-                />
+                {movie.posterUrl ? (
+                  <img
+                    src={movie.posterUrl}
+                    alt={movie.title}
+                    className={styles['main-page__top-poster']}
+                  />
+                ) : (
+                  <NoPoster title={movie.title} variant="compact" />
+                )}
               </div>
             </div>
           ))}

@@ -49,14 +49,14 @@
   border-radius: 16px;
   overflow: hidden;
   cursor: pointer;
-  transition: transform 0.2s ease;
+  transition: transform 0.3s ease, box-shadow 0.2s ease;
   background: #1e1e1e;
   box-shadow: 0 0 1px 1px rgba(255, 255, 255, 0.2),
     0px 0px 80px 0px rgba(255, 255, 255, 0.33);
 
   &:hover {
     transform: scale(1.04);
-    box-shadow: 0 0 1px 1px #B4A9FF, 0px 0px 80px #B4A9FF;
+    box-shadow: 0 0 1px 1px #B4A9FF, 0px 0px 60px #B4A9FF;
   }
 
 }

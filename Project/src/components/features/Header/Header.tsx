@@ -1,10 +1,8 @@
 import { Link, NavLink } from 'react-router-dom';
 import styles from './Header.module.scss';
 import Container from '../../UI/Container/Container';
-
-const SearchIcon = () => (
-  <img src="/images/icon-find.svg" alt="Поиск" className={styles['header__search-icon']} />
-);
+import MarusiaLogo from '../../../assets/images/marusia-logo.svg?react';
+import IconFind from '../../../assets/images/icon-find.svg?react';
 
 const Header = () => {
   return (
@@ -13,8 +11,7 @@ const Header = () => {
         <div className={styles.header__container}>
           <div className={styles.header__logo}>
             <Link to="/" className={styles['header__logo-link']}>
-              <img src="/images/icon-logo.png" alt="Иконка" className={styles['header__logo-icon']} />
-              <img src="/images/logo.svg" alt="Маруся" className={styles['header__logo-text']} />
+              <MarusiaLogo className={styles['header__logo-image']} />
             </Link>
           </div>
           <nav className={styles.header__nav}>
@@ -34,7 +31,7 @@ const Header = () => {
           </nav>
           <div className={styles.header__search}>
             <div className={styles['header__search-wrapper']}>
-              <SearchIcon />
+              <IconFind className={styles['header__search-icon']} />
               <input type="text" placeholder="Поиск" className={styles['header__search-input']} />
             </div>
           </div>

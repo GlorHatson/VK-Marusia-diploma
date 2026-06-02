@@ -35,19 +35,16 @@
 .header__logo-link {
   display: flex;
   align-items: end;
-  gap: 12px;
+  gap: 8px;
   text-decoration: none;
 }
 
-.header__logo-icon {
-  height: auto;
-  width: 32px;
+.header__logo-image {
+  height: 34px;
   padding-left: 7px;
-}
-
-.header__logo-text {
-  height: 21px;
   width: auto;
+  display: block;
+  color: #fff;
 }
 
 .header__nav-link {

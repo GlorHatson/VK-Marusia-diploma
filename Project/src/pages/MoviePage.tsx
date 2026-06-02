@@ -6,6 +6,7 @@ import Container from '../components/UI/Container/Container';
 import Button from '../components/UI/Button/Button';
 import Rating from '../components/UI/Rating/Rating';
 import FavoriteButton from '../components/UI/FavoriteButton/FavoriteButton';
+import NoPoster from '../components/UI/NoPoster/NoPoster';
 import TrailerModal from '../components/features/TrailerModal/TrailerModal';
 import styles from './MoviePage.module.scss';
 
@@ -79,11 +80,15 @@ const MoviePage = () => {
             </div>
           </div>
           <div className={styles['movie-page__poster-wrapper']}>
-            <img
-              src={movie.posterUrl || '/images/no-poster.png'}
-              alt={movie.title}
-              className={styles['movie-page__poster']}
-            />
+            {movie.posterUrl ? (
+              <img
+                src={movie.posterUrl}
+                alt={movie.title}
+                className={styles['movie-page__poster']}
+              />
+            ) : (
+              <NoPoster title={movie.title} />
+            )}
           </div>
         </div>
 
@@ -106,13 +111,13 @@ const MoviePage = () => {
           </div>
         )}
       </div>
-      
-<TrailerModal
-  isOpen={isTrailerOpen}
-  onClose={handleCloseTrailer}
-  videoId={movie?.trailerYouTubeId || ''}
-  title={movie?.title || ''}
-/>
+
+      <TrailerModal
+        isOpen={isTrailerOpen}
+        onClose={handleCloseTrailer}
+        videoId={movie?.trailerYouTubeId || ''}
+        title={movie?.title || ''}
+      />
     </Container>
   );
 };

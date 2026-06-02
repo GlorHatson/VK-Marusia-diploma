@@ -27,11 +27,11 @@
   cursor: pointer;
   display: flex;
   flex-direction: column;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition: transform 0.3s ease, box-shadow 0.2s ease;
 
   &:hover {
     transform: scale(1.04);
-    box-shadow: 0 0 1px 1px #B4A9FF, 0px 0px 80px #B4A9FF;
+    box-shadow: 0 0 1px 1px #B4A9FF, 0px 0px 60px #B4A9FF;
   }
 }
 
