@@ -1,5 +1,5 @@
 import { useEffect, useCallback } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, useSearchParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../app/hooks';
 import { fetchMoviesByGenre, resetGenreMovies } from '../store/slices/genreMoviesSlice';
 import Container from '../components/UI/Container/Container';
@@ -10,34 +10,67 @@ import styles from './GenreMoviesPage.module.scss';
 const GenreMoviesPage = () => {
   const { genreName } = useParams<{ genreName: string }>();
   const navigate = useNavigate();
-  const dispatch = useAppDispatch();
-  const { movies, loading, hasMore, page, error } = useAppSelector((state) => state.genreMovies);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const pageFromUrl = Number(searchParams.get('page')) || 1;
 
+  const dispatch = useAppDispatch();
+  const { movies, loading, hasMore, page: currentPage, error } = useAppSelector((state) => state.genreMovies);
+
+  // Загружаем данные при изменении жанра или номера страницы в URL
   useEffect(() => {
     if (!genreName) {
       navigate('/genres', { replace: true });
       return;
     }
-    dispatch(resetGenreMovies());
-    dispatch(fetchMoviesByGenre({ genre: genreName, page: 1 }));
+    // Загружаем только если номер страницы в URL отличается от текущего в сторе
+    // и нет активной загрузки (чтобы не дублировать)
+    if (currentPage !== pageFromUrl && !loading) {
+      dispatch(fetchMoviesByGenre({ genre: genreName, page: pageFromUrl }));
+    } else if (movies.length === 0 && !loading) {
+      // Если фильмов нет, загружаем первую страницу
+      dispatch(fetchMoviesByGenre({ genre: genreName, page: pageFromUrl }));
+    }
+  }, [genreName, pageFromUrl, currentPage, loading, movies.length, dispatch, navigate]);
+
+  // Загрузка следующей страницы (просто меняем URL, эффект выше сработает)
+  const loadMore = useCallback(() => {
+    if (genreName && hasMore && !loading) {
+      const nextPage = currentPage + 1;
+      setSearchParams({ page: nextPage.toString() });
+    }
+  }, [genreName, hasMore, loading, currentPage, setSearchParams]);
+
+  // Сохранение скролла перед переходом на страницу фильма
+  const saveScrollPosition = useCallback(() => {
+    if (genreName) {
+      sessionStorage.setItem(`scroll_${genreName}_${currentPage}`, window.scrollY.toString());
+    }
+  }, [genreName, currentPage]);
+
+  const handleCardClick = (id: number) => {
+    saveScrollPosition();
+    navigate(`/movie/${id}`);
+  };
+
+  // Восстановление скролла после загрузки данных
+  useEffect(() => {
+    if (!loading && movies.length > 0 && genreName) {
+      const savedScroll = sessionStorage.getItem(`scroll_${genreName}_${currentPage}`);
+      if (savedScroll) {
+        window.scrollTo(0, parseInt(savedScroll, 10));
+        sessionStorage.removeItem(`scroll_${genreName}_${currentPage}`);
+      }
+    }
+  }, [loading, movies.length, genreName, currentPage]);
+
+  // Сброс состояния при размонтировании (чтобы при переходе на другой жанр не было старых фильмов)
+  useEffect(() => {
     return () => {
       dispatch(resetGenreMovies());
     };
-  }, [dispatch, genreName, navigate]);
+  }, [dispatch]);
 
-  const loadMore = useCallback(async () => {
-    if (genreName && hasMore && !loading) {
-      const currentScrollY = window.scrollY;
-      await dispatch(fetchMoviesByGenre({ genre: genreName, page: page + 1 }));
-      setTimeout(() => {
-        window.scrollTo(0, currentScrollY);
-      }, 50);
-    }
-  }, [dispatch, genreName, hasMore, loading, page]);
-
-  const handleCardClick = (id: number) => navigate(`/movie/${id}`);
-
-  if (loading && page === 1) {
+  if (loading && movies.length === 0) {
     return <div className={styles['genre-movies__loader']}>Загрузка...</div>;
   }
 
@@ -76,10 +109,9 @@ const GenreMoviesPage = () => {
                     className={styles['genre-movies__poster']}
                   />
                 ) : (
-                  <NoPoster title={movie.title}  variant="compact" />
+                  <NoPoster title={movie.title} variant="compact" />
                 )}
               </div>
-              {/* Название фильма не отображается – только постер, как в макете */}
             </div>
           ))}
         </div>
