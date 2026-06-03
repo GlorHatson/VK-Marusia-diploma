@@ -1,35 +1,39 @@
-import { useState } from 'react';
-import styles from './FavoriteButton.module.scss';
+import { useAppDispatch, useAppSelector } from '../../../app/hooks';
+import { addToFavorites, removeFromFavorites } from '../../../store/slices/favoritesSlice';
 import HeartIcon from '../../../assets/images/icon-favorit.svg?react';
+import styles from './FavoriteButton.module.scss';
 
 interface FavoriteButtonProps {
-  isFavorite?: boolean;
-  onToggle?: () => void;
+  movieId: number;
   className?: string;
-  disabled?: boolean;
 }
 
-const FavoriteButton: React.FC<FavoriteButtonProps> = ({
-  isFavorite = false,
-  onToggle,
-  className = '',
-  disabled = false,
-}) => {
-  const [favorited, setFavorited] = useState(isFavorite);
+const FavoriteButton: React.FC<FavoriteButtonProps> = ({ movieId, className = '' }) => {
+  const dispatch = useAppDispatch();
+  const { isAuthenticated } = useAppSelector((state) => state.user);
+  const { items, loading } = useAppSelector((state) => state.favorites);
+  const isFavorite = items.some((fav) => fav.id === movieId);
 
-  const handleClick = () => {
-    if (disabled) return;
-    const newState = !favorited;
-    setFavorited(newState);
-    if (onToggle) onToggle();
+  const handleClick = async () => {
+    if (!isAuthenticated) {
+      // TODO: открыть модалку авторизации
+      alert('Необходимо войти в аккаунт');
+      return;
+    }
+    if (loading) return;
+    if (isFavorite) {
+      await dispatch(removeFromFavorites(movieId));
+    } else {
+      await dispatch(addToFavorites(movieId));
+    }
   };
 
   return (
     <button
-      className={`button-base ${styles['favorite-button']} ${favorited ? styles['favorite-button--active'] : ''} ${className}`}
+      className={`button-base ${styles['favorite-button']} ${isFavorite ? styles['favorite-button--active'] : ''} ${className}`}
       onClick={handleClick}
-      aria-label={favorited ? 'Удалить из избранного' : 'Добавить в избранное'}
-      disabled={disabled}
+      aria-label={isFavorite ? 'Удалить из избранного' : 'Добавить в избранное'}
+      disabled={loading}
     >
       <HeartIcon className={styles['favorite-button__icon']} />
     </button>

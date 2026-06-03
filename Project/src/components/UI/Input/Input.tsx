@@ -7,6 +7,7 @@ interface InputProps {
   error?: boolean;
   type?: string;
   className?: string;
+  onBlur?: () => void;
 }
 
 const Input: React.FC<InputProps> = ({
@@ -16,12 +17,14 @@ const Input: React.FC<InputProps> = ({
   error = false,
   type = 'text',
   className = '',
+  onBlur,
 }) => {
   return (
     <input
       type={type}
       value={value}
       onChange={onChange}
+      onBlur={onBlur}
       placeholder={placeholder}
       className={`${styles.input} ${error ? styles['input--error'] : ''} ${className}`}
     />

@@ -76,7 +76,7 @@ const MoviePage = () => {
             <p className={styles['movie-page__plot']}>{movie.plot ?? ''}</p>
             <div className={styles['movie-page__actions']}>
               <Button variant="primary" onClick={handleOpenTrailer}>Трейлер</Button>
-              <FavoriteButton isFavorite={false} />
+              <FavoriteButton movieId={movie.id} />
             </div>
           </div>
           <div className={styles['movie-page__poster-wrapper']}>

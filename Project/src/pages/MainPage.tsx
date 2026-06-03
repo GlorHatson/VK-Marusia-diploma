@@ -61,7 +61,7 @@ const MainPage = () => {
               <div className={styles['main-page__random-actions']}>
                 <Button variant="primary" onClick={handleOpenTrailer}>Трейлер</Button>
                 <Button variant="primary" onClick={handleMoreClick}>О фильме</Button>
-                <FavoriteButton isFavorite={false} />
+                <FavoriteButton movieId={randomMovie.id} />
                 <RefreshButton onClick={handleRefreshRandom} />
               </div>
             </div>
