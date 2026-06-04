@@ -74,7 +74,7 @@
 .header__search-wrapper {
   display: flex;
   align-items: center;
-  background: rgba(57, 59, 60, 0.8);
+  background: #393B3C;
   border-radius: 8px;
   padding: 0 16px;
   height: 48px;
@@ -98,18 +98,59 @@
   outline: none;
 }
 
-// .header__auth-link {
-//   font-weight: 400;
-//   font-size: 24px;
-//   line-height: 32px;
-//   color: #fff;
-//   text-decoration: none;
-//   white-space: nowrap;
-//   transition: background 0.2s ease;
-//   padding: 8px 0;
-//   border-radius: 8px;
-// }
+.header__search {
+  position: relative;
+  flex: 1;
+  margin-right: 80px;
+}
 
-// .header__auth-link:hover {
-//   color: #B4A9FF;
-// }
+.search__clear {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 20px;
+  padding: 0;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255, 255, 255, 0.5);
+  transition: color 0.2s;
+
+  &:hover {
+    color: #fff;
+  }
+}
+
+.search-dropdown {
+  position: absolute;
+  top: calc(100% + 12px);
+  right: 0;
+  width: 560px; // фиксированная ширина
+  max-width: 100%; // но на мобилках не вылезает
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  background: #393B3C;
+  border-radius: 8px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+  max-height: 476px;
+  overflow-y: auto;
+  z-index: 200;
+  padding: 8px;
+
+  // чтобы выпадашка не уезжала вправо на маленьких экранах
+  @media (max-width: 768px) {
+    width: calc(100vw - 32px);
+    left: 16px;
+    right: 16px;
+  }
+}
+
+.search-dropdown__loading,
+.search-dropdown__empty {
+  padding: 8px;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.7);
+}

@@ -8,6 +8,7 @@ import NoPoster from '../components/UI/NoPoster/NoPoster';
 import FavoriteIcon from '../assets/images/icon-favorit.svg?react';
 import UserIcon from '../assets/images/icon-user.svg?react';
 import MailIcon from '../assets/images/icon-mail.svg?react';
+import CloseIcon from '../assets/images/icon-close.svg?react';
 import styles from './AccountPage.module.scss';
 
 const AccountPage = () => {
@@ -82,9 +83,7 @@ const AccountPage = () => {
               onClick={(e) => handleRemoveFavorite(e, movie.id)}
               aria-label="Удалить из избранного"
             >
-              <svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M7.233 6.5L12.7665 0.966502L11.0335 -0.766498L5.5 4.767L-0.0334988 -0.766498L-1.7665 0.966502L3.767 6.5L-1.7665 12.0335L-0.0334988 13.7665L5.5 8.233L11.0335 13.7665L12.7665 12.0335L7.233 6.5Z" fill="currentColor" />
-              </svg>
+              <CloseIcon/>
             </button>
             <div className={styles['account-page__favorites-poster-wrapper']}>
               {movie.posterUrl ? (
