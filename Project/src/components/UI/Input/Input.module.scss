@@ -1,17 +1,165 @@
-.input {
-  padding: 8px 12px;
+.input-wrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 15px;
+  gap: 12px;
   border-radius: 8px;
-  border: 1px solid #ccc;
-  font-size: 14px;
+  transition: all 0.2s ease;
   width: 100%;
-  outline: none;
-  transition: border 0.2s;
-  &:focus {
-    border-color: #2c2c2c;
+  box-sizing: border-box;
+}
+
+.input-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+
+  svg {
+    width: 100%;
+    height: 100%;
+    display: block;
   }
 }
 
-.input--error {
-  border-color: #e74c3c;
-  background-color: #fee;
+.input-field {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  font-family: inherit;
+  font-size: 18px;
+  line-height: 24px;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+}
+
+// Dark theme (по умолчанию)
+.input-dark {
+  background: #393B3C;
+  border: 1px solid #393B3C;
+
+  .input-icon {
+    color: rgba(255, 255, 255, 0.5);
+  }
+
+  .input-field {
+    color: rgba(255, 255, 255, 0.5);
+    &::placeholder {
+      color: rgba(255, 255, 255, 0.5);
+    }
+  }
+
+  // Focused
+  &.input-focused {
+    border-color: #B4A9FF;
+    .input-icon {
+      color: #B4A9FF;
+    }
+    .input-field {
+      color: rgba(255, 255, 255, 0.8);
+      &::placeholder {
+        color: rgba(255, 255, 255, 0.4);
+      }
+    }
+  }
+
+  // Filled (has value)
+  &.input-filled {
+    .input-icon {
+      color: rgba(255, 255, 255, 0.8);
+    }
+    .input-field {
+      color: #FFFFFF;
+    }
+  }
+
+  // Error
+  &.input-error {
+    border-color: #FF7575;
+    .input-icon {
+      color: #FF7575;
+    }
+    .input-field {
+      color: #FFFFFF;
+      &::placeholder {
+        color: rgba(255, 255, 255, 0.5);
+      }
+    }
+  }
+
+  // Hover (при наведении на весь блок)
+  &:hover {
+    border-color: #B4A9FF;
+    .input-icon {
+      color: #B4A9FF;
+    }
+  }
+}
+
+// Light theme
+.input-light {
+  background: #FFFFFF;
+  border: 1px solid rgba(0, 0, 0, 0.4);
+
+  .input-icon {
+    color: rgba(0, 0, 0, 0.4);
+  }
+
+  .input-field {
+    color: rgba(0, 0, 0, 0.4);
+    &::placeholder {
+      color: rgba(0, 0, 0, 0.4);
+    }
+  }
+
+  &.input-focused {
+    border-color: #B4A9FF;
+    background: rgba(255, 255, 255, 0.15);
+    .input-icon {
+      color: #B4A9FF;
+    }
+    .input-field {
+      color: rgba(0, 0, 0, 0.4);
+      &::placeholder {
+        color: rgba(0, 0, 0, 0.4);
+      }
+    }
+  }
+
+  &.input-filled {
+    background: rgba(255, 255, 255, 0.15);
+    .input-icon {
+      color: rgba(0, 0, 0, 0.4);
+    }
+    .input-field {
+      color: #000000;
+    }
+  }
+
+  &.input-error {
+    border-color: #FF7575;
+    background: rgba(255, 255, 255, 0.15);
+    .input-icon {
+      color: #FF7575;
+    }
+    .input-field {
+      color: rgba(0, 0, 0, 0.4);
+      &::placeholder {
+        color: rgba(0, 0, 0, 0.4);
+      }
+    }
+  }
+
+  &:hover {
+    border-color: #B4A9FF;
+    background: rgba(255, 255, 255, 0.15);
+    .input-icon {
+      color: #B4A9FF;
+    }
+  }
 }

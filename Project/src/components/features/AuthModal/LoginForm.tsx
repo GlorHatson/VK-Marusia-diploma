@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../../app/hooks';
 import { login } from '../../../store/slices/userSlice';
 import Input from '../../UI/Input/Input';
+import MailIcon from '../../../assets/images/icon-mail.svg?react';
+import KeyIcon from '../../../assets/images/icon-key.svg?react';
 import styles from './AuthModal.module.scss';
 
 interface LoginFormProps {
@@ -31,8 +33,6 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSuccess, onSwitchToRegister }) 
 
   return (
     <form onSubmit={handleSubmit} className={styles['auth-modal__form']}>
-      <div className={styles['auth-modal__logo']}>маруся</div>
-      <div className={styles['auth-modal__title']}>Вход</div>
       <div className={styles['auth-modal__fields']}>
         <Input
           type="email"
@@ -41,6 +41,8 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSuccess, onSwitchToRegister }) 
           onChange={(e) => setEmail(e.target.value)}
           error={emailError}
           onBlur={() => setTouched(prev => ({ ...prev, email: true }))}
+          icon={<MailIcon />}
+          theme="light"
         />
         <Input
           type="password"
@@ -49,6 +51,8 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSuccess, onSwitchToRegister }) 
           onChange={(e) => setPassword(e.target.value)}
           error={passwordError}
           onBlur={() => setTouched(prev => ({ ...prev, password: true }))}
+          icon={<KeyIcon />}
+          theme="light"
         />
       </div>
       {error && <div className={styles['auth-modal__error']}>{error}</div>}

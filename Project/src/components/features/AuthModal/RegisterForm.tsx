@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../../app/hooks';
 import { register } from '../../../store/slices/userSlice';
 import Input from '../../UI/Input/Input';
+import UserIcon from '../../../assets/images/icon-user.svg?react';
+import MailIcon from '../../../assets/images/icon-mail.svg?react';
+import KeyIcon from '../../../assets/images/icon-key.svg?react';
 import styles from './AuthModal.module.scss';
 
 interface RegisterFormProps {
@@ -40,13 +43,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onSuccess, onSwitchToLogin 
       password: true,
       confirmPassword: true,
     });
-    if (
-      !name.trim() ||
-      !surname.trim() ||
-      !email.trim() ||
-      !password.trim() ||
-      confirmPassword !== password
-    ) {
+    if (!name.trim() || !surname.trim() || !email.trim() || !password.trim() || confirmPassword !== password) {
       return;
     }
     const result = await dispatch(register({ name, surname, email, password }));
@@ -57,23 +54,8 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onSuccess, onSwitchToLogin 
 
   return (
     <form onSubmit={handleSubmit} className={styles['auth-modal__form']}>
-      <div className={styles['auth-modal__logo']}>маруся</div>
       <div className={styles['auth-modal__title']}>Регистрация</div>
       <div className={styles['auth-modal__fields']}>
-        <Input
-          placeholder="Имя"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          error={nameError}
-          onBlur={() => setTouched(prev => ({ ...prev, name: true }))}
-        />
-        <Input
-          placeholder="Фамилия"
-          value={surname}
-          onChange={(e) => setSurname(e.target.value)}
-          error={surnameError}
-          onBlur={() => setTouched(prev => ({ ...prev, surname: true }))}
-        />
         <Input
           type="email"
           placeholder="Электронная почта"
@@ -81,6 +63,26 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onSuccess, onSwitchToLogin 
           onChange={(e) => setEmail(e.target.value)}
           error={emailError}
           onBlur={() => setTouched(prev => ({ ...prev, email: true }))}
+          icon={<MailIcon />}
+          theme="light"
+        />
+        <Input
+          placeholder="Имя"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          error={nameError}
+          onBlur={() => setTouched(prev => ({ ...prev, name: true }))}
+          icon={<UserIcon />}
+          theme="light"
+        />
+        <Input
+          placeholder="Фамилия"
+          value={surname}
+          onChange={(e) => setSurname(e.target.value)}
+          error={surnameError}
+          onBlur={() => setTouched(prev => ({ ...prev, surname: true }))}
+          icon={<UserIcon />}
+          theme="light"
         />
         <Input
           type="password"
@@ -89,14 +91,18 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onSuccess, onSwitchToLogin 
           onChange={(e) => setPassword(e.target.value)}
           error={passwordError}
           onBlur={() => setTouched(prev => ({ ...prev, password: true }))}
+          icon={<KeyIcon />}
+          theme="light"
         />
         <Input
           type="password"
-          placeholder="Подтверждение пароля"
+          placeholder="Подтвердите пароль"
           value={confirmPassword}
           onChange={(e) => setConfirmPassword(e.target.value)}
           error={confirmError}
           onBlur={() => setTouched(prev => ({ ...prev, confirmPassword: true }))}
+          icon={<KeyIcon />}
+          theme="light"
         />
       </div>
       {error && <div className={styles['auth-modal__error']}>{error}</div>}

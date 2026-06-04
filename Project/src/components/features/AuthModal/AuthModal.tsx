@@ -3,6 +3,7 @@ import styles from './AuthModal.module.scss';
 import LoginForm from './LoginForm';
 import RegisterForm from './RegisterForm';
 import SuccessModal from './SuccessModal';
+import MarusiaLogo from '../../../assets/images/marusia-logo.svg?react';
 
 interface AuthModalProps {
   isOpen: boolean;
@@ -20,7 +21,7 @@ const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
 
   const handleLoginSuccess = () => {
     onClose();
-    setMode('login'); // сброс для следующего открытия
+    setMode('login');
   };
 
   const handleBackToLogin = () => {
@@ -37,6 +38,11 @@ const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
             <path d="M18 6L6 18M6 6L18 18" stroke="black" strokeWidth="2" strokeLinecap="round"/>
           </svg>
         </button>
+
+        {/* Логотип – общий для всех режимов */}
+        <div className={styles['auth-modal__logo']}>
+          <MarusiaLogo className={styles['auth-modal__logo-image']} />
+        </div>
 
         {mode === 'login' && (
           <LoginForm
