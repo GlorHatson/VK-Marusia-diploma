@@ -15,7 +15,7 @@ const NoPoster: React.FC<NoPosterProps> = ({ title, className, variant = 'defaul
     <div className={`${styles['no-poster']} ${styles[`no-poster--${variant}`]} ${className || ''}`}>
       <img src={noPosterImg} alt="Нет постера" className={styles['no-poster__image']} />
       <div className={styles['no-poster__text']}>
-        <span>Для фильма</span>
+        {/* <span>Для фильма</span> */}
         <span className={styles['no-poster__title']}>«{title}»</span>
         <span>постер не найден</span>
       </div>

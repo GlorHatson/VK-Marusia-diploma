@@ -1,5 +1,6 @@
 import { useAppDispatch, useAppSelector } from '../../../app/hooks';
 import { addToFavorites, removeFromFavorites } from '../../../store/slices/favoritesSlice';
+import { setAuthModalOpen } from '../../../store/slices/uiSlice';
 import HeartIcon from '../../../assets/images/icon-favorit.svg?react';
 import styles from './FavoriteButton.module.scss';
 
@@ -16,8 +17,7 @@ const FavoriteButton: React.FC<FavoriteButtonProps> = ({ movieId, className = ''
 
   const handleClick = async () => {
     if (!isAuthenticated) {
-      // TODO: открыть модалку авторизации
-      alert('Необходимо войти в аккаунт');
+      dispatch(setAuthModalOpen(true));
       return;
     }
     if (loading) return;

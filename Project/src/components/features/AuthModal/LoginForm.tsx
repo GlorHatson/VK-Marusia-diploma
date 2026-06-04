@@ -18,42 +18,49 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSuccess, onSwitchToRegister }) 
   const [password, setPassword] = useState('');
   const [touched, setTouched] = useState({ email: false, password: false });
 
-  const emailError = touched.email && !email.trim();
-  const passwordError = touched.password && !password.trim();
+  const emailError = touched.email && (!email.trim() || !/\S+@\S+\.\S+/.test(email));
+  const passwordError = touched.password && (!password.trim() || password.length < 6);
+  const isValid = !emailError && !passwordError && email.trim() && password.trim();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setTouched({ email: true, password: true });
-    if (!email.trim() || !password.trim()) return;
-    const result = await dispatch(login({ email, password }));
-    if (login.fulfilled.match(result)) {
-      onSuccess();
-    }
+    if (!isValid) return;
+    const normalizedEmail = email.toLowerCase();
+    const result = await dispatch(login({ email: normalizedEmail, password }));
+    if (login.fulfilled.match(result)) onSuccess();
   };
 
   return (
     <form onSubmit={handleSubmit} className={styles['auth-modal__form']}>
+      <div className={styles['auth-modal__title']}>Вход</div>
       <div className={styles['auth-modal__fields']}>
-        <Input
-          type="email"
-          placeholder="Электронная почта"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          error={emailError}
-          onBlur={() => setTouched(prev => ({ ...prev, email: true }))}
-          icon={<MailIcon />}
-          theme="light"
-        />
-        <Input
-          type="password"
-          placeholder="Пароль"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          error={passwordError}
-          onBlur={() => setTouched(prev => ({ ...prev, password: true }))}
-          icon={<KeyIcon />}
-          theme="light"
-        />
+        <div>
+          <Input
+            type="email"
+            placeholder="Электронная почта"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            error={emailError}
+            onBlur={() => setTouched(prev => ({ ...prev, email: true }))}
+            icon={<MailIcon />}
+            theme="light"
+          />
+          {emailError && <div className={styles['auth-modal__field-error']}>Введите корректный email</div>}
+        </div>
+        <div>
+          <Input
+            type="password"
+            placeholder="Пароль"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            error={passwordError}
+            onBlur={() => setTouched(prev => ({ ...prev, password: true }))}
+            icon={<KeyIcon />}
+            theme="light"
+          />
+          {passwordError && <div className={styles['auth-modal__field-error']}>Пароль должен быть не менее 6 символов</div>}
+        </div>
       </div>
       {error && <div className={styles['auth-modal__error']}>{error}</div>}
       <button type="submit" className={styles['auth-modal__button']} disabled={loading}>

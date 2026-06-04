@@ -1,23 +1,24 @@
-import { useState } from 'react';
+// import { useState } from 'react';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
-import { useAppSelector } from '../../../app/hooks';
+import { useAppDispatch, useAppSelector } from '../../../app/hooks';
 import styles from './Header.module.scss';
 import Container from '../../UI/Container/Container';
 import MarusiaLogo from '../../../assets/images/marusia-logo.svg?react';
 import IconFind from '../../../assets/images/icon-find.svg?react';
 import AuthModal from '../AuthModal/AuthModal';
+import { setAuthModalOpen } from '../../../store/slices/uiSlice';
 
 const Header = () => {
+  const dispatch = useAppDispatch();
   const { user, isAuthenticated } = useAppSelector((state) => state.user);
-  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
+  const isAuthModalOpen = useAppSelector((state) => state.ui.isAuthModalOpen);
   const navigate = useNavigate();
-
 
   const handleAuthClick = () => {
     if (isAuthenticated) {
       navigate('/account');
     } else {
-      setIsAuthModalOpen(true);
+      dispatch(setAuthModalOpen(true));
     }
   };
 
@@ -63,7 +64,7 @@ const Header = () => {
           </div>
         </Container>
       </header>
-      <AuthModal isOpen={isAuthModalOpen} onClose={() => setIsAuthModalOpen(false)} />
+      <AuthModal isOpen={isAuthModalOpen} onClose={() => dispatch(setAuthModalOpen(false))} />
     </>
   );
 };

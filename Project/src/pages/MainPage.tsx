@@ -66,14 +66,22 @@ const MainPage = () => {
               </div>
             </div>
             <div className={styles['main-page__random-poster-wrapper']}>
-              {randomMovie.posterUrl ? (
+              {randomMovie.backdropUrl ? (
                 <img
-                  src={randomMovie.posterUrl}
+                  src={randomMovie.backdropUrl}
                   alt={randomMovie.title}
                   className={styles['main-page__random-poster']}
                 />
               ) : (
-                <NoPoster title={randomMovie.title} />
+                randomMovie.posterUrl ? (
+                  <img
+                    src={randomMovie.posterUrl}
+                    alt={randomMovie.title}
+                    className={styles['main-page__random-poster']}
+                  />
+                ) : (
+                  <NoPoster title={randomMovie.title} />
+                )
               )}
             </div>
           </div>

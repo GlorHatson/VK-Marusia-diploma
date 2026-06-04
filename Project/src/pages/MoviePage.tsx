@@ -80,14 +80,22 @@ const MoviePage = () => {
             </div>
           </div>
           <div className={styles['movie-page__poster-wrapper']}>
-            {movie.posterUrl ? (
+            {movie.backdropUrl ? (
               <img
-                src={movie.posterUrl}
+                src={movie.backdropUrl}
                 alt={movie.title}
                 className={styles['movie-page__poster']}
               />
             ) : (
-              <NoPoster title={movie.title} />
+              movie.posterUrl ? (
+                <img
+                  src={movie.posterUrl}
+                  alt={movie.title}
+                  className={styles['movie-page__poster']}
+                />
+              ) : (
+                <NoPoster title={movie.title} />
+              )
             )}
           </div>
         </div>

@@ -5,10 +5,12 @@ import { fetchMoviesByGenre, resetGenreMovies } from '../store/slices/genreMovie
 import Container from '../components/UI/Container/Container';
 import Button from '../components/UI/Button/Button';
 import NoPoster from '../components/UI/NoPoster/NoPoster';
+import UpIcon from '../assets/images/icon-up.svg?react';
+import LeftIcon from '../assets/images/icon-left.svg?react';
 import styles from './GenreMoviesPage.module.scss';
 
 const GenreMoviesPage = () => {
-  const { genreName } = useParams<{ genreName: string }>();
+  const { genreName } = useParams();
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
   const pageFromUrl = Number(searchParams.get('page')) || 1;
@@ -22,17 +24,14 @@ const GenreMoviesPage = () => {
       navigate('/genres', { replace: true });
       return;
     }
-    // Загружаем только если номер страницы в URL отличается от текущего в сторе
-    // и нет активной загрузки (чтобы не дублировать)
     if (currentPage !== pageFromUrl && !loading) {
       dispatch(fetchMoviesByGenre({ genre: genreName, page: pageFromUrl }));
     } else if (movies.length === 0 && !loading) {
-      // Если фильмов нет, загружаем первую страницу
       dispatch(fetchMoviesByGenre({ genre: genreName, page: pageFromUrl }));
     }
   }, [genreName, pageFromUrl, currentPage, loading, movies.length, dispatch, navigate]);
 
-  // Загрузка следующей страницы (просто меняем URL, эффект выше сработает)
+  // Загрузка следующей страницы
   const loadMore = useCallback(() => {
     if (genreName && hasMore && !loading) {
       const nextPage = currentPage + 1;
@@ -63,7 +62,22 @@ const GenreMoviesPage = () => {
     }
   }, [loading, movies.length, genreName, currentPage]);
 
-  // Сброс состояния при размонтировании (чтобы при переходе на другой жанр не было старых фильмов)
+
+  // --- ФУНКЦИЯ СБРОСА НА ПЕРВУЮ СТРАНИЦУ ---
+  const resetToFirstPage = async () => {
+    if (pageFromUrl === 1) {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
+    }
+    if (genreName) {
+      await dispatch(fetchMoviesByGenre({ genre: genreName, page: 1 }));
+      setSearchParams({}, { replace: true });
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
+  // ---------------------------------------------
+
+  // Сброс состояния при размонтировании
   useEffect(() => {
     return () => {
       dispatch(resetGenreMovies());
@@ -86,10 +100,8 @@ const GenreMoviesPage = () => {
     <Container>
       <div className={styles['genre-movies']}>
         <div className={styles['genre-movies__header']}>
-          <button className={styles['genre-movies__back']} onClick={() => navigate(-1)}>
-            <svg width="13" height="22" viewBox="0 0 13 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M4.714 10.6066L12.9637 18.8561L10.6067 21.2131L0 10.6066L10.6067 0L12.9637 2.35702L4.714 10.6066Z" fill="currentColor" />
-            </svg>
+          <button className={styles['genre-movies__back']} onClick={() => navigate('/genres')}>
+            <LeftIcon />
           </button>
           <h1 className={styles['genre-movies__title']}>{displayGenreName}</h1>
         </div>
@@ -122,6 +134,15 @@ const GenreMoviesPage = () => {
               {loading ? 'Загрузка...' : 'Показать ещё'}
             </Button>
           </div>
+        )}
+        {pageFromUrl > 1 && (
+          <button
+            className={styles['scroll-to-top']}
+            onClick={resetToFirstPage}
+            aria-label="На первую страницу"
+          >
+            <UpIcon className={styles['scroll-to-top__icon']} />
+          </button>
         )}
       </div>
     </Container>

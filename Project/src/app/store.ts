@@ -4,6 +4,7 @@ import genresReducer from '../store/slices/genresSlice';
 import genreMoviesReducer from '../store/slices/genreMoviesSlice';
 import userReducer from '../store/slices/userSlice';
 import favoritesReducer from '../store/slices/favoritesSlice';
+import uiReducer from '../store/slices/uiSlice';
 
 export const store = configureStore({
   reducer: {
@@ -12,6 +13,7 @@ export const store = configureStore({
     genreMovies: genreMoviesReducer,
     user: userReducer,
     favorites: favoritesReducer,
+    ui: uiReducer,  
   },
 });
 

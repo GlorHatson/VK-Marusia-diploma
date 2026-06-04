@@ -24,7 +24,7 @@ export const fetchMoviesByGenre = createAsyncThunk(
   'genreMovies/fetchMoviesByGenre',
   async ({ genre, page }: { genre: string; page: number }, { rejectWithValue }) => {
     try {
-      const count = 10; // количество на страницу
+      const count = 10;
       const response = await apiClient.get('/movie', {
         params: { genre, page, count },
       });
@@ -58,10 +58,17 @@ const genreMoviesSlice = createSlice({
       .addCase(fetchMoviesByGenre.fulfilled, (state, action) => {
         state.loading = false;
         state.genre = action.meta.arg.genre;
+        const newMovies = action.payload.movies;
+        // Дедупликация на случай дублей от API
+        const uniqueNew = newMovies.filter((movie, index, self) =>
+          self.findIndex(m => m.id === movie.id) === index
+        );
         if (action.payload.page === 1) {
-          state.movies = action.payload.movies;
+          state.movies = uniqueNew;
         } else {
-          state.movies = [...state.movies, ...action.payload.movies];
+          const existingIds = new Set(state.movies.map(m => m.id));
+          const toAdd = uniqueNew.filter(m => !existingIds.has(m.id));
+          state.movies = [...state.movies, ...toAdd];
         }
         state.page = action.payload.page;
         state.hasMore = action.payload.hasMore;

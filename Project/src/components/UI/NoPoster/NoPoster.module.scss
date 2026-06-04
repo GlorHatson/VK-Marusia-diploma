@@ -11,7 +11,7 @@
 }
 
 .no-poster__image {
-  max-width: 80px; /* уменьшен для маленьких карточек */
+  max-width: 80px; 
   width: 100%;
   height: auto;
   opacity: 0.8;
@@ -22,7 +22,7 @@
   flex-direction: column;
   align-items: center;
   gap: 4px;
-  font-size: 14px;   /* базовый размер для маленьких */
+  font-size: 14px;   
   line-height: 1.2;
   color: rgba(255, 255, 255, 0.8);
   width: 100%;
@@ -52,4 +52,5 @@
   text-overflow: ellipsis;
   word-break: break-word;
   max-width: 100%;
+  font-weight: 700;
 }

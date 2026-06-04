@@ -1,4 +1,6 @@
 .genre-movies {
+  display: flex;
+  flex-direction: column;
   padding: 32px 0 80px;
 }
 
@@ -36,6 +38,7 @@
 }
 
 .genre-movies__grid {
+  position: relative;
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   gap: 40px;
@@ -58,7 +61,6 @@
     transform: scale(1.04);
     box-shadow: 0 0 1px 1px #B4A9FF, 0px 0px 60px #B4A9FF;
   }
-
 }
 
 .genre-movies__poster-container {
@@ -84,4 +86,35 @@
   padding: 40px;
   font-size: 20px;
   color: #fff;
+}
+
+.scroll-to-top {
+  position: sticky;
+  bottom: 40px;
+  align-self: self-end;
+  transform: translateX(40px);
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: rgba(139, 139, 139, 0.3);
+  backdrop-filter: blur(10px);
+  color: rgba(255, 255, 255, 0.5);
+  border: none;
+  cursor: pointer;
+  transition: opacity 0.2s;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.6;
+
+  &:hover {
+    opacity: 1;
+    color: #fff;
+  }
+}
+
+.scroll-to-top__icon {
+  width: 48px;
+  height: 48px;
 }
