@@ -33,10 +33,12 @@
 
   &:hover {
     background: $color-light-hover;
+    color: $color-text-light-hover;
   }
 
   &:focus-visible {
     background: $color-light-focus;
+    color: $color-text-light-hover;
   }
 }
 

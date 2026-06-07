@@ -19,6 +19,11 @@
   flex-shrink: 0;
   background: $color-card-bg;
   overflow: hidden;
+  transition: transform 1s;
+
+  &:hover {
+    transform: translate(4px,0) scale(1.4);
+  }
 
   img {
     width: 100%;
