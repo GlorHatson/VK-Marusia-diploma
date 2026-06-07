@@ -3,7 +3,9 @@ import styles from './AuthModal.module.scss';
 import LoginForm from './LoginForm';
 import RegisterForm from './RegisterForm';
 import SuccessModal from './SuccessModal';
+import Button from '../../../components/UI/Button/Button';
 import MarusiaLogo from '../../../assets/images/marusia-logo.svg?react';
+import CloseIcon from '../../../assets/images/icon-close.svg?react';
 
 interface AuthModalProps {
   isOpen: boolean;
@@ -33,11 +35,14 @@ const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
   return (
     <div className={styles['auth-modal__overlay']} onClick={onClose}>
       <div className={styles['auth-modal__container']} onClick={(e) => e.stopPropagation()}>
-        <button className={styles['auth-modal__close']} onClick={onClose}>
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M18 6L6 18M6 6L18 18" stroke="black" strokeWidth="2" strokeLinecap="round"/>
-          </svg>
-        </button>
+        <Button
+          variant="light"
+          isRound
+          icon={<CloseIcon />}
+          onClick={onClose}
+          className={styles['auth-modal__close']}
+          aria-label="Закрыть"
+        />
 
         {/* Логотип – общий для всех режимов */}
         <div className={styles['auth-modal__logo']}>

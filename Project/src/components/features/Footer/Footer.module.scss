@@ -1,3 +1,5 @@
+@use '@/styles/variables' as *;
+
 .footer {
   background: transparent;
   padding: 40px 0;
@@ -22,17 +24,18 @@
   width: 36px;
   height: 36px;
   padding: 8px;
-  border: 1px solid rgba(255, 255, 255, 0.8);
+  border: 1px solid $color-text-secondary;
   border-radius: 8px;
   background: transparent;
-  transition: background 0.2s;
-  color: rgba(255, 255, 255, 0.8);
+  transition: color 0.2s, border 0.2s;
+  color: $color-text-secondary;
   text-decoration: none;
   font-size: 20px;
 }
 
 .footer__social-link:hover {
-  background: rgba(255, 255, 255, 0.1);
+  color: $color-accent;
+  border: 1px solid $color-accent;
 }
 
 .footer__social-link img {

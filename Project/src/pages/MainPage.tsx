@@ -60,7 +60,7 @@ const MainPage = () => {
               <p className={styles['main-page__random-description']}>{randomMovie.plot ?? ''}</p>
               <div className={styles['main-page__random-actions']}>
                 <Button variant="primary" onClick={handleOpenTrailer}>Трейлер</Button>
-                <Button variant="primary" onClick={handleMoreClick}>О фильме</Button>
+                <Button variant="secondary" onClick={handleMoreClick}>О фильме</Button>
                 <FavoriteButton movieId={randomMovie.id} />
                 <RefreshButton onClick={handleRefreshRandom} />
               </div>

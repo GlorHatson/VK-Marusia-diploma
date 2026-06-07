@@ -5,6 +5,7 @@ import { logout, checkAuth } from '../store/slices/userSlice';
 import { removeFromFavorites, fetchFavorites } from '../store/slices/favoritesSlice';
 import Container from '../components/UI/Container/Container';
 import NoPoster from '../components/UI/NoPoster/NoPoster';
+import Button from '../components/UI/Button/Button';
 import FavoriteIcon from '../assets/images/icon-favorit.svg?react';
 import UserIcon from '../assets/images/icon-user.svg?react';
 import MailIcon from '../assets/images/icon-mail.svg?react';
@@ -78,13 +79,15 @@ const AccountPage = () => {
             className={styles['account-page__favorites-card']}
             onClick={() => navigate(`/movie/${movie.id}`)}
           >
-            <button
+            <Button
+              variant="light"
+              isRound
+              icon={<CloseIcon />}
               className={styles['account-page__favorites-remove']}
               onClick={(e) => handleRemoveFavorite(e, movie.id)}
               aria-label="Удалить из избранного"
-            >
-              <CloseIcon/>
-            </button>
+            />
+
             <div className={styles['account-page__favorites-poster-wrapper']}>
               {movie.posterUrl ? (
                 <img
@@ -104,7 +107,7 @@ const AccountPage = () => {
 
   // Рендер настроек аккаунта
   const renderSettings = () => (
-    <div className={styles['.account-page__content']}>
+    <div className={styles['account-page__content']}>
       <div className={styles['account-page__settings']}>
         {/* Первый горизонтальный блок: инициалы + имя-фамилия */}
         <div className={styles['settings-row']}>
@@ -126,9 +129,9 @@ const AccountPage = () => {
         </div>
       </div>
       {/* Кнопка выхода */}
-      <button className="button-base button-text" onClick={handleLogout}>
+      <Button variant="primary" onClick={handleLogout}>
         Выйти из аккаунта
-      </button>
+      </Button>
     </div>
   );
 

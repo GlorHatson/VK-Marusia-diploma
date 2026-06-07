@@ -1,3 +1,5 @@
+@use '@/styles/variables' as *;
+
 .header {
   position: sticky;
   top: 0;
@@ -44,14 +46,14 @@
   padding-left: 7px;
   width: auto;
   display: block;
-  color: #fff;
+  color: $color-text-primary;
 }
 
 .header__nav-link {
   font-weight: 400;
   font-size: 24px;
   line-height: 32px;
-  color: #fff;
+  color: $color-text-primary;
   text-decoration: none;
   white-space: nowrap;
   padding: 8px 0;
@@ -64,17 +66,17 @@
 }
 
 .header__nav-link:hover {
-  color: #B4A9FF;
+  color: $color-accent;
 }
 
 .header__nav-link--active {
-  border-bottom: 1.5px solid #DC5DFC;
+  border-bottom: 1.5px solid $color-accent-border;
 }
 
 .header__search-wrapper {
   display: flex;
   align-items: center;
-  background: #393B3C;
+  background: $color-secondary-default;
   border-radius: 8px;
   padding: 0 16px;
   height: 48px;
@@ -93,7 +95,7 @@
   border: none;
   font-size: 18px;
   line-height: 24px;
-  color: rgba(255, 255, 255, 0.8);
+  color: $color-text-secondary;
   padding: 12px 0;
   outline: none;
 }
@@ -115,7 +117,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: rgba(255, 255, 255, 0.5);
+  color: $color-text-disabled;
   transition: color 0.2s;
 
   &:hover {

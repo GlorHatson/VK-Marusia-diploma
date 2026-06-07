@@ -1,19 +1,23 @@
+@use '@/styles/button-base' as *;
+@use '@/styles/variables' as *;
+
 .favorite-button {
-  width: 68px;
-  height: 56px;
-  padding: 0;
-}
+  @include button-icon-secondary;
 
-.favorite-button--active {
-  color: #B4A9FF;
-  .favorite-button__icon path {
-    fill: #B4A9FF;
-    stroke: none;
+  .favorite-button__icon {
+    width: 24px;
+    height: 24px;
+    display: block;
+    color: inherit; // наследует цвет от кнопки
   }
-}
 
-.favorite-button__icon {
-  width: 24px;
-  height: 24px;
-  display: block;
+  // Активное состояние – меняем цвет кнопки (и иконки через currentColor)
+  &.favorite-button--active {
+    color: $color-accent;
+
+    .favorite-button__icon path {
+      fill: $color-accent;
+      stroke: currentColor;
+    }
+  }
 }

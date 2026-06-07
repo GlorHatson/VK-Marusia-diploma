@@ -1,3 +1,5 @@
+@use '@/styles/variables' as *;
+
 .input-wrapper {
   display: flex;
   flex-direction: row;
@@ -40,30 +42,30 @@
 
 // Dark theme (по умолчанию)
 .input-dark {
-  background: #393B3C;
-  border: 1px solid #393B3C;
+  background: $color-secondary-default;
+  border: 1px solid $color-secondary-default;
 
   .input-icon {
-    color: rgba(255, 255, 255, 0.5);
+    color: $color-placeholder-dark;
   }
 
   .input-field {
-    color: rgba(255, 255, 255, 0.5);
+    color: $color-placeholder-dark;
     &::placeholder {
-      color: rgba(255, 255, 255, 0.5);
+      color: $color-placeholder-dark;
     }
   }
 
   // Focused
   &.input-focused {
-    border-color: #B4A9FF;
+    border-color: $color-accent;
     .input-icon {
-      color: #B4A9FF;
+      color: $color-accent;
     }
     .input-field {
-      color: rgba(255, 255, 255, 0.8);
+      color: $color-text-secondary;
       &::placeholder {
-        color: rgba(255, 255, 255, 0.4);
+        color: $color-placeholder-dark;
       }
     }
   }
@@ -71,95 +73,95 @@
   // Filled (has value)
   &.input-filled {
     .input-icon {
-      color: rgba(255, 255, 255, 0.8);
+      color: $color-text-secondary;
     }
     .input-field {
-      color: #FFFFFF;
+      color: $color-text-primary;
     }
   }
 
   // Error
   &.input-error {
-    border-color: #FF7575;
+    border-color: $color-error;
     .input-icon {
-      color: #FF7575;
+      color: $color-error;
     }
     .input-field {
-      color: #FFFFFF;
+      color: $color-text-primary;
       &::placeholder {
-        color: rgba(255, 255, 255, 0.5);
+        color: $color-placeholder-dark;
       }
     }
   }
 
   // Hover (при наведении на весь блок)
   &:hover {
-    border-color: #B4A9FF;
+    border-color: $color-accent;
     .input-icon {
-      color: #B4A9FF;
+      color: $color-accent;
     }
   }
 }
 
 // Light theme
 .input-light {
-  background: #FFFFFF;
-  border: 1px solid rgba(0, 0, 0, 0.4);
+  background: $color-text-primary;
+  border: 1px solid $color-placeholder-light;
 
   .input-icon {
-    color: rgba(0, 0, 0, 0.4);
+    color: $color-placeholder-light;
   }
 
   .input-field {
-    color: rgba(0, 0, 0, 0.4);
+    color: $color-placeholder-light;
     &::placeholder {
-      color: rgba(0, 0, 0, 0.4);
+      color: $color-placeholder-light;
     }
   }
 
   &.input-focused {
-    border-color: #B4A9FF;
-    background: rgba(255, 255, 255, 0.15);
+    border-color: $color-accent;
+    background: $color-fields-normal;
     .input-icon {
-      color: #B4A9FF;
+      color: $color-accent;
     }
     .input-field {
-      color: rgba(0, 0, 0, 0.4);
+      color: $color-placeholder-light;
       &::placeholder {
-        color: rgba(0, 0, 0, 0.4);
+        color: $color-placeholder-light;
       }
     }
   }
 
   &.input-filled {
-    background: rgba(255, 255, 255, 0.15);
+    background: $color-fields-normal;
     .input-icon {
-      color: rgba(0, 0, 0, 0.4);
+      color: $color-placeholder-light;
     }
     .input-field {
-      color: #000000;
+      color: $color-text-light;
     }
   }
 
   &.input-error {
-    border-color: #FF7575;
-    background: rgba(255, 255, 255, 0.15);
+    border-color: $color-error;
+    background: $color-fields-normal;
     .input-icon {
-      color: #FF7575;
+      color: $color-error;
     }
     .input-field {
-      color: rgba(0, 0, 0, 0.4);
+      color: $color-placeholder-light;
       &::placeholder {
-        color: rgba(0, 0, 0, 0.4);
+        color: r$color-placeholder-light;
       }
     }
   }
 
   &:hover {
-    border-color: #B4A9FF;
-    background: rgba(255, 255, 255, 0.15);
+    border-color: $color-accent;
+    background: $color-fields-normal;
     .input-icon {
-      color: #B4A9FF;
+      color: $color-accent;
     }
   }
 }

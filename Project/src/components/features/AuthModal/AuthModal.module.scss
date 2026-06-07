@@ -1,10 +1,12 @@
+@use '@/styles/variables' as *;
+
 .auth-modal__overlay {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.5);
+  background: $color-placeholder-light;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -13,7 +15,7 @@
 
 .auth-modal__container {
   position: relative;
-  background: #ffffff;
+  background: $color-light-default;
   border-radius: 24px;
   width: 420px;
   max-width: 90%;
@@ -26,28 +28,14 @@
   right: -72px;
   width: 48px;
   height: 48px;
-  background: #ffffff;
-  border: none;
-  border-radius: 50%;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background 0.2s;
   z-index: 10;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  
+  transition: background 0.2s;
+  box-shadow: 0 2px 8px $shadow-modal;
+
   svg {
-    width: 32px;
-    height: 32px;
-    stroke: #000000;
-  }
-  
-  &:hover {
-    background: #67A5EB;
-    svg {
-      stroke: #ffffff;
-    }
+    width: 22px;
+    height: 18px;
+    display: block;
   }
 }
 
@@ -61,7 +49,7 @@
   height: 32px;
   width: auto;
   margin-left: 9px;
-  color: #000000; 
+  color: $color-text-light;
 }
 
 .auth-modal__title {
@@ -69,7 +57,7 @@
   font-size: 24px;
   line-height: 32px;
   text-align: center;
-  color: #000000;
+  color: $color-black;
   margin-bottom: 24px;
 }
 
@@ -82,24 +70,6 @@
 
 .auth-modal__button {
   width: 100%;
-  background: #67a5eb;
-  border-radius: 28px;
-  padding: 16px;
-  border: none;
-  font-weight: 700;
-  font-size: 18px;
-  line-height: 24px;
-  color: #ffffff;
-  cursor: pointer;
-  transition: background 0.2s;
-
-  &:hover {
-    background: #5590d0;
-  }
-  &:disabled {
-    background: #b0c4e0;
-    cursor: not-allowed;
-  }
 }
 
 .auth-modal__link {
@@ -108,7 +78,7 @@
   font-weight: 700;
   font-size: 18px;
   line-height: 24px;
-  color: #000000;
+  color: $color-text-light;
   cursor: pointer;
   width: 100%;
   text-align: center;
@@ -116,7 +86,7 @@
 }
 
 .auth-modal__error {
-  color: #ff7575;
+  color: $color-error;
   font-size: 14px;
   text-align: center;
   margin-bottom: 16px;
@@ -126,12 +96,12 @@
   font-size: 18px;
   line-height: 24px;
   text-align: center;
-  color: #000000;
+  color: $color-text-light;
   margin-bottom: 24px;
 }
 
 .auth-modal__field-error {
-  color: #ff7575;
+  color: $color-error;
   font-size: 12px;
   line-height: 16px;
   margin-top: 4px;

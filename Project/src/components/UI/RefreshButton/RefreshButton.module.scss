@@ -1,5 +1,12 @@
+@use '@/styles/button-base' as *;
+
 .refresh-button {
-  width: 68px;
-  height: 56px;
-  padding: 0;
+  @include button-icon-secondary;
+
+  .refresh-button__icon {
+    width: 20px;
+    height: 20px;
+    display: block;
+    color: inherit;
+  }
 }

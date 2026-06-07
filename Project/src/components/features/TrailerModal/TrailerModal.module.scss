@@ -1,10 +1,12 @@
+@use '@/styles/variables' as *;
+
 .trailer-modal__overlay {
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(10, 11, 11, 0.9);
+    background: $color-overlay;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -20,9 +22,9 @@
 
 .trailer-modal__video-wrapper {
     position: relative;
-    border: 1px solid rgba(255, 255, 255, 0.5);
+    border: 1px solid $color-text-disabled;
     overflow: hidden;
-    background-color: #747474;
+    background-color: $color-secondary-disabled;
 }
 
 .trailer-modal__player {
@@ -37,14 +39,14 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: rgba(0, 0, 0, 0.5);
+    background: $color-loader;
     z-index: 1;
 }
 
 .trailer-modal__spinner {
     width: 48px;
     height: 48px;
-    border: 6px solid #fff;
+    border: 6px solid $color-text-primary;
     border-top-color: transparent;
     border-radius: 50%;
     animation: spin 0.8s linear infinite;
@@ -64,22 +66,13 @@
     transform: translate(-50%, -50%);
     width: 80px;
     height: 80px;
-    background: #fff;
-    border: none;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
     transition: background 0.2s ease;
     z-index: 2;
-    color: #000;
 
     svg {
         width: 26px;
         height: 30px;
     }
-
 }
 
 
@@ -88,9 +81,9 @@
     bottom: 24px;
     left: 20px;
     right: 20px;
-    background: rgba(10, 11, 11, 0.6);
+    background: $color-overlay-title;
     backdrop-filter: blur(4px);
-    color: #fff;
+    color: $color-text-primary;
     font-size: 24px;
     font-weight: 700;
     line-height: 32px;
@@ -111,28 +104,8 @@
     right: -72px;
     width: 48px;
     height: 48px;
-    background: #fff;
-    border: none;
-    border-radius: 50%;
-    font-weight: 700;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
     z-index: 10;
     transition: background 0.2s;
-    color: #000;
-
-    &:hover {
-        background: #67A5EB;
-        color: #fff;
-    }
-
-    &:focus-visible {
-        outline: none;
-        background: #45526E;
-        color: rgba(255, 255, 255, 0.5);
-    }
 
     svg {
         width: 18px;

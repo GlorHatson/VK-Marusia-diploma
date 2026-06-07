@@ -1,5 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
 import styles from './TrailerModal.module.scss';
+import CloseIcon from '../../../assets/images/icon-close.svg?react';
+import PlayIcon from '../../../assets/images/icon-play.svg?react';
+import PauseIcon from '../../../assets/images/icon-pause.svg?react';
+import Button from '../../../components/UI/Button/Button';
 
 interface TrailerModalProps {
   isOpen: boolean;
@@ -180,38 +184,28 @@ const TrailerModal: React.FC<TrailerModalProps> = ({ isOpen, onClose, videoId, t
             </div>
           )}
           {showPlayPause && (
-            <button
+            <Button
+              variant="light"
+              isRound
               className={styles['trailer-modal__control-btn']}
               onClick={handlePlayPause}
               aria-label={isPlaying ? 'Пауза' : 'Воспроизвести'}
-            >
-              {isPlaying ? (
-                // Иконка паузы (две вертикальные полоски)
-                <svg width="20" height="30" viewBox="0 0 20 30" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M0 0H3.33333V30H0V0ZM16.6667 0H20V30H16.6667V0Z" fill="currentColor" />
-                </svg>
-              ) : (
-                // Иконка play (треугольник)
-                <svg width="26" height="31" viewBox="0 0 26 31" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M0 28.9885V1.66933C0 0.360283 1.43992 -0.437801 2.55 0.255999L24.4053 13.9156C25.4498 14.5683 25.4498 16.0895 24.4053 16.7423L2.55 30.4018C1.43992 31.0956 0 30.2976 0 28.9885Z" fill="currentColor" />
-                </svg>
-              )}
-            </button>
+              icon={isPlaying ? <PauseIcon/> : <PlayIcon />}
+            />
           )}
           {showTitle && <div className={styles['trailer-modal__title']}>{title}</div>}
         </div>
         {showClose && (
-          <button
+          <Button
+            variant="light"
+            isRound
+            icon={<CloseIcon />}
             className={styles['trailer-modal__close-btn']}
             onClick={onClose}
             onMouseEnter={() => setIsCloseHovered(true)}
             onMouseLeave={() => setIsCloseHovered(false)}
             aria-label="Закрыть"
-          >
-            <svg width="19" height="19" viewBox="0 0 19 19" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M7.79293 9.20715L0 1.41421L1.41421 0L9.20713 7.79285L17 0L18.4142 1.41421L10.6213 9.20715L18.4142 17L17 18.4142L9.20713 10.6213L1.41421 18.4142L0 17L7.79293 9.20715Z" fill="currentColor" />
-            </svg>
-          </button>
+          />
         )}
       </div>
     </div>

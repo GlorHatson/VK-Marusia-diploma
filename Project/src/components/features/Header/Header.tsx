@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../../app/hooks';
+import { setAuthModalOpen } from '../../../store/slices/uiSlice';
 import { searchMovies, clearSearch } from '../../../store/slices/searchSlice';
 import SearchDropdownItem from '../../UI/SearchDropdownItem/SearchDropdownItem';
 import styles from './Header.module.scss';
@@ -20,13 +21,13 @@ function debounce<F extends (...args: any[]) => any>(fn: F, delay: number): F {
 
 const Header = () => {
   const dispatch = useAppDispatch();
+  const isAuthModalOpen = useAppSelector((state) => state.ui.isAuthModalOpen);
   const navigate = useNavigate();
   const { user, isAuthenticated } = useAppSelector((state) => state.user);
   const { results, loading } = useAppSelector((state) => state.search);
   const [searchQuery, setSearchQuery] = useState('');
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const searchRef = useRef<HTMLDivElement>(null);
-  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
 
   const debouncedSearch = useCallback(
     debounce((query: string) => {
@@ -80,7 +81,7 @@ const Header = () => {
     if (isAuthenticated) {
       navigate('/account');
     } else {
-      setIsAuthModalOpen(true);
+      dispatch(setAuthModalOpen(true));
     }
   };
 
@@ -159,7 +160,7 @@ const Header = () => {
           </div>
         </Container>
       </header>
-      <AuthModal isOpen={isAuthModalOpen} onClose={() => setIsAuthModalOpen(false)} />
+      <AuthModal isOpen={isAuthModalOpen} onClose={() => dispatch(setAuthModalOpen(false))} />
     </>
   );
 };

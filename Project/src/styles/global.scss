@@ -1,3 +1,5 @@
+@use '@/styles/variables' as *;
+
 * {
   margin: 0;
   padding: 0;
@@ -13,8 +15,8 @@ body {
   font-family: 'Play', sans-serif;
   font-weight: 400;
   line-height: 1.5;
-  color: #fff;
-  background: #000000;
+  color: $color-white;
+  background: $color-black;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -29,9 +31,7 @@ body::before {
   right: 0;
   bottom: 0;
   z-index: -1;
-  background:
-    linear-gradient(178.73deg, rgba(39, 135, 245, 0.18) -17.53%, rgba(163, 147, 245, 0.18) 131.74%),
-    linear-gradient(180deg, #000000 0%, rgba(39, 36, 36, 0.7) 100%);
+  background: $gradient-hero, $gradient-black;
 }
 
 #root {
@@ -51,41 +51,41 @@ select {
   font-family: inherit;
 }
 
-/* Базовый класс для всех кнопок (Primary стиль) */
-.button-base {
-  border: 1px solid rgba(0, 0, 0, 0.4);
-  border-radius: 28px;
-  cursor: pointer;
-  transition: background 0.2s ease, border-color 0.2s ease;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  color: #ffffff;
-  font-weight: 700;
-  font-size: 18px;
-  line-height: 24px;
+// /* Базовый класс для всех кнопок (Primary стиль) */
+// .button-base {
+//   border: 1px solid $color-placeholder-light;
+//   border-radius: 28px;
+//   cursor: pointer;
+//   transition: background 0.2s ease, border-color 0.2s ease;
+//   display: inline-flex;
+//   align-items: center;
+//   justify-content: center;
+//   color: $color-text-primary;
+//   font-weight: 700;
+//   font-size: 18px;
+//   line-height: 24px;
 
-  // Primary стили (фон по умолчанию)
-  background: #393B3C;
+//   // Primary стили (фон по умолчанию)
+//   background: $color-primary-default;
 
-  &:hover {
-    background: #67A5EB;
-  }
+//   &:hover {
+//     background: $color-primary-hover;
+//   }
 
-  &:focus-visible {
-    outline: none;
-    background: #45526E;
-    color: rgba(255, 255, 255, 0.5);
-  }
+//   &:focus-visible {
+//     outline: none;
+//     background: $color-primary-focus;
+//     color: $color-text-disabled;
+//   }
 
-  &:disabled {
-    background: #747474;
-    color: rgba(255, 255, 255, 0.5);
-    cursor: not-allowed;
-  }
-}
+//   &:disabled {
+//     background: $color-primary-disabled;
+//     color: $color-text-disabled;
+//     cursor: not-allowed;
+//   }
+// }
 
-// Класс для текстовых кнопок (добавляет отступы)
-.button-text {
-  padding: 16px 48px;
-}
+// // Класс для текстовых кнопок (добавляет отступы)
+// .button-text {
+//   padding: 16px 48px;
+// }

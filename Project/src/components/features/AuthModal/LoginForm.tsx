@@ -4,6 +4,7 @@ import { login } from '../../../store/slices/userSlice';
 import Input from '../../UI/Input/Input';
 import MailIcon from '../../../assets/images/icon-mail.svg?react';
 import KeyIcon from '../../../assets/images/icon-key.svg?react';
+import Button from '../../../components/UI/Button/Button';
 import styles from './AuthModal.module.scss';
 
 interface LoginFormProps {
@@ -63,9 +64,9 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSuccess, onSwitchToRegister }) 
         </div>
       </div>
       {error && <div className={styles['auth-modal__error']}>{error}</div>}
-      <button type="submit" className={styles['auth-modal__button']} disabled={loading}>
+      <Button variant="primary" className={styles['auth-modal__button']} disabled={loading}>
         {loading ? 'Вход...' : 'Войти'}
-      </button>
+      </Button>
       <button type="button" className={styles['auth-modal__link']} onClick={onSwitchToRegister}>
         Регистрация
       </button>

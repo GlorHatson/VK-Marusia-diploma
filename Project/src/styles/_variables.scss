@@ -1,0 +1,73 @@
+// ============================================
+// COLOR VARIABLES
+// Based on UI-kit design system
+// ============================================
+
+// ---------- Primary (основные) ----------
+$color-primary-default: #67A5EB;      // основной цвет кнопок, акцентов
+$color-primary-hover: #5590d0;
+$color-primary-focus: #45526E;
+$color-primary-active: #3a6a9c;
+$color-primary-disabled: #b0c4e0;
+
+// ---------- Secondary (вторичные) ----------
+$color-secondary-default: #393B3C;
+$color-secondary-hover: #4a4d4e;
+$color-secondary-focus: #2c2e2f;
+$color-secondary-active: #1f2122;
+$color-secondary-disabled: #747474;
+
+// ---------- Light (белые) ----------
+$color-light-default: #FFFFFF;
+$color-light-hover: #B4A9FF;
+$color-light-focus: #B4A9FF;
+
+// ---------- Neutral (нейтральные / фон, текст) ----------
+$color-white: #FFFFFF;
+$color-black: #000000;
+$color-dark-bg: #0A0B0B;
+$color-card-bg: #1e1e1e;
+$color-overlay: rgba(10, 11, 11, 0.9);
+$color-overlay-title: rgba(10, 11, 11, 0.6);
+$color-placeholder-dark: rgba(255, 255, 255, 0.5);
+$color-placeholder-light: rgba(0, 0, 0, 0.5);
+$color-text-primary: #FFFFFF;
+$color-fields-normal: rgba(255, 255, 255, 0.15);
+$color-text-secondary: rgba(255, 255, 255, 0.8);
+$color-text-tertiary: rgba(255, 255, 255, 0.7);
+$color-text-disabled: rgba(255, 255, 255, 0.5);
+$color-text-light: #000000;
+$color-loader: rgba(0, 0, 0, 0.5);
+$color-modal:rgba(0, 0, 0, 0.7);
+
+// ---------- Accent (акцентные элементы) ----------
+$color-accent: #B4A9FF;
+$color-accent-dark: #6A5DC2;
+$color-accent-border: #DC5DFC;
+
+// ---------- Status / Feedback ----------
+$color-success: #308E21;
+$color-warning: #A59400;
+$color-error: #FF7575;
+$color-info: #67A5EB;
+
+// ---------- Gradients ----------
+$gradient-hero: linear-gradient(178.73deg, rgba(39, 135, 245, 0.18) -17.53%, rgba(163, 147, 245, 0.18) 131.74%);
+$gradient-card: linear-gradient(178.73deg, rgba(9, 23, 39, 0.844) -17.53%, rgba(163, 147, 245, 0.18) 131.74%);
+$gradient-black: linear-gradient(180deg, #000000 0%, rgba(39, 36, 36, 0.7) 100%);
+$gradient-title: linear-gradient(to top, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0.8));
+
+// ---------- Shadows ----------
+$shadow-card: 0 0 1px 1px rgba(255, 255, 255, 0.2), 0px 0px 80px 0px rgba(255, 255, 255, 0.33);
+$shadow-card-hover: 0 0 1px 1px #B4A9FF, 0px 0px 60px #B4A9FF;
+$shadow-modal: 0 2px 8px rgba(0, 0, 0, 0.1);
+$shadow-button: 0 2px 4px rgba(0, 0, 0, 0.2);
+$shadow-modal: 0 4px 20px rgba(0,0,0,0.3);
+
+// ---------- Borders ----------
+$border-radius-sm: 8px;
+$border-radius-md: 16px;
+$border-radius-lg: 24px;
+$border-radius-xl: 28px;
+$border-radius-round: 50%;
+

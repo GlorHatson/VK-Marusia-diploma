@@ -1,9 +1,52 @@
+@use '@/styles/variables' as *;
+@use '@/styles/button-base' as *;
+
+.button {
+  @include button-base;
+  @include button-text;
+}
+
 .button--secondary {
-  background: #747474;
-  color: rgba(255, 255, 255, 0.5);
+  background: $color-secondary-default;
+  color: $color-text-secondary;
+
+  &:hover {
+    background: $color-secondary-hover;
+    color: $color-text-secondary;
+  }
+}
+
+.button--round {
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .button--light {
-  background: #FFFFFF;
-  color: #000000;
+  background: $color-light-default;
+  color: $color-text-light;
+  // border-color: $color-light-default;
+
+  &:hover {
+    background: $color-light-hover;
+  }
+
+  &:focus-visible {
+    background: $color-light-focus;
+  }
 }
+
+// // для маленьких кнопок, если нужно
+// .button--small {
+//   padding: 8px 24px;
+//   font-size: 14px;
+// }
+
+// // Класс для текстовых кнопок (добавляет отступы)
+// .button-text {
+//   padding: 16px 48px;
+// }

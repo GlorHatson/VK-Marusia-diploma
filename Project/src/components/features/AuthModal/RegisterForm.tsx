@@ -5,6 +5,7 @@ import Input from '../../UI/Input/Input';
 import MailIcon from '../../../assets/images/icon-mail.svg?react';
 import UserIcon from '../../../assets/images/icon-user.svg?react';
 import KeyIcon from '../../../assets/images/icon-key.svg?react';
+import Button from '../../../components/UI/Button/Button';
 import styles from './AuthModal.module.scss';
 
 interface RegisterFormProps {
@@ -115,9 +116,9 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onSuccess, onSwitchToLogin 
         </div>
       </div>
       {error && <div className={styles['auth-modal__error']}>{error}</div>}
-      <button type="submit" className={styles['auth-modal__button']} disabled={loading}>
+      <Button variant="primary" className={styles['auth-modal__button']} disabled={loading}>
         {loading ? 'Регистрация...' : 'Создать аккаунт'}
-      </button>
+      </Button>
       <button type="button" className={styles['auth-modal__link']} onClick={onSwitchToLogin}>
         У меня есть пароль
       </button>
