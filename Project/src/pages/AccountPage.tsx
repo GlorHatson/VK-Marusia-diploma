@@ -77,7 +77,13 @@ const AccountPage = () => {
           <div
             key={movie.id}
             className={styles['account-page__favorites-card']}
-            onClick={() => navigate(`/movie/${movie.id}`)}
+            onClick={(e) => {
+              // Если клик был по кнопке или внутри неё – не переходим
+              if ((e.target as HTMLElement).closest('button')) {
+                return;
+              }
+              navigate(`/movie/${movie.id}`);
+            }}
           >
             <Button
               variant="light"

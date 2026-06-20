@@ -43,7 +43,6 @@ const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
           className={styles['auth-modal__close']}
           aria-label="Закрыть"
         />
-
         {/* Логотип – общий для всех режимов */}
         <div className={styles['auth-modal__logo']}>
           <MarusiaLogo className={styles['auth-modal__logo-image']} />

@@ -34,7 +34,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSuccess, onSwitchToRegister }) 
 
   return (
     <form onSubmit={handleSubmit} className={styles['auth-modal__form']}>
-      <div className={styles['auth-modal__title']}>Вход</div>
+      {/* <div className={styles['auth-modal__title']}>Вход</div> */}
       <div className={styles['auth-modal__fields']}>
         <div>
           <Input
