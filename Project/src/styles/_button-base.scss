@@ -17,11 +17,13 @@
   &:hover {
     background: $color-primary-hover;
   }
+
   &:focus-visible {
     outline: none;
     background: $color-primary-focus;
     color: $color-text-disabled;
   }
+
   &:disabled {
     background: $color-secondary-disabled;
     color: $color-text-disabled;
@@ -43,11 +45,13 @@
   @include button-base;
   @include button-icon;
   background: $color-secondary-default;
-  color: $color-text-secondary;   // цвет иконки
+  color: $color-text-secondary; // цвет иконки
+
   &:hover {
     background: $color-secondary-hover;
     color: $color-text-secondary;
   }
+
   &:focus-visible {
     background: $color-secondary-focus;
     color: $color-text-secondary;

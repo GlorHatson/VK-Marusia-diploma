@@ -59,10 +59,18 @@ const MainPage = () => {
               <h1 className={styles['main-page__random-title']}>{randomMovie.title}</h1>
               <p className={styles['main-page__random-description']}>{randomMovie.plot ?? ''}</p>
               <div className={styles['main-page__random-actions']}>
-                <Button variant="primary" onClick={handleOpenTrailer}>Трейлер</Button>
-                <Button variant="secondary" onClick={handleMoreClick}>О фильме</Button>
-                <FavoriteButton movieId={randomMovie.id} />
-                <RefreshButton onClick={handleRefreshRandom} />
+                <div className={styles['main-page__actions-primary']}>
+                  <Button variant="primary" onClick={handleOpenTrailer} block>
+                    Трейлер
+                  </Button>
+                </div>
+                <div className={styles['main-page__actions-secondary']}>
+                  <Button variant="secondary" onClick={handleMoreClick} className={styles['main-page__btn-secondary']}>
+                    О фильме
+                  </Button>
+                  <FavoriteButton movieId={randomMovie.id} />
+                  <RefreshButton onClick={handleRefreshRandom} />
+                </div>
               </div>
             </div>
             <div className={styles['main-page__random-poster-wrapper']}>
@@ -90,27 +98,29 @@ const MainPage = () => {
 
       <section className={styles['main-page__top']}>
         <h2 className={styles['main-page__top-title']}>Топ 10 фильмов</h2>
-        <div className={styles['main-page__top-grid']}>
-          {top10.map((movie, index) => (
-            <div
-              key={movie.id}
-              className={styles['main-page__top-card']}
-              onClick={() => handleCardClick(movie.id)}
-            >
-              <div className={styles['main-page__top-rank']}>{index + 1}</div>
-              <div className={styles['main-page__top-poster-container']}>
-                {movie.posterUrl ? (
-                  <img
-                    src={movie.posterUrl}
-                    alt={movie.title}
-                    className={styles['main-page__top-poster']}
-                  />
-                ) : (
-                  <NoPoster title={movie.title} variant="compact" />
-                )}
+        <div className={styles['main-page__top-scroll-wrapper']}>
+          <div className={styles['main-page__top-grid']}>
+            {top10.map((movie, index) => (
+              <div
+                key={movie.id}
+                className={styles['main-page__top-card']}
+                onClick={() => handleCardClick(movie.id)}
+              >
+                <div className={styles['main-page__top-rank']}>{index + 1}</div>
+                <div className={styles['main-page__top-poster-container']}>
+                  {movie.posterUrl ? (
+                    <img
+                      src={movie.posterUrl}
+                      alt={movie.title}
+                      className={styles['main-page__top-poster']}
+                    />
+                  ) : (
+                    <NoPoster title={movie.title} variant="compact" />
+                  )}
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </section>
 

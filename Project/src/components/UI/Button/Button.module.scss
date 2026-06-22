@@ -30,7 +30,6 @@
 .button--light {
   background: $color-light-default;
   color: $color-text-light;
-  // border-color: $color-light-default;
 
   &:hover {
     background: $color-light-hover;
@@ -41,6 +40,10 @@
     background: $color-light-focus;
     color: $color-text-light-hover;
   }
+}
+
+.button--block {
+  width: 100%;
 }
 
 .ripple {

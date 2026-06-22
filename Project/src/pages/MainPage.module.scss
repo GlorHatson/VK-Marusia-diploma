@@ -1,7 +1,7 @@
 @use '@/styles/variables' as *;
 
 .main-page__random {
-  margin-bottom: 36px;
+  margin-bottom: 40px;
 }
 
 .main-page__random-content {
@@ -64,10 +64,20 @@
 
 .main-page__random-actions {
   display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 30px;
+}
+
+.main-page__actions-primary {
+  width: 172px;
+}
+
+.main-page__actions-secondary {
+  display: flex;
   gap: 16px;
   align-items: center;
-  flex-wrap: wrap;
-  margin-bottom: 30px;
 }
 
 .main-page__random-poster-wrapper {
@@ -101,6 +111,7 @@
   margin-bottom: 64px;
 }
 
+
 .main-page__top-grid {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
@@ -119,7 +130,6 @@
   transition: box-shadow 0.3s ease;
 
   &:hover {
-    // transform: scale(1.04);
     box-shadow: $shadow-card-hover;
   }
 }
@@ -169,4 +179,114 @@
   padding: 40px;
   font-size: 20px;
   color: $color-text-primary;
+}
+
+
+/* ------------ МОБИЛЬНАЯ ВЕРСИЯ (≤ 375px) ---------- */
+@media (max-width: 375px) {
+  .main-page__random {
+    margin: 0 0 24px;
+  }
+
+  .main-page__random-content {
+    flex-direction: column-reverse;
+    gap: 24px;
+  }
+
+  .main-page__random-info {
+    padding-top: 0;
+    max-width: 100%;
+  }
+
+  .main-page__random-meta {
+    gap: 16px;
+    margin-bottom: 12px;
+  }
+
+  .main-page__random-year,
+  .main-page__random-genre,
+  .main-page__random-duration {
+    font-size: 14px;
+    line-height: 20px;
+  }
+
+  .main-page__random-title {
+    font-size: 28px;
+    line-height: 34px;
+    margin-bottom: 8px;
+  }
+
+  .main-page__random-description {
+    font-size: 16px;
+    line-height: 22px;
+    margin-bottom: 24px;
+  }
+
+  .main-page__random-actions {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .main-page__actions-primary {
+    width: 100%;
+  }
+
+
+  .main-page__actions-secondary {
+    display: flex;
+    width: 100%;
+  }
+
+  .main-page__btn-secondary {
+    flex: 1;
+    padding: 16px 16px;
+  }
+
+
+  .main-page__random-poster-wrapper {
+    width: 100%;
+    aspect-ratio: 7 / 5;
+    max-height: 234px;
+  }
+
+  .main-page__top {
+    padding-bottom: 16px;
+  }
+
+  .main-page__top-title {
+    font-size: 24px;
+    line-height: 32px;
+    margin-bottom: 40px;
+  }
+
+  .main-page__top-scroll-wrapper {
+    overflow-x: auto;
+    padding: 80px;
+    margin: -80px;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+
+  .main-page__top-grid {
+    @media (max-width: 375px) {
+      display: flex;
+
+      &::after {
+        content: '';
+        flex: 0 0 40px;
+        height: 1px;
+      }
+    }
+  }
+
+  .main-page__top-card {
+    flex: 0 0 224px;
+    height: 336px;
+  }
+
+
 }

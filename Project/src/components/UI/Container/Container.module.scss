@@ -4,4 +4,9 @@
     padding: 0 80px;
     width: 100%;
     box-sizing: border-box;
+    overflow-x: hidden;
+
+    @media (max-width: 375px) {
+        padding: 0 20px;
+    }
 }

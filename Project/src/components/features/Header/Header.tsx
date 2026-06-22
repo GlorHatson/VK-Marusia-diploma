@@ -8,6 +8,8 @@ import styles from './Header.module.scss';
 import Container from '../../UI/Container/Container';
 import MarusiaLogo from '../../../assets/images/marusia-logo.svg?react';
 import IconFind from '../../../assets/images/icon-find.svg?react';
+import IconGenres from '../../../assets/images/icon-genres.svg?react';
+import IconUser from '../../../assets/images/icon-user.svg?react';
 import AuthModal from '../AuthModal/AuthModal';
 
 // Простейший debounce без lodash
@@ -75,6 +77,17 @@ const Header = () => {
     setSearchQuery('');
     dispatch(clearSearch());
     setIsDropdownOpen(false);
+  };
+
+  const handleGenresClick = () => {
+    navigate('/genres');
+  };
+
+  const handleSearchClick = () => {
+    // На мобилке можно открыть модальное окно поиска, но пока просто переключаем фокус на поле ввода
+    // Можно сделать так: при клике на иконку поиска открывается поле поиска
+    // Пока просто делаем alert
+    alert('Поиск (мобильная версия)');
   };
 
   const handleAuthClick = () => {
@@ -157,6 +170,19 @@ const Header = () => {
                 {isAuthenticated && user ? (user.surname || user.email.split('@')[0] || 'Аккаунт') : 'Войти'}
               </button>
             </div>
+
+            <div className={styles['header__mobile-actions']}>
+              <button className={styles['header__mobile-btn']} onClick={handleGenresClick} aria-label="Жанры">
+                <IconGenres className={styles['mobile-icon-genres']} />
+              </button>
+              <button className={styles['header__mobile-btn']} onClick={handleSearchClick} aria-label="Поиск">
+                <IconFind className={styles['mobile-icon-find']} />
+              </button>
+              <button className={styles['header__mobile-btn']} onClick={handleAuthClick} aria-label="Аккаунт">
+                <IconUser className={styles['mobile-icon-user']} />
+              </button>
+            </div>
+
           </div>
         </Container>
       </header>

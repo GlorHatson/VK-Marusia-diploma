@@ -77,6 +77,7 @@
   display: flex;
   align-items: center;
   background: $color-secondary-default;
+  color: $color-placeholder-dark;
   border-radius: 8px;
   padding: 0 16px;
   height: 48px;
@@ -95,9 +96,13 @@
   border: none;
   font-size: 18px;
   line-height: 24px;
-  color: $color-text-secondary;
   padding: 12px 0;
   outline: none;
+  color: $color-text-primary;
+
+  &::placeholder {
+    color: $color-placeholder-dark;
+  }
 }
 
 .header__search {
@@ -155,4 +160,55 @@
   padding: 8px;
   text-align: center;
   color: rgba(255, 255, 255, 0.7);
+}
+
+// Мобильные кнопки – скрыты на десктопе
+.header__mobile-actions {
+  display: none;
+  align-items: center;
+  gap: 20px;
+}
+
+.header__mobile-btn {
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: $color-text-primary;
+  transition: color 0.2s;
+
+  &:hover {
+    color: $color-accent;
+  }
+}
+
+/* ---------- МОБИЛЬНАЯ ВЕРСИЯ (≤ 375px) ---------- */
+@media (max-width: 375px) {
+.header {
+  padding: 20px 0 12px;
+  margin: 0;
+}
+  .header__logo {
+    margin-right: 0;
+  }
+
+  .header__logo-image {
+    height: 20px;
+    padding-left: 3px;
+  }
+
+  .header__nav,
+  .header__search,
+  .header__auth {
+    display: none;
+  }
+
+  .header__mobile-actions {
+    display: flex;
+  }
 }
