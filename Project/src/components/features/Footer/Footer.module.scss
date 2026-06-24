@@ -45,14 +45,18 @@
 
 /* ------------ МОБИЛЬНАЯ ВЕРСИЯ (≤ 375px) ---------- */
 @media (max-width: 375px) {
-  .footer__container {
-  justify-content: flex-start;
-}
+  .footer {
+    padding: 0 0 36px;
+  }
 
-.footer__social-link {
-  width: 24px;
-  height: 24px;
-  padding: 5px;
-}
+  .footer__container {
+    justify-content: flex-start;
+  }
+
+  .footer__social-link {
+    width: 24px;
+    height: 24px;
+    padding: 5px;
+  }
 
 }
