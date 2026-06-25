@@ -56,8 +56,8 @@
   color: $color-text-tertiary;
   margin-bottom: 60px;
   display: -webkit-box;
-  -webkit-line-clamp: 2;
-  line-clamp: 2;
+  -webkit-line-clamp: 5;
+  line-clamp: 5;
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -179,16 +179,14 @@
 
 /* ---------- 1071–1420px ---------- */
 @media (max-width: 1420px) {
-  .main-page__random-actions {
-    flex-direction: column;
-    gap: 16px;
+
+  .main-page__random-description {
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
   }
 
-  .main-page__actions-secondary {
-    display: flex;
-    gap: 16px;
-    align-items: center;
-    width: 100%;
+  .main-page__random-actions {
+    flex-direction: column;
   }
 
   .main-page__btn-secondary {
@@ -211,13 +209,9 @@
 
 /* ---------- 869–1090px ---------- */
 @media (max-width: 1090px) {
-  .main-page__random-content {
-    flex-direction: row;
-    // gap: 24px;
-  }
 
   .main-page__random-info {
-    padding-top: 40px;
+    padding-top: 24px;
     max-width: 50%;
   }
 
@@ -238,18 +232,6 @@
     max-height: 400px;
   }
 
-  .main-page__random-actions {
-    // flex-direction: row;
-    gap: 16px;
-  }
-
-  .main-page__actions-secondary {
-    display: flex;
-    gap: 16px;
-    align-items: center;
-    width: 100%;
-  }
-
   .main-page__top-title {
     font-size: 36px;
     line-height: 42px;
@@ -260,12 +242,6 @@
     grid-template-columns: repeat(3, 1fr);
     gap: 24px;
     row-gap: 40px;
-  }
-
-  .main-page__top-card {
-    width: 100%;
-    height: auto;
-    aspect-ratio: 2 / 3;
   }
 }
 
@@ -290,8 +266,8 @@
     font-size: 20px;
     line-height: 28px;
     margin-bottom: 40px;
-    -webkit-line-clamp: 3;
-    line-clamp: 3;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
   }
 
   .main-page__random-poster-wrapper {
@@ -304,17 +280,14 @@
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
-    gap: 16px;
   }
 
   .main-page__actions-secondary {
-    display: inline-flex;
     width: 100%;
   }
 
   .main-page__top {
-    margin-bottom: 60px;
-    padding: 0;
+    padding: 0 0 35px;
   }
 
   .main-page__top-title {
@@ -341,7 +314,7 @@
 
     &::after {
       content: '';
-      flex: 0 0 10px;
+      flex: 0 0 1px;
       height: 1px;
     }
   }
@@ -379,7 +352,6 @@
   }
 
   .main-page__random-meta {
-    gap: 16px;
     margin-bottom: 12px;
   }
 
@@ -399,7 +371,7 @@
   .main-page__random-description {
     font-size: 16px;
     line-height: 22px;
-    margin-bottom: 24px;
+    margin-bottom: 35px;
   }
 
   .main-page__random-poster-wrapper {

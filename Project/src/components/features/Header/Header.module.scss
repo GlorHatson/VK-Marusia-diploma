@@ -63,14 +63,25 @@
   border: none;
   cursor: pointer;
   font-family: inherit;
-}
+  display: flex;
+  align-items: center;
+  gap: 8px;
 
-.header__nav-link:hover {
-  color: $color-accent;
+  &:hover {
+    color: $color-accent;
+  }
 }
 
 .header__nav-link--active {
   border-bottom: 1.5px solid $color-accent-border;
+}
+
+/* Иконки навигации (скрыты на десктопе, показываются на 1024px) */
+.nav-icon {
+  display: none;
+  width: 24px;
+  height: 24px;
+  color: inherit;
 }
 
 .header__search-wrapper {
@@ -134,8 +145,8 @@
   position: absolute;
   top: calc(100% + 12px);
   right: 0;
-  width: 560px; // фиксированная ширина
-  max-width: 100%; // но на мобилках не вылезает
+  width: 560px;
+  max-width: 100%;
   display: flex;
   flex-direction: column;
   gap: 2px;
@@ -147,7 +158,6 @@
   z-index: 200;
   padding: 8px;
 
-  // чтобы выпадашка не уезжала вправо на маленьких экранах
   @media (max-width: 768px) {
     width: calc(100vw - 32px);
     left: 16px;
@@ -162,7 +172,7 @@
   color: rgba(255, 255, 255, 0.7);
 }
 
-// Мобильные кнопки – скрыты на десктопе
+/* Мобильные кнопки (скрыты на десктопе) */
 .header__mobile-actions {
   display: none;
   align-items: center;
@@ -187,20 +197,33 @@
   }
 }
 
-/* ---------- МОБИЛЬНАЯ ВЕРСИЯ (≤ 375px) ---------- */
-@media (max-width: 375px) {
-.header {
-  padding: 20px 0 12px;
-  margin: 0;
-}
-  .header__logo {
-    margin-right: 0;
+/* 1024px: навигация и вход – только иконки, текст скрыт, поле поиска остаётся */
+@media (max-width: 1024px) {
+
+  .header__nav-link span,
+  .header__auth span {
+    display: none;
   }
 
-  .header__logo-image {
-    height: 20px;
-    padding-left: 3px;
+  .header__nav-link .nav-icon,
+  .header__auth .nav-icon {
+    display: inline-block;
+    width: 24px;
+    height: 24px;
   }
+
+  .header__nav {
+    gap: 16px;
+    margin-right: 20px;
+  }
+
+  .header__search {
+    margin-right: 20px;
+  }
+}
+
+/* 768px: скрываем навигацию, поиск и вход; показываем мобильные кнопки */
+@media (max-width: 768px) {
 
   .header__nav,
   .header__search,
@@ -210,5 +233,43 @@
 
   .header__mobile-actions {
     display: flex;
+  }
+
+  .header__mobile-btn {
+    width: 24px;
+    height: 24px;
+  }
+
+  .mobile-icon-genres {
+    width: 20px;
+    height: 20px;
+  }
+
+  .mobile-icon-find {
+    width: 24px;
+    height: 24px;
+  }
+
+  .mobile-icon-user {
+    width: 24px;
+    height: 30px;
+  }
+
+  .header__logo {
+    margin-right: 0;
+  }
+}
+
+/* 375px: минимальные размеры (уже были) */
+@media (max-width: 375px) {
+  .header {
+    padding: 20px 0 12px;
+    margin: 0;
+  }
+
+  .header__logo-image {
+    height: 20px;
+    width: auto;
+    padding-left: 3px;
   }
 }

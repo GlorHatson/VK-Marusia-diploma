@@ -43,8 +43,8 @@
   height: 100%;
 }
 
-/* ------------ МОБИЛЬНАЯ ВЕРСИЯ (≤ 375px) ---------- */
-@media (max-width: 375px) {
+/* ------------ МОБИЛЬНАЯ ВЕРСИЯ (≤ 868px) ---------- */
+@media (max-width: 868px) {
   .footer {
     padding: 0 0 36px;
   }
@@ -52,11 +52,12 @@
   .footer__container {
     justify-content: flex-start;
   }
+}
 
+@media (max-width: 520px) {
   .footer__social-link {
     width: 24px;
     height: 24px;
     padding: 5px;
   }
-
 }

@@ -7,12 +7,12 @@ import SearchDropdownItem from '../../UI/SearchDropdownItem/SearchDropdownItem';
 import styles from './Header.module.scss';
 import Container from '../../UI/Container/Container';
 import MarusiaLogo from '../../../assets/images/marusia-logo.svg?react';
-import IconFind from '../../../assets/images/icon-find.svg?react';
 import IconGenres from '../../../assets/images/icon-genres.svg?react';
+import IconFind from '../../../assets/images/icon-find.svg?react';
 import IconUser from '../../../assets/images/icon-user.svg?react';
 import AuthModal from '../AuthModal/AuthModal';
 
-// Простейший debounce без lodash
+// Debounce без lodash
 function debounce<F extends (...args: any[]) => any>(fn: F, delay: number): F {
   let timer: ReturnType<typeof setTimeout> | null = null;
   return ((...args: any[]) => {
@@ -79,14 +79,9 @@ const Header = () => {
     setIsDropdownOpen(false);
   };
 
-  const handleGenresClick = () => {
-    navigate('/genres');
-  };
-
+  const handleGenresClick = () => navigate('/genres');
   const handleSearchClick = () => {
-    // На мобилке можно открыть модальное окно поиска, но пока просто переключаем фокус на поле ввода
-    // Можно сделать так: при клике на иконку поиска открывается поле поиска
-    // Пока просто делаем alert
+    // Тут можно открыть модальное окно поиска или что-то ещё
     alert('Поиск (мобильная версия)');
   };
 
@@ -108,19 +103,21 @@ const Header = () => {
                 <MarusiaLogo className={styles['header__logo-image']} />
               </Link>
             </div>
+
             <nav className={styles.header__nav}>
               <NavLink
                 to="/"
                 className={({ isActive }) => `${styles['header__nav-link']} ${isActive ? styles['header__nav-link--active'] : ''}`}
                 end
               >
-                Главная
+                <span>Главная</span>
               </NavLink>
               <NavLink
                 to="/genres"
                 className={({ isActive }) => `${styles['header__nav-link']} ${isActive ? styles['header__nav-link--active'] : ''}`}
               >
-                Жанры
+                <IconGenres className={styles['nav-icon']} />
+                <span>Жанры</span>
               </NavLink>
             </nav>
 
@@ -167,7 +164,8 @@ const Header = () => {
                 onClick={handleAuthClick}
                 className={`${styles['header__nav-link']} ${isAuthenticated ? styles['header__nav-link--active'] : ''}`}
               >
-                {isAuthenticated && user ? (user.surname || user.email.split('@')[0] || 'Аккаунт') : 'Войти'}
+                <IconUser className={styles['nav-icon']} />
+                <span>{isAuthenticated && user ? (user.surname || user.email.split('@')[0] || 'Аккаунт') : 'Войти'}</span>
               </button>
             </div>
 
@@ -182,7 +180,6 @@ const Header = () => {
                 <IconUser className={styles['mobile-icon-user']} />
               </button>
             </div>
-
           </div>
         </Container>
       </header>
