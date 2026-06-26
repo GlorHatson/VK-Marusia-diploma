@@ -19,7 +19,7 @@
   border-radius: 24px;
   width: 420px;
   max-width: 90%;
-  padding: 62px 40px;
+  padding: 62px 40px 62px;
 }
 
 .auth-modal__close {
@@ -41,7 +41,7 @@
 .auth-modal__logo {
   display: flex;
   justify-content: center;
-  margin-bottom: 40px;
+  margin: 0 0 36px;
 }
 
 .auth-modal__logo-image {
@@ -105,4 +105,32 @@
   line-height: 16px;
   margin-top: 4px;
   margin-left: 12px;
+}
+
+/* ---------- МОБИЛЬНАЯ ВЕРСИЯ (≤ 520px) ---------- */
+@media (max-width: 520px) {
+
+
+  .auth-modal__container {
+    width: calc(100vw - 40px);
+    max-width: 420px;
+    padding: 30px 20px;
+    border-radius: 24px;
+  }
+
+  .auth-modal__close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 40px;
+    height: 40px;
+  }
+
+  .auth-modal__logo {
+    margin: 30px 0 30px;
+  }
+
+  .auth-modal__title {
+    margin: 24px 0;
+  }
 }

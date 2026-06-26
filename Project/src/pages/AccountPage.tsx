@@ -135,7 +135,7 @@ const AccountPage = () => {
         </div>
       </div>
       {/* Кнопка выхода */}
-      <Button variant="primary" onClick={handleLogout}>
+      <Button variant="primary" onClick={handleLogout} className={styles['account-page__logout-btn']}>
         Выйти из аккаунта
       </Button>
     </div>
@@ -151,14 +151,16 @@ const AccountPage = () => {
             onClick={() => setActiveTab('favorites')}
           >
             <FavoriteIcon className={styles['account-page__tab-icon']} />
-            <span>Избранные фильмы</span>
+            <span className={styles['tab-text-full']}>Избранные фильмы</span>
+            <span className={styles['tab-text-short']}>Избранное</span>
           </button>
           <button
             className={`${styles['account-page__tab']} ${activeTab === 'settings' ? styles['account-page__tab--active'] : ''}`}
             onClick={() => setActiveTab('settings')}
           >
             <UserIcon className={styles['account-page__tab-icon']} />
-            <span>Настройка аккаунта</span>
+            <span className={styles['tab-text-full']}>Настройка аккаунта</span>
+            <span className={styles['tab-text-short']}>Настройки</span>
           </button>
         </div>
         <div className={styles['account-page__content']}>
