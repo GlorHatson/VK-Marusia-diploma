@@ -3,6 +3,7 @@
 
 .favorite-button {
   @include button-icon-secondary;
+  flex-shrink: 0;
 
   .favorite-button__icon {
     width: 24px;

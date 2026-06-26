@@ -65,10 +65,14 @@
 
 .main-page__random-actions {
   display: flex;
-  flex-direction: row;
+  // flex-direction: row;
   flex-wrap: wrap;
   gap: 16px;
   margin-bottom: 30px;
+}
+
+.main-page__trailer-btn {
+  width: auto;
 }
 
 .main-page__actions-secondary {
@@ -187,6 +191,10 @@
 
   .main-page__random-actions {
     flex-direction: column;
+  }
+
+  .main-page__trailer-btn {
+    width: 100%;
   }
 
   .main-page__btn-secondary {
@@ -331,10 +339,11 @@
 
 @media (max-width: 520px) {
   .main-page__random-actions {
+    flex-direction: column;
     flex-wrap: wrap;
   }
 
-  .main-page__actions-primary {
+  .main-page__trailer-btn {
     width: 100%;
   }
 

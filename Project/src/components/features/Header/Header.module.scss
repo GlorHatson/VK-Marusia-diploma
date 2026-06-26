@@ -199,6 +199,10 @@
 
 /* 1024px: навигация и вход – только иконки, текст скрыт, поле поиска остаётся */
 @media (max-width: 1024px) {
+  .header {
+    padding: 24px 0;
+    margin: 0;
+  }
 
   .header__nav-link span,
   .header__auth span {
@@ -224,6 +228,9 @@
 
 /* 768px: скрываем навигацию, поиск и вход; показываем мобильные кнопки */
 @media (max-width: 768px) {
+  .header {
+    padding: 20px 0 16px;
+  }
 
   .header__nav,
   .header__search,
@@ -264,7 +271,6 @@
 @media (max-width: 375px) {
   .header {
     padding: 20px 0 12px;
-    margin: 0;
   }
 
   .header__logo-image {

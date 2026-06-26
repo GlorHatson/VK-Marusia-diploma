@@ -21,7 +21,7 @@
 .genres-page__card {
   position: relative;
   width: auto;
-  height: 304px;
+  max-height: 304px;
   background: $color-dark-bg;
   box-shadow: $shadow-card;
   border-radius: 24px;
@@ -85,4 +85,56 @@
   padding: 40px;
   font-size: 20px;
   color: $color-text-primary;
+}
+
+/* ---------- (≤ 1280px) ---------- */
+@media (max-width: 1280px) {
+  .genres-page__title {
+    font-size: 36px;
+    line-height: 36px;
+    margin-bottom: 54px;
+  }
+
+  .genres-page__grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 48px 32px;
+  }
+}
+
+/* ---------- (≤ 768px) ---------- */
+@media (max-width: 768px) {
+  .genres-page__title {
+    font-size: 28px;
+    line-height: 34px;
+    margin-bottom: 40px;
+  }
+
+  .genres-page__grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 32px;
+  }
+}
+
+
+/* ---------- МОБИЛЬНАЯ ВЕРСИЯ (≤ 520px) ---------- */
+@media (max-width: 520px) {
+
+  .genres-page {
+    padding: 24px 0 80px;
+  }
+
+  .genres-page__title {
+    font-size: 24px;
+    line-height: 32px;
+  }
+
+  .genres-page__grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .genres-page__card {
+    width: 100%;
+    height: 304px;
+  }
 }

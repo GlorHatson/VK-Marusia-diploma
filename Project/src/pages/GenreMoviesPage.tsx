@@ -106,27 +106,27 @@ const GenreMoviesPage = () => {
           <h1 className={styles['genre-movies__title']}>{displayGenreName}</h1>
         </div>
 
-        <div className={styles['genre-movies__grid']}>
-          {movies.map((movie) => (
-            <div
-              key={movie.id}
-              className={styles['genre-movies__card']}
-              onClick={() => handleCardClick(movie.id)}
-            >
-              <div className={styles['genre-movies__poster-container']}>
-                {movie.posterUrl ? (
-                  <img
-                    src={movie.posterUrl}
-                    alt={movie.title}
-                    className={styles['genre-movies__poster']}
-                  />
-                ) : (
-                  <NoPoster title={movie.title} variant="compact" />
-                )}
+          <div className={styles['genre-movies__grid']}>
+            {movies.map((movie) => (
+              <div
+                key={movie.id}
+                className={styles['genre-movies__card']}
+                onClick={() => handleCardClick(movie.id)}
+              >
+                <div className={styles['genre-movies__poster-container']}>
+                  {movie.posterUrl ? (
+                    <img
+                      src={movie.posterUrl}
+                      alt={movie.title}
+                      className={styles['genre-movies__poster']}
+                    />
+                  ) : (
+                    <NoPoster title={movie.title} variant="compact" />
+                  )}
+                </div>
               </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
 
         {hasMore && (
           <div className={styles['genre-movies__load-more']}>

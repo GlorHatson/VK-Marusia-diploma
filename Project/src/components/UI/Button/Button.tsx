@@ -12,7 +12,6 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   icon?: React.ReactNode;
   isRound?: boolean;
   ripple?: boolean;
-  block?: boolean;
 }
 
 const Button: React.FC<ButtonProps> = ({
@@ -22,7 +21,6 @@ const Button: React.FC<ButtonProps> = ({
   icon,
   isRound,
   ripple = true,
-  block = false,
   className,
   onClick,
   ...props
@@ -65,12 +63,11 @@ const Button: React.FC<ButtonProps> = ({
   const sizeClass = size !== 'large' ? styles[`button--${size}`] : '';
   const roundClass = isRound ? styles['button--round'] : '';
   const rippleClass = ripple ? styles['button--ripple'] : '';
-  const blockClass = block ? styles['button--block'] : '';
 
   return (
     <button
       ref={buttonRef}
-      className={`${styles.button} ${variantClass} ${sizeClass} ${roundClass} ${rippleClass} ${blockClass} ${className || ''}`}
+      className={`${styles.button} ${variantClass} ${sizeClass} ${roundClass} ${rippleClass} ${className || ''}`}
       onClick={handleClick}
       {...props}
     >
