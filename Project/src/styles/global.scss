@@ -9,6 +9,7 @@
 html,
 body {
   height: 100%;
+  min-width: 375px;
 }
 
 body {
@@ -34,14 +35,13 @@ body::before {
   background: $gradient-hero, $gradient-black;
 }
 
-#root {
+main {
+  min-height: calc(100vh - 234px);
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
-}
-
-main {
   flex: 1;
+  align-items: center;
+
 }
 
 input,
@@ -50,42 +50,3 @@ button,
 select {
   font-family: inherit;
 }
-
-// /* Базовый класс для всех кнопок (Primary стиль) */
-// .button-base {
-//   border: 1px solid $color-placeholder-light;
-//   border-radius: 28px;
-//   cursor: pointer;
-//   transition: background 0.2s ease, border-color 0.2s ease;
-//   display: inline-flex;
-//   align-items: center;
-//   justify-content: center;
-//   color: $color-text-primary;
-//   font-weight: 700;
-//   font-size: 18px;
-//   line-height: 24px;
-
-//   // Primary стили (фон по умолчанию)
-//   background: $color-primary-default;
-
-//   &:hover {
-//     background: $color-primary-hover;
-//   }
-
-//   &:focus-visible {
-//     outline: none;
-//     background: $color-primary-focus;
-//     color: $color-text-disabled;
-//   }
-
-//   &:disabled {
-//     background: $color-primary-disabled;
-//     color: $color-text-disabled;
-//     cursor: not-allowed;
-//   }
-// }
-
-// // Класс для текстовых кнопок (добавляет отступы)
-// .button-text {
-//   padding: 16px 48px;
-// }

@@ -8,6 +8,7 @@
   bottom: 0;
   background: $color-placeholder-light;
   display: flex;
+  flex-direction: row;
   align-items: center;
   justify-content: center;
   z-index: 2000;
@@ -17,9 +18,9 @@
   position: relative;
   background: $color-light-default;
   border-radius: 24px;
-  width: 420px;
-  max-width: 90%;
-  padding: 62px 40px 62px;
+  max-width: 420px;
+  width: 100%;
+  padding: 62px 40px;
 }
 
 .auth-modal__close {
@@ -107,13 +108,13 @@
   margin-left: 12px;
 }
 
-/* ---------- МОБИЛЬНАЯ ВЕРСИЯ (≤ 520px) ---------- */
-@media (max-width: 520px) {
+/* ---------- МОБИЛЬНАЯ ВЕРСИЯ (≤ 768px) ---------- */
+@media (max-width: 768px) {
 
 
   .auth-modal__container {
     width: calc(100vw - 40px);
-    max-width: 420px;
+    min-width: 335px;
     padding: 30px 20px;
     border-radius: 24px;
   }
@@ -127,7 +128,7 @@
   }
 
   .auth-modal__logo {
-    margin: 30px 0 30px;
+    margin: 30px 0;
   }
 
   .auth-modal__title {

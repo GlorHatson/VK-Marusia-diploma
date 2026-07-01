@@ -48,8 +48,8 @@
 }
 
 .genre-movies__card {
-  width: 224px;
-  height: 336px;
+  width: auto;
+  aspect-ratio: 2 / 3;
   border-radius: 16px;
   overflow: hidden;
   cursor: pointer;
@@ -141,12 +141,6 @@
     row-gap: 48px;
   }
 
-  .genre-movies__card {
-    width: 100%;
-    height: auto;
-    aspect-ratio: 2 / 3;
-  }
-
   .scroll-to-top {
     right: 60px;
   }
@@ -208,11 +202,5 @@
   .genre-movies__grid {
     grid-template-columns: 1fr;
     gap: 24px;
-  }
-
-  .genre-movies__card {
-    width: 100%;
-    height: auto;
-    aspect-ratio: 2 / 3;
   }
 }

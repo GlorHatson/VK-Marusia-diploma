@@ -114,14 +114,15 @@
 .main-page__top-grid {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  gap: 40px;
-  row-gap: 64px;
+  gap: 64px 40px;
 }
 
 .main-page__top-card {
   position: relative;
-  width: 224px;
-  height: 336px;
+  // width: 224px;
+  // height: 336px;
+  width: auto;
+  aspect-ratio: 2 / 3;
   box-shadow: $shadow-card;
   border-radius: 16px;
   overflow: visible;
@@ -203,15 +204,9 @@
 
   .main-page__top-grid {
     grid-template-columns: repeat(4, 1fr);
-    gap: 32px;
-    row-gap: 48px;
+    gap: 48px 32px;
   }
 
-  .main-page__top-card {
-    width: 100%;
-    height: auto;
-    aspect-ratio: 2 / 3;
-  }
 }
 
 /* ---------- 869–1090px ---------- */
@@ -247,8 +242,7 @@
 
   .main-page__top-grid {
     grid-template-columns: repeat(3, 1fr);
-    gap: 24px;
-    row-gap: 40px;
+    gap: 40px 24px;
   }
 }
 
@@ -348,7 +342,7 @@
 
   .main-page__btn-secondary {
     flex: 1;
-    padding: 16px 16px;
+    padding: 16px;
   }
 }
 
