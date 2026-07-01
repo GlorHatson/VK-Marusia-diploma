@@ -25,11 +25,6 @@
   margin-right: 40px;
 }
 
-.header__search {
-  flex: 1;
-  margin-right: 80px;
-}
-
 .header__auth {
   flex-shrink: 0;
 }
@@ -146,7 +141,7 @@
   top: calc(100% + 12px);
   right: 0;
   width: 560px;
-  max-width: 100%;
+  // max-width: 100%;
   display: flex;
   flex-direction: column;
   gap: 2px;
@@ -155,7 +150,7 @@
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
   max-height: 476px;
   overflow-y: auto;
-  z-index: 200;
+  z-index: 999;
   padding: 8px;
 
   @media (max-width: 768px) {
@@ -278,4 +273,100 @@
     width: auto;
     padding-left: 3px;
   }
+}
+
+/* ========== МОБИЛЬНЫЙ ПОИСК (modal) ========== */
+.mobile-search-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.9);
+  z-index: 9999;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 0 20px;
+  overflow-y: auto;
+}
+
+.mobile-search-modal {
+  background: transparent;
+  width: 100%;
+  max-width: 768px;
+  padding: 16px 0;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.mobile-search__field {
+  display: flex;
+  align-items: center;
+  background: $color-secondary-default;
+  border-radius: 8px;
+  padding: 0 16px;
+  height: 56px;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+.mobile-search__icon {
+  width: 24px;
+  height: 24px;
+  color: $color-placeholder-dark;
+}
+
+.mobile-search__input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  font-size: 18px;
+  color: $color-text-primary;
+  outline: none;
+
+  &::placeholder {
+    color: $color-placeholder-dark;
+  }
+}
+
+.mobile-search__action {
+  background: transparent;
+  border: none;
+  color: $color-text-disabled;
+  font-size: 20px;
+  cursor: pointer;
+  padding: 0 4px;
+  transition: color 0.2s;
+
+  &:hover {
+    color: $color-text-primary;
+  }
+}
+
+.mobile-search__results {
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  padding: 24px 20px 24px;
+  margin-top: 8px;
+  flex: 1;
+  background: $color-secondary-default;
+  border-radius: 8px;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.mobile-search__loading,
+.mobile-search__empty {
+  text-align: center;
+  color: $color-text-tertiary;
+  font-size: 18px;
+  padding: 40px 0;
+  width: 100%;
 }
