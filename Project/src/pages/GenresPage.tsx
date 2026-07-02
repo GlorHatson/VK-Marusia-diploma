@@ -4,6 +4,7 @@ import { useAppDispatch, useAppSelector } from '../app/hooks';
 import { fetchGenres } from '../store/slices/genresSlice';
 import { apiClient } from '../services/axiosInstance';
 import Container from '../components/UI/Container/Container';
+import Loader from '../components/UI/Loader/Loader';
 import styles from './GenresPage.module.scss';
 
 interface GenrePosters {
@@ -94,7 +95,7 @@ const GenresPage = () => {
   };
 
   if (genresLoading || loadingPosters) {
-    return <div className={styles['genres-page__loader']}>Загрузка жанров...</div>;
+    return <div className={styles['genres-page__loader']}><Loader size={200} message="Загрузка жанров..." /></div>;
   }
 
   if (genresError) {

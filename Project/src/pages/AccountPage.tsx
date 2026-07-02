@@ -10,6 +10,7 @@ import FavoriteIcon from '../assets/images/icon-favorit.svg?react';
 import UserIcon from '../assets/images/icon-user.svg?react';
 import MailIcon from '../assets/images/icon-mail.svg?react';
 import CloseIcon from '../assets/images/icon-close.svg?react';
+import Loader from '../components/UI/Loader/Loader';
 import styles from './AccountPage.module.scss';
 
 const AccountPage = () => {
@@ -45,7 +46,7 @@ const AccountPage = () => {
 
   // Если загружается профиль
   if (userLoading) {
-    return <div className={styles['account-page__loader']}>Загрузка профиля...</div>;
+    return <div className={styles['account-page__loader']}><Loader size={200} message="Загрузка профиля..." /></div>;
   }
 
   // Если не авторизован
@@ -65,7 +66,7 @@ const AccountPage = () => {
   // Рендер избранных фильмов
   const renderFavorites = () => {
     if (favLoading) {
-      return <div className={styles['account-page__loader']}>Загрузка избранного...</div>;
+      return <div className={styles['account-page__loader']}><Loader size={200} message="Загрузка избранного..." /></div>;
     }
     if (!favorites.length) {
       return <div className={styles['account-page__favorites-empty']}>Нет избранных фильмов</div>;

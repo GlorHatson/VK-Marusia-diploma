@@ -8,6 +8,7 @@ import Rating from '../components/UI/Rating/Rating';
 import FavoriteButton from '../components/UI/FavoriteButton/FavoriteButton';
 import NoPoster from '../components/UI/NoPoster/NoPoster';
 import TrailerModal from '../components/features/TrailerModal/TrailerModal';
+import Loader from '../components/UI/Loader/Loader';
 import styles from './MoviePage.module.scss';
 
 const formatCurrency = (value?: number | null): string => {
@@ -41,7 +42,7 @@ const MoviePage = () => {
   const handleCloseTrailer = () => setIsTrailerOpen(false);
 
   if (loading.current) {
-    return <div className={styles['movie-page__loader']}>Загрузка...</div>;
+    return <div className={styles['movie-page__loader']}><Loader size={200} message="Загрузка фильма..." /></div>;
   }
 
   if (error) {

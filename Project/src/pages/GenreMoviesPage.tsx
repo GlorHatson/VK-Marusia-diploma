@@ -7,6 +7,7 @@ import Button from '../components/UI/Button/Button';
 import NoPoster from '../components/UI/NoPoster/NoPoster';
 import UpIcon from '../assets/images/icon-up.svg?react';
 import LeftIcon from '../assets/images/icon-left.svg?react';
+import Loader from '../components/UI/Loader/Loader';
 import styles from './GenreMoviesPage.module.scss';
 
 const GenreMoviesPage = () => {
@@ -85,7 +86,7 @@ const GenreMoviesPage = () => {
   }, [dispatch]);
 
   if (loading && movies.length === 0) {
-    return <div className={styles['genre-movies__loader']}>Загрузка...</div>;
+    return <div className={styles['genre-movies__loader']}><Loader size={200} message="Загрузка фильмов..." /></div>;
   }
 
   if (error) {

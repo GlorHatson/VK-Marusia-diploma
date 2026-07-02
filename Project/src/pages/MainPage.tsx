@@ -9,6 +9,7 @@ import FavoriteButton from '../components/UI/FavoriteButton/FavoriteButton';
 import RefreshButton from '../components/UI/RefreshButton/RefreshButton';
 import NoPoster from '../components/UI/NoPoster/NoPoster';
 import TrailerModal from '../components/features/TrailerModal/TrailerModal';
+import Loader from '../components/UI/Loader/Loader';
 import styles from './MainPage.module.scss';
 
 const formatRuntime = (minutes?: number): string => {
@@ -24,6 +25,7 @@ const MainPage = () => {
   const { top10, randomMovie, loading, error } = useAppSelector((state) => state.movies);
   const [isTrailerOpen, setIsTrailerOpen] = useState(false);
 
+
   useEffect(() => {
     dispatch(fetchTop10());
     dispatch(fetchRandomMovie());
@@ -35,9 +37,12 @@ const MainPage = () => {
   const handleMoreClick = () => randomMovie && navigate(`/movie/${randomMovie.id}`);
   const handleCardClick = (id: number) => navigate(`/movie/${id}`);
 
-
   if (loading.top10 || loading.random) {
-    return <div className={styles['main-page__loader']}>Загрузка...</div>;
+    return (
+      <div className={styles['main-page__loader']}>
+        <Loader size={200} message="Загрузка страницы..."/>
+      </div>
+    );
   }
 
   if (error) {
