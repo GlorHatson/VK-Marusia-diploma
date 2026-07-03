@@ -1,8 +1,9 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { favoritesApi, type FavoriteMovie } from '../../services/favoritesApi';
+import { favoritesApi } from '../../services/favoritesApi';
+import type { Movie } from './moviesSlice';
 
 interface FavoritesState {
-  items: FavoriteMovie[];
+  items: Movie[];
   loading: boolean;
   error: string | null;
 }

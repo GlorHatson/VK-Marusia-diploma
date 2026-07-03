@@ -1,0 +1,64 @@
+@use '@/styles/variables' as *;
+
+.nav {
+  display: flex;
+  gap: 40px;
+  margin-right: 40px;
+}
+
+.link {
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 32px;
+  color: $color-text-primary;
+  text-decoration: none;
+  white-space: nowrap;
+  padding: 8px 0;
+  transition: all 0.2s ease;
+  border-bottom: 1.5px solid transparent;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  &:hover {
+    color: $color-accent;
+  }
+
+  &.active {
+    border-bottom: 1.5px solid $color-accent-border;
+  }
+}
+
+.icon {
+  display: none;
+  width: 24px;
+  height: 24px;
+  color: inherit;
+}
+
+// 1024px: только иконки
+@media (max-width: 1024px) {
+  .link span {
+    display: none;
+  }
+
+  .icon {
+    display: inline-block;
+  }
+
+  .nav {
+    gap: 16px;
+    margin-right: 20px;
+  }
+}
+
+// 768px: скрываем полностью
+@media (max-width: 768px) {
+  .nav {
+    display: none;
+  }
+}

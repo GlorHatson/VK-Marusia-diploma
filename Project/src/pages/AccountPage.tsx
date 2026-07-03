@@ -4,12 +4,12 @@ import { useAppDispatch, useAppSelector } from '../app/hooks';
 import { logout, checkAuth } from '../store/slices/userSlice';
 import { removeFromFavorites, fetchFavorites } from '../store/slices/favoritesSlice';
 import Container from '../components/UI/Container/Container';
-import NoPoster from '../components/UI/NoPoster/NoPoster';
+import MovieGrid from '../components/UI/MovieGrid/MovieGrid';
+import MovieCard from '../components/UI/MovieCard/MovieCard';
 import Button from '../components/UI/Button/Button';
 import FavoriteIcon from '../assets/images/icon-favorit.svg?react';
 import UserIcon from '../assets/images/icon-user.svg?react';
 import MailIcon from '../assets/images/icon-mail.svg?react';
-import CloseIcon from '../assets/images/icon-close.svg?react';
 import Loader from '../components/UI/Loader/Loader';
 import ErrorMessage from '../components/UI/ErrorMessage/ErrorMessage';
 import styles from './AccountPage.module.scss';
@@ -21,14 +21,12 @@ const AccountPage = () => {
   const { items: favorites, loading: favLoading, error: favoritesError } = useAppSelector((state) => state.favorites);
   const [activeTab, setActiveTab] = useState<'favorites' | 'settings'>('favorites');
 
-  // Проверка авторизации при монтировании
   useEffect(() => {
     if (!isAuthenticated && !userLoading) {
       dispatch(checkAuth());
     }
   }, [dispatch, isAuthenticated, userLoading]);
 
-  // Загрузка избранного, если пользователь авторизован
   useEffect(() => {
     if (isAuthenticated) {
       dispatch(fetchFavorites());
@@ -45,12 +43,10 @@ const AccountPage = () => {
     await dispatch(removeFromFavorites(movieId));
   };
 
-  // Если загружается профиль
   if (userLoading) {
     return <div className={styles['account-page__loader']}><Loader size={200} message="Загрузка профиля..." /></div>;
   }
 
-  // Если не авторизован
   if (!isAuthenticated || !user) {
     return <div className={styles['account-page__loader']}>Доступ ограничен. Пожалуйста, войдите.</div>;
   }
@@ -69,7 +65,6 @@ const AccountPage = () => {
     );
   }
 
-  // Безопасное получение имени/фамилии/email
   const name = user.name || '';
   const surname = user.surname || '';
   const email = user.email || '';
@@ -78,7 +73,6 @@ const AccountPage = () => {
     ? `${name[0]}${surname[0]}`.toUpperCase()
     : (email[0] || 'U').toUpperCase();
 
-  // Рендер избранных фильмов
   const renderFavorites = () => {
     if (favLoading) {
       return <div className={styles['account-page__loader']}><Loader size={200} message="Загрузка избранного..." /></div>;
@@ -88,69 +82,38 @@ const AccountPage = () => {
     }
 
     return (
-      <div className={styles['account-page__favorites-grid']}>
+      <MovieGrid scrollOnMobile>
         {favorites.map((movie) => (
-          <div
+          <MovieCard
             key={movie.id}
-            className={styles['account-page__favorites-card']}
-            onClick={(e) => {
-              // Если клик был по кнопке или внутри неё – не переходим
-              if ((e.target as HTMLElement).closest('button')) {
-                return;
-              }
-              navigate(`/movie/${movie.id}`);
-            }}
-          >
-            <Button
-              variant="light"
-              isRound
-              icon={<CloseIcon />}
-              className={styles['account-page__favorites-remove']}
-              onClick={(e) => handleRemoveFavorite(e, movie.id)}
-              aria-label="Удалить из избранного"
-            />
-
-            <div className={styles['account-page__favorites-poster-wrapper']}>
-              {movie.posterUrl ? (
-                <img
-                  src={movie.posterUrl}
-                  alt={movie.title}
-                  className={styles['account-page__favorites-poster']}
-                />
-              ) : (
-                <NoPoster title={movie.title || `Фильм ${movie.id}`} variant="compact" />
-              )}
-            </div>
-          </div>
+            movie={movie}
+            onClick={() => navigate(`/movie/${movie.id}`)}
+            showRemove
+            onRemove={(e) => handleRemoveFavorite(e, movie.id)}
+          />
         ))}
-      </div>
+      </MovieGrid>
     );
   };
 
-  // Рендер настроек аккаунта
   const renderSettings = () => (
-    <div className={styles['account-page__content']}>
-      <div className={styles['account-page__settings']}>
-        {/* Первый горизонтальный блок: инициалы + имя-фамилия */}
-        <div className={styles['settings-row']}>
-          <div className={styles['settings-avatar']}>{initials}</div>
-          <div className={styles['settings-info']}>
-            <div className={styles['settings-label']}>Имя Фамилия</div>
-            <div className={styles['settings-value']}>{fullName}</div>
-          </div>
-        </div>
-        {/* Второй горизонтальный блок: иконка почты + email */}
-        <div className={styles['settings-row']}>
-          <div className={styles['settings-icon']}>
-            <MailIcon className={styles['settings-icon-svg']} />
-          </div>
-          <div className={styles['settings-info']}>
-            <div className={styles['settings-label']}>Электронная почта</div>
-            <div className={styles['settings-value']}>{email}</div>
-          </div>
+    <div className={styles['account-page__settings']}>
+      <div className={styles['settings-row']}>
+        <div className={styles['settings-avatar']}>{initials}</div>
+        <div className={styles['settings-info']}>
+          <div className={styles['settings-label']}>Имя Фамилия</div>
+          <div className={styles['settings-value']}>{fullName}</div>
         </div>
       </div>
-      {/* Кнопка выхода */}
+      <div className={styles['settings-row']}>
+        <div className={styles['settings-icon']}>
+          <MailIcon className={styles['settings-icon-svg']} />
+        </div>
+        <div className={styles['settings-info']}>
+          <div className={styles['settings-label']}>Электронная почта</div>
+          <div className={styles['settings-value']}>{email}</div>
+        </div>
+      </div>
       <Button variant="primary" onClick={handleLogout} className={styles['account-page__logout-btn']}>
         Выйти из аккаунта
       </Button>

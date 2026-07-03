@@ -4,7 +4,8 @@ import { useAppDispatch, useAppSelector } from '../app/hooks';
 import { fetchMoviesByGenre, resetGenreMovies } from '../store/slices/genreMoviesSlice';
 import Container from '../components/UI/Container/Container';
 import Button from '../components/UI/Button/Button';
-import NoPoster from '../components/UI/NoPoster/NoPoster';
+import MovieGrid from '../components/UI/MovieGrid/MovieGrid';
+import MovieCard from '../components/UI/MovieCard/MovieCard';
 import UpIcon from '../assets/images/icon-up.svg?react';
 import LeftIcon from '../assets/images/icon-left.svg?react';
 import Loader from '../components/UI/Loader/Loader';
@@ -20,7 +21,6 @@ const GenreMoviesPage = () => {
   const dispatch = useAppDispatch();
   const { movies, loading, hasMore, page: currentPage, error } = useAppSelector((state) => state.genreMovies);
 
-  // Загружаем данные при изменении жанра или номера страницы в URL
   useEffect(() => {
     if (!genreName) {
       navigate('/genres', { replace: true });
@@ -33,7 +33,6 @@ const GenreMoviesPage = () => {
     }
   }, [genreName, pageFromUrl, currentPage, loading, movies.length, dispatch, navigate]);
 
-  // Загрузка следующей страницы
   const loadMore = useCallback(() => {
     if (genreName && hasMore && !loading) {
       const nextPage = currentPage + 1;
@@ -41,7 +40,6 @@ const GenreMoviesPage = () => {
     }
   }, [genreName, hasMore, loading, currentPage, setSearchParams]);
 
-  // Сохранение скролла перед переходом на страницу фильма
   const saveScrollPosition = useCallback(() => {
     if (genreName) {
       sessionStorage.setItem(`scroll_${genreName}_${currentPage}`, window.scrollY.toString());
@@ -53,7 +51,6 @@ const GenreMoviesPage = () => {
     navigate(`/movie/${id}`);
   };
 
-  // Восстановление скролла после загрузки данных
   useEffect(() => {
     if (!loading && movies.length > 0 && genreName) {
       const savedScroll = sessionStorage.getItem(`scroll_${genreName}_${currentPage}`);
@@ -64,8 +61,6 @@ const GenreMoviesPage = () => {
     }
   }, [loading, movies.length, genreName, currentPage]);
 
-
-  // --- ФУНКЦИЯ СБРОСА НА ПЕРВУЮ СТРАНИЦУ ---
   const resetToFirstPage = async () => {
     if (pageFromUrl === 1) {
       window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -77,9 +72,7 @@ const GenreMoviesPage = () => {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   };
-  // ---------------------------------------------
 
-  // Сброс состояния при размонтировании
   useEffect(() => {
     return () => {
       dispatch(resetGenreMovies());
@@ -87,7 +80,7 @@ const GenreMoviesPage = () => {
   }, [dispatch]);
 
   if (loading && movies.length === 0) {
-    return <div className={styles['genre-movies__loader']}><Loader size={200} message="Загрузка фильмов..." /></div>;
+    return <Loader size={200} message="Загрузка фильмов..." />;
   }
 
   if (error) {
@@ -118,27 +111,15 @@ const GenreMoviesPage = () => {
           <h1 className={styles['genre-movies__title']}>{displayGenreName}</h1>
         </div>
 
-        <div className={styles['genre-movies__grid']}>
+        <MovieGrid>
           {movies.map((movie) => (
-            <div
+            <MovieCard
               key={movie.id}
-              className={styles['genre-movies__card']}
+              movie={movie}
               onClick={() => handleCardClick(movie.id)}
-            >
-              <div className={styles['genre-movies__poster-container']}>
-                {movie.posterUrl ? (
-                  <img
-                    src={movie.posterUrl}
-                    alt={movie.title}
-                    className={styles['genre-movies__poster']}
-                  />
-                ) : (
-                  <NoPoster title={movie.title} variant="compact" />
-                )}
-              </div>
-            </div>
+            />
           ))}
-        </div>
+        </MovieGrid>
 
         {hasMore && (
           <div className={styles['genre-movies__load-more']}>
@@ -148,11 +129,7 @@ const GenreMoviesPage = () => {
           </div>
         )}
         {pageFromUrl > 1 && (
-          <button
-            className={styles['scroll-to-top']}
-            onClick={resetToFirstPage}
-            aria-label="На первую страницу"
-          >
+          <button className={styles['scroll-to-top']} onClick={resetToFirstPage} aria-label="На первую страницу">
             <UpIcon className={styles['scroll-to-top__icon']} />
           </button>
         )}

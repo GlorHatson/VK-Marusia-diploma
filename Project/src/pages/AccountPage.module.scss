@@ -55,7 +55,6 @@
   display: inline;
 }
 
-/* Настройки */
 .account-page__settings {
   display: flex;
   flex-direction: column;
@@ -120,69 +119,6 @@
   color: $color-text-primary;
 }
 
-/* Избранные фильмы */
-.account-page__favorites-grid {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 40px;
-  row-gap: 64px;
-}
-
-.account-page__favorites-card {
-  position: relative;
-  width: 224px;
-  height: 336px;
-  border-radius: 16px;
-  cursor: pointer;
-  transition: box-shadow 0.3s ease;
-  background: $color-card-bg;
-  box-shadow: $shadow-card;
-
-  &:hover {
-    box-shadow: $shadow-card-hover;
-
-    .account-page__favorites-remove {
-      opacity: 1;
-      pointer-events: auto;
-    }
-  }
-}
-
-.account-page__favorites-poster-wrapper {
-  width: 100%;
-  height: 100%;
-  border-radius: 16px;
-  overflow: hidden;
-}
-
-.account-page__favorites-poster {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.4s ease;
-
-  &:hover {
-    transform: scale(1.1);
-  }
-}
-
-.account-page__favorites-remove {
-  position: absolute;
-  top: -20px;
-  right: -20px;
-  width: 40px;
-  height: 40px;
-  transition: opacity 0.3s ease;
-  z-index: 2;
-  opacity: 0;
-
-  svg {
-    width: 15px;
-    height: 13px;
-    display: block;
-  }
-}
-
 .account-page__favorites-empty,
 .account-page__loader {
   text-align: center;
@@ -191,50 +127,6 @@
   color: $color-text-primary;
 }
 
-
-@media (max-width: 1420px) {
-
-  .account-page__favorites-grid {
-    grid-template-columns: repeat(4, 1fr);
-    gap: 32px;
-    row-gap: 48px;
-  }
-
-  .account-page__favorites-card {
-    width: 100%;
-    height: auto;
-    aspect-ratio: 2 / 3;
-  }
-
-  .account-page__favorites-remove {
-    background: rgba(255, 255, 255, 0.4);
-    backdrop-filter: blur(10px);
-
-    svg {
-      width: 12px;
-      height: 12px;
-      display: block;
-    }
-  }
-
-}
-
-@media (max-width: 1090px) {
-  .account-page__favorites-grid {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 36px;
-    row-gap: 40px;
-  }
-}
-
-@media (max-width: 868px) {
-  .account-page__favorites-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 30px;
-  }
-}
-
-/* ---------- МОБИЛЬНАЯ ВЕРСИЯ (≤ 620px) ---------- */
 @media (max-width: 620px) {
   .account-page {
     padding: 24px 0 80px;
@@ -286,33 +178,6 @@
     display: inline;
   }
 
-  /* Избранные фильмы – лента с прокруткой */
-  .account-page__favorites-grid {
-    display: flex;
-    gap: 40px;
-    overflow-x: auto;
-    padding: 80px;
-    margin: -80px;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-
-    &::-webkit-scrollbar {
-      display: none;
-    }
-  }
-
-  .account-page__favorites-card {
-    flex: 0 0 224px;
-    height: 336px;
-    margin-right: 0;
-  }
-
-  .account-page__favorites-remove {
-    opacity: 1;
-    pointer-events: auto;
-  }
-
-  /* Настройки */
   .account-page__settings {
     max-width: 100%;
     gap: 32px;
@@ -344,7 +209,6 @@
     line-height: 24px;
   }
 
-  /* Кнопка выхода – растягиваем на 100% */
   .account-page__logout-btn {
     width: 100%;
     justify-content: center;

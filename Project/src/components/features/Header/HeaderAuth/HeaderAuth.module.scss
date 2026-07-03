@@ -1,0 +1,52 @@
+@use '@/styles/variables' as *;
+
+.auth {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 32px;
+  color: $color-text-primary;
+  text-decoration: none;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  padding: 8px 0;
+  transition: all 0.2s ease;
+  border-bottom: 1.5px solid transparent;
+
+  &:hover {
+    color: $color-accent;
+  }
+
+  &.active {
+    border-bottom: 1.5px solid $color-accent-border;
+  }
+}
+
+.icon {
+  display: none;
+  width: 24px;
+  height: 24px;
+  color: inherit;
+}
+
+// 1024px: только иконка
+@media (max-width: 1024px) {
+  .auth span {
+    display: none;
+  }
+
+  .icon {
+    display: inline-block;
+  }
+}
+
+// 768px: скрываем полностью
+@media (max-width: 768px) {
+  .auth {
+    display: none;
+  }
+}

@@ -1,14 +1,8 @@
 import { apiClient } from './axiosInstance';
-
-export interface FavoriteMovie {
-  id: number;
-  title?: string;
-  posterUrl?: string;
-  // другие поля, если вернутся с сервера
-}
+import type { Movie } from '../store/slices/moviesSlice';
 
 export const favoritesApi = {
-  getFavorites: () => apiClient.get<FavoriteMovie[]>('/favorites'),
+  getFavorites: () => apiClient.get<Movie[]>('/favorites'),
   addFavorite: (movieId: number) => {
     const formData = new URLSearchParams();
     formData.append('id', movieId.toString());

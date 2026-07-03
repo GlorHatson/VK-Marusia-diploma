@@ -3,29 +3,19 @@ import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../app/hooks';
 import { fetchTop10, fetchRandomMovie } from '../store/slices/moviesSlice';
 import Container from '../components/UI/Container/Container';
-import Button from '../components/UI/Button/Button';
-import Rating from '../components/UI/Rating/Rating';
-import FavoriteButton from '../components/UI/FavoriteButton/FavoriteButton';
-import RefreshButton from '../components/UI/RefreshButton/RefreshButton';
-import NoPoster from '../components/UI/NoPoster/NoPoster';
+import MovieHero from '../components/UI/MovieHero/MovieHero';
+import MovieGrid from '../components/UI/MovieGrid/MovieGrid';
+import MovieCard from '../components/UI/MovieCard/MovieCard';
 import TrailerModal from '../components/features/TrailerModal/TrailerModal';
 import Loader from '../components/UI/Loader/Loader';
 import ErrorMessage from '../components/UI/ErrorMessage/ErrorMessage';
 import styles from './MainPage.module.scss';
-
-const formatRuntime = (minutes?: number): string => {
-  if (!minutes) return '—';
-  const hours = Math.floor(minutes / 60);
-  const mins = minutes % 60;
-  return `${hours > 0 ? `${hours} ч ` : ''}${mins} мин`;
-};
 
 const MainPage = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const { top10, randomMovie, loading, error } = useAppSelector((state) => state.movies);
   const [isTrailerOpen, setIsTrailerOpen] = useState(false);
-
 
   useEffect(() => {
     dispatch(fetchTop10());
@@ -39,16 +29,10 @@ const MainPage = () => {
   const handleCardClick = (id: number) => navigate(`/movie/${id}`);
 
   if (loading.top10 || loading.random) {
-    return (
-      <div className={styles['main-page__loader']}>
-        <Loader size={200} message="Загрузка страницы..." />
-      </div>
-    );
+    return <Loader size={200} message="Загрузка страницы..." />;
   }
 
-
   if (error.top10 || error.random) {
-    // Составляем сообщение
     let title = 'Ошибка загрузки';
     let message = '';
     if (error.top10) message += 'Не удалось загрузить топ-10. ';
@@ -68,81 +52,23 @@ const MainPage = () => {
   return (
     <Container>
       {randomMovie && (
-        <section className={styles['main-page__random']}>
-          <div className={styles['main-page__random-content']}>
-            <div className={styles['main-page__random-info']}>
-              <div className={styles['main-page__random-meta']}>
-                <Rating value={randomMovie.tmdbRating} />
-                <span className={styles['main-page__random-year']}>{randomMovie.releaseYear ?? '—'}</span>
-                <span className={styles['main-page__random-genre']}>{randomMovie.genres?.[0] ?? '—'}</span>
-                <span className={styles['main-page__random-duration']}>{formatRuntime(randomMovie.runtime)}</span>
-              </div>
-              <h1 className={styles['main-page__random-title']}>{randomMovie.title}</h1>
-              <p className={styles['main-page__random-description']}>{randomMovie.plot ?? ''}</p>
-              <div className={styles['main-page__random-actions']}>
-                <div className={styles['main-page__actions-primary']}>
-                  <Button variant="primary" onClick={handleOpenTrailer} className={styles['main-page__trailer-btn']}>
-                    Трейлер
-                  </Button>
-                </div>
-                <div className={styles['main-page__actions-secondary']}>
-                  <Button variant="secondary" onClick={handleMoreClick} className={styles['main-page__btn-secondary']}>
-                    О фильме
-                  </Button>
-                  <FavoriteButton movieId={randomMovie.id} />
-                  <RefreshButton onClick={handleRefreshRandom} />
-                </div>
-              </div>
-            </div>
-            <div className={styles['main-page__random-poster-wrapper']}>
-              {randomMovie.backdropUrl ? (
-                <img
-                  src={randomMovie.backdropUrl}
-                  alt={randomMovie.title}
-                  className={styles['main-page__random-poster']}
-                />
-              ) : (
-                randomMovie.posterUrl ? (
-                  <img
-                    src={randomMovie.posterUrl}
-                    alt={randomMovie.title}
-                    className={styles['main-page__random-poster']}
-                  />
-                ) : (
-                  <NoPoster title={randomMovie.title} />
-                )
-              )}
-            </div>
-          </div>
-        </section>
+        <MovieHero
+          movie={randomMovie}
+          variant="random"
+          onTrailerClick={handleOpenTrailer}
+          onMoreClick={handleMoreClick}
+          onRefresh={handleRefreshRandom}
+          // className={styles.hero}
+        />
       )}
 
       <section className={styles['main-page__top']}>
         <h2 className={styles['main-page__top-title']}>Топ 10 фильмов</h2>
-        <div className={styles['main-page__top-scroll-wrapper']}>
-          <div className={styles['main-page__top-grid']}>
-            {top10.map((movie, index) => (
-              <div
-                key={movie.id}
-                className={styles['main-page__top-card']}
-                onClick={() => handleCardClick(movie.id)}
-              >
-                <div className={styles['main-page__top-rank']}>{index + 1}</div>
-                <div className={styles['main-page__top-poster-container']}>
-                  {movie.posterUrl ? (
-                    <img
-                      src={movie.posterUrl}
-                      alt={movie.title}
-                      className={styles['main-page__top-poster']}
-                    />
-                  ) : (
-                    <NoPoster title={movie.title} variant="compact" />
-                  )}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
+        <MovieGrid scrollOnMobile={true}>
+          {top10.map((movie, index) => (
+            <MovieCard key={movie.id} movie={movie} rank={index + 1} onClick={() => handleCardClick(movie.id)} />
+          ))}
+        </MovieGrid>
       </section>
 
       <TrailerModal
