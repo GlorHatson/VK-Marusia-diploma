@@ -11,13 +11,14 @@ import UserIcon from '../assets/images/icon-user.svg?react';
 import MailIcon from '../assets/images/icon-mail.svg?react';
 import CloseIcon from '../assets/images/icon-close.svg?react';
 import Loader from '../components/UI/Loader/Loader';
+import ErrorMessage from '../components/UI/ErrorMessage/ErrorMessage';
 import styles from './AccountPage.module.scss';
 
 const AccountPage = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const { user, isAuthenticated, loading: userLoading } = useAppSelector((state) => state.user);
-  const { items: favorites, loading: favLoading } = useAppSelector((state) => state.favorites);
+  const { user, isAuthenticated, loading: userLoading, error: userError } = useAppSelector((state) => state.user);
+  const { items: favorites, loading: favLoading, error: favoritesError } = useAppSelector((state) => state.favorites);
   const [activeTab, setActiveTab] = useState<'favorites' | 'settings'>('favorites');
 
   // Проверка авторизации при монтировании
@@ -52,6 +53,20 @@ const AccountPage = () => {
   // Если не авторизован
   if (!isAuthenticated || !user) {
     return <div className={styles['account-page__loader']}>Доступ ограничен. Пожалуйста, войдите.</div>;
+  }
+
+  const error = userError || favoritesError;
+  if (error) {
+    return (
+      <ErrorMessage
+        title="Ошибка загрузки аккаунта"
+        message={error}
+        onRetry={() => {
+          dispatch(checkAuth());
+          if (isAuthenticated) dispatch(fetchFavorites());
+        }}
+      />
+    );
   }
 
   // Безопасное получение имени/фамилии/email

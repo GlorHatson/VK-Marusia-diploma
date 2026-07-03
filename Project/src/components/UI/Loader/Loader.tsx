@@ -84,7 +84,7 @@ const Loader: React.FC<LoaderProps> = ({ size = 200, message = 'Загрузка
               >
                 <animate
                   attributeName="opacity"
-                  values="1; 1; 1; 0; 1; 1"
+                  values="1; 1; 1; 0; 0; 1"
                   keyTimes="0; 0.02; 0.07; 0.3; 0.5; 1"
                   dur="1s"
                   begin="0.1s"

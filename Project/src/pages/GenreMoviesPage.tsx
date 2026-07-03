@@ -8,6 +8,7 @@ import NoPoster from '../components/UI/NoPoster/NoPoster';
 import UpIcon from '../assets/images/icon-up.svg?react';
 import LeftIcon from '../assets/images/icon-left.svg?react';
 import Loader from '../components/UI/Loader/Loader';
+import ErrorMessage from '../components/UI/ErrorMessage/ErrorMessage';
 import styles from './GenreMoviesPage.module.scss';
 
 const GenreMoviesPage = () => {
@@ -90,7 +91,17 @@ const GenreMoviesPage = () => {
   }
 
   if (error) {
-    return <div className={styles['genre-movies__error']}>Ошибка: {error}</div>;
+    return (
+      <ErrorMessage
+        title="Не удалось загрузить фильмы жанра"
+        message={error}
+        onRetry={() => {
+          if (genreName) {
+            dispatch(fetchMoviesByGenre({ genre: genreName, page: pageFromUrl }));
+          }
+        }}
+      />
+    );
   }
 
   const displayGenreName = genreName
@@ -107,27 +118,27 @@ const GenreMoviesPage = () => {
           <h1 className={styles['genre-movies__title']}>{displayGenreName}</h1>
         </div>
 
-          <div className={styles['genre-movies__grid']}>
-            {movies.map((movie) => (
-              <div
-                key={movie.id}
-                className={styles['genre-movies__card']}
-                onClick={() => handleCardClick(movie.id)}
-              >
-                <div className={styles['genre-movies__poster-container']}>
-                  {movie.posterUrl ? (
-                    <img
-                      src={movie.posterUrl}
-                      alt={movie.title}
-                      className={styles['genre-movies__poster']}
-                    />
-                  ) : (
-                    <NoPoster title={movie.title} variant="compact" />
-                  )}
-                </div>
+        <div className={styles['genre-movies__grid']}>
+          {movies.map((movie) => (
+            <div
+              key={movie.id}
+              className={styles['genre-movies__card']}
+              onClick={() => handleCardClick(movie.id)}
+            >
+              <div className={styles['genre-movies__poster-container']}>
+                {movie.posterUrl ? (
+                  <img
+                    src={movie.posterUrl}
+                    alt={movie.title}
+                    className={styles['genre-movies__poster']}
+                  />
+                ) : (
+                  <NoPoster title={movie.title} variant="compact" />
+                )}
               </div>
-            ))}
-          </div>
+            </div>
+          ))}
+        </div>
 
         {hasMore && (
           <div className={styles['genre-movies__load-more']}>

@@ -28,7 +28,7 @@
   height: 260px;
   padding: 0;
   margin: 0;
-  border-radius: 50%;
+  border-radius: 40%;
   overflow: hidden;
   box-shadow: 0 0 30px 0 #0000ff inset;
   background: transparent;
@@ -69,11 +69,11 @@
 
 @keyframes fill-level {
   0% {
-    transform: translate(-50%, -50%) rotate(45deg) scale(1);
+    transform: translate(-50%, -50%) rotate(10deg) scale(1);
   }
 
   15% {
-    transform: translate(-48%, -52%) rotate(25deg) scale(1.02);
+    transform: translate(-48%, -52%) rotate(-25deg) scale(1.02);
   }
 
   30% {
@@ -81,7 +81,7 @@
   }
 
   45% {
-    transform: translate(-50%, -50%) rotate(55deg) scale(1);
+    transform: translate(-50%, -50%) rotate(15deg) scale(1);
   }
 
   60% {
@@ -89,7 +89,7 @@
   }
 
   75% {
-    transform: translate(-52%, -48%) rotate(35deg) scale(0.98);
+    transform: translate(-52%, -48%) rotate(-35deg) scale(0.98);
   }
 
   90% {
@@ -97,7 +97,7 @@
   }
 
   100% {
-    transform: translate(-50%, -50%) rotate(55deg) scale(1);
+    transform: translate(-50%, -50%) rotate(35deg) scale(1.02);
   }
 }
 

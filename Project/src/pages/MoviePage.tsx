@@ -9,6 +9,7 @@ import FavoriteButton from '../components/UI/FavoriteButton/FavoriteButton';
 import NoPoster from '../components/UI/NoPoster/NoPoster';
 import TrailerModal from '../components/features/TrailerModal/TrailerModal';
 import Loader from '../components/UI/Loader/Loader';
+import ErrorMessage from '../components/UI/ErrorMessage/ErrorMessage';
 import styles from './MoviePage.module.scss';
 
 const formatCurrency = (value?: number | null): string => {
@@ -45,8 +46,16 @@ const MoviePage = () => {
     return <div className={styles['movie-page__loader']}><Loader size={200} message="Загрузка фильма..." /></div>;
   }
 
-  if (error) {
-    return <div className={styles['movie-page__error']}>Ошибка: {error}</div>;
+  if (error.current) {
+    return (
+      <ErrorMessage
+        title="Ошибка загрузки"
+        message="Не удалось загрузить данный фильм"
+        onRetry={() => {
+          if (id) dispatch(fetchMovieById(Number(id)));
+        }}
+      />
+    );
   }
 
   if (!movie) {

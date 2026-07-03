@@ -5,6 +5,7 @@ import { fetchGenres } from '../store/slices/genresSlice';
 import { apiClient } from '../services/axiosInstance';
 import Container from '../components/UI/Container/Container';
 import Loader from '../components/UI/Loader/Loader';
+import ErrorMessage from '../components/UI/ErrorMessage/ErrorMessage';
 import styles from './GenresPage.module.scss';
 
 interface GenrePosters {
@@ -99,7 +100,13 @@ const GenresPage = () => {
   }
 
   if (genresError) {
-    return <div className={styles['genres-page__error']}>Ошибка: {genresError}</div>;
+    return (
+      <ErrorMessage
+        title="Ошибка загрузки жанров"
+        message={genresError}
+        onRetry={() => dispatch(fetchGenres())}
+      />
+    );
   }
 
   return (

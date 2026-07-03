@@ -10,6 +10,7 @@ import RefreshButton from '../components/UI/RefreshButton/RefreshButton';
 import NoPoster from '../components/UI/NoPoster/NoPoster';
 import TrailerModal from '../components/features/TrailerModal/TrailerModal';
 import Loader from '../components/UI/Loader/Loader';
+import ErrorMessage from '../components/UI/ErrorMessage/ErrorMessage';
 import styles from './MainPage.module.scss';
 
 const formatRuntime = (minutes?: number): string => {
@@ -40,13 +41,28 @@ const MainPage = () => {
   if (loading.top10 || loading.random) {
     return (
       <div className={styles['main-page__loader']}>
-        <Loader size={200} message="Загрузка страницы..."/>
+        <Loader size={200} message="Загрузка страницы..." />
       </div>
     );
   }
 
-  if (error) {
-    return <div className={styles['main-page__error']}>Ошибка: {error}</div>;
+
+  if (error.top10 || error.random) {
+    // Составляем сообщение
+    let title = 'Ошибка загрузки';
+    let message = '';
+    if (error.top10) message += 'Не удалось загрузить топ-10. ';
+    if (error.random) message += 'Не удалось загрузить случайный фильм. ';
+    return (
+      <ErrorMessage
+        title={title}
+        message={message}
+        onRetry={() => {
+          dispatch(fetchTop10());
+          dispatch(fetchRandomMovie());
+        }}
+      />
+    );
   }
 
   return (

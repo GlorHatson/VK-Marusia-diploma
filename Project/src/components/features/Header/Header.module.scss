@@ -141,7 +141,6 @@
   top: calc(100% + 12px);
   right: 0;
   width: 560px;
-  // max-width: 100%;
   display: flex;
   flex-direction: column;
   gap: 2px;
@@ -165,6 +164,20 @@
   padding: 8px;
   text-align: center;
   color: rgba(255, 255, 255, 0.7);
+}
+
+.search-dropdown__error,
+.mobile-search__error {
+  padding: 12px 16px;
+  text-align: center;
+  color: #ff7575;
+  font-size: 16px;
+}
+
+.search-dropdown__list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
 }
 
 /* Мобильные кнопки (скрыты на десктопе) */
@@ -370,3 +383,4 @@
   padding: 40px 0;
   width: 100%;
 }
+
