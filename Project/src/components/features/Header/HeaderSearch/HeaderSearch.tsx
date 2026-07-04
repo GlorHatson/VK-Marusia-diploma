@@ -5,7 +5,7 @@ import SearchDropdownItem from '../../../UI/SearchDropdownItem/SearchDropdownIte
 import MobileSearchCard from '../../../UI/MobileSearchCard/MobileSearchCard';
 import IconFind from '../../../../assets/images/icon-find.svg?react';
 import { useDebounce } from '../../../../hooks/useDebounce';
-import styles from './HeaderSearch.module.scss';
+import styles from '../Header.module.scss';
 
 interface HeaderSearchProps {
   isSearchOpen: boolean;
@@ -36,7 +36,6 @@ const HeaderSearch: React.FC<HeaderSearchProps> = ({
     }
   }, [debouncedQuery, dispatch]);
 
-  // Закрытие дропдауна при клике вне
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
       if (searchRef.current && !searchRef.current.contains(e.target as Node)) {
@@ -47,7 +46,6 @@ const HeaderSearch: React.FC<HeaderSearchProps> = ({
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
-  // Закрытие по Escape
   useEffect(() => {
     const handleEsc = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
@@ -59,10 +57,14 @@ const HeaderSearch: React.FC<HeaderSearchProps> = ({
     return () => document.removeEventListener('keydown', handleEsc);
   }, [isSearchOpen, setIsSearchOpen]);
 
-  // Блокировка скролла при открытой мобильной модалке
   useEffect(() => {
     if (isSearchOpen) {
       document.body.style.overflow = 'hidden';
+      // Фокус на поле ввода при открытии мобильного поиска
+      setTimeout(() => {
+        const input = document.getElementById('mobile-search-input');
+        if (input) input.focus();
+      }, 100);
     } else {
       document.body.style.overflow = '';
     }
@@ -85,45 +87,52 @@ const HeaderSearch: React.FC<HeaderSearchProps> = ({
     onSelectMovie(id);
   };
 
-  const handleMobileOpen = () => {
-    setIsSearchOpen(true);
-    setTimeout(() => {
-      const input = document.getElementById('mobile-search-input');
-      if (input) input.focus();
-    }, 100);
-  };
-
   const handleMobileClose = () => {
     setIsSearchOpen(false);
     setSearchQuery('');
     dispatch(clearSearch());
   };
 
+  const handleMobileClear = () => {
+    if (searchQuery.trim() !== '') {
+      setSearchQuery('');
+      dispatch(clearSearch());
+      // Не закрываем модалку, оставляем открытой
+    } else {
+      // Если поле уже пустое – закрываем
+      setIsSearchOpen(false);
+    }
+  };
+
   return (
     <>
       {/* Десктопный поиск */}
-      <div className={styles.search} ref={searchRef}>
-        <div className={styles.wrapper}>
-          <IconFind className={styles.icon} />
+      <div className={styles.header__search} ref={searchRef}>
+        <div className={styles['header__search-wrapper']}>
+          <IconFind />
           <input
             type="text"
             placeholder="Поиск"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className={styles.input}
+            className={styles['header__search-input']}
           />
           {searchQuery.length > 0 && (
-            <button className={styles.clearBtn} onClick={handleClearSearch} aria-label="Очистить">
+            <button
+              className={styles['search__clear']}
+              onClick={handleClearSearch}
+              aria-label="Очистить"
+            >
               ✕
             </button>
           )}
         </div>
 
         {isDropdownOpen && (
-          <div className={styles.dropdown}>
-            {loading && <div className={styles.loading}>Загрузка...</div>}
+          <div className={styles['search-dropdown']}>
+            {loading && <div className={styles['search-dropdown__loading']}>Загрузка...</div>}
             {!loading && results.length === 0 && searchQuery.trim() !== '' && (
-              <div className={styles.empty}>Ничего не найдено</div>
+              <div className={styles['search-dropdown__empty']}>Ничего не найдено</div>
             )}
             {!loading &&
               results.slice(0, 10).map((movie) => (
@@ -137,37 +146,41 @@ const HeaderSearch: React.FC<HeaderSearchProps> = ({
         )}
       </div>
 
-      {/* Мобильная кнопка поиска */}
-      <button className={styles.mobileSearchBtn} onClick={handleMobileOpen} aria-label="Поиск">
-        <IconFind />
-      </button>
-
       {/* Мобильное модальное окно поиска */}
       {isSearchOpen && (
-        <div className={styles.mobileOverlay} onClick={(e) => {
-          if (e.target === e.currentTarget) handleMobileClose();
-        }}>
-          <div className={styles.mobileModal}>
-            <div className={styles.mobileField}>
-              <IconFind className={styles.mobileIcon} />
+        <div
+          className={styles['mobile-search-overlay']}
+          onClick={(e) => {
+            if (e.target === e.currentTarget) handleMobileClose();
+          }}
+        >
+          <div className={styles['mobile-search-modal']}>
+
+            <div className={styles['mobile-search__field']}>
+              <IconFind className={styles['mobile-search__icon']} />
               <input
                 id="mobile-search-input"
                 type="text"
                 placeholder="Поиск"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className={styles.mobileInput}
+                className={styles['mobile-search__input']}
                 autoFocus
               />
-              <button className={styles.mobileClear} onClick={handleMobileClose} aria-label="Закрыть">
+              <button
+                className={styles['mobile-search__action']}
+                onClick={handleMobileClear}
+                aria-label={searchQuery.trim() ? 'Очистить' : 'Закрыть'}
+              >
                 ✕
               </button>
             </div>
+
             {searchQuery.trim() !== '' && (
-              <div className={styles.mobileResults}>
-                {loading && <div className={styles.mobileLoading}>Загрузка...</div>}
+              <div className={styles['mobile-search__results']}>
+                {loading && <div className={styles['mobile-search__loading']}>Загрузка...</div>}
                 {!loading && results.length === 0 && (
-                  <div className={styles.mobileEmpty}>Ничего не найдено</div>
+                  <div className={styles['mobile-search__empty']}>Ничего не найдено</div>
                 )}
                 {!loading &&
                   results.map((movie) => (

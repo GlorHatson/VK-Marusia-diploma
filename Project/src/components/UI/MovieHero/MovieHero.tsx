@@ -38,7 +38,9 @@ const MovieHero: React.FC<MovieHeroProps> = ({
             <span className={styles['main-page__random-duration']}>{formatRuntime(movie.runtime)}</span>
           </div>
           <h1 className={styles['main-page__random-title']}>{movie.title}</h1>
-          <p className={styles['main-page__random-description']}>{movie.plot ?? ''}</p>
+          <p className={`${styles['main-page__random-description']} ${variant === 'detail' ? styles['main-page__random-description--detail'] : ''}`}>
+            {movie.plot ?? ''}
+          </p>
           <div className={`${styles['main-page__random-actions']} ${isRandom ? styles['main-page__random-actions--random'] : styles['main-page__random-actions--detail']}`}>
             <div className={styles['main-page__actions-primary']}>
               <Button variant="primary" onClick={onTrailerClick} className={styles['main-page__trailer-btn']}>
@@ -56,7 +58,7 @@ const MovieHero: React.FC<MovieHeroProps> = ({
             </div>
           </div>
         </div>
-        <div className={styles['main-page__random-poster-wrapper']}>
+        <div className={`${styles['main-page__random-poster-wrapper']} ${variant === 'detail' ? styles['main-page__random-poster-wrapper--detail'] : ''}`}>
           {movie.backdropUrl ? (
             <img src={movie.backdropUrl} alt={movie.title} className={styles['main-page__random-poster']} />
           ) : movie.posterUrl ? (

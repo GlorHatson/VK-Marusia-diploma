@@ -41,3 +41,14 @@
   color: #fff;
 }
 
+.rating--compact {
+  padding: 0px 8px;
+  font-size: 12px;
+  line-height: 20px;
+  border-radius: 16px;
+  gap: 4px;
+
+  .rating__star {
+    font-size: 12px;
+  }
+}

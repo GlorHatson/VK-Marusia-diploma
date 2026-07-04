@@ -97,27 +97,29 @@ const AccountPage = () => {
   };
 
   const renderSettings = () => (
-    <div className={styles['account-page__settings']}>
-      <div className={styles['settings-row']}>
-        <div className={styles['settings-avatar']}>{initials}</div>
-        <div className={styles['settings-info']}>
-          <div className={styles['settings-label']}>Имя Фамилия</div>
-          <div className={styles['settings-value']}>{fullName}</div>
+    <>
+      <div className={styles['account-page__settings']}>
+        <div className={styles['settings-row']}>
+          <div className={styles['settings-avatar']}>{initials}</div>
+          <div className={styles['settings-info']}>
+            <div className={styles['settings-label']}>Имя Фамилия</div>
+            <div className={styles['settings-value']}>{fullName}</div>
+          </div>
         </div>
-      </div>
-      <div className={styles['settings-row']}>
-        <div className={styles['settings-icon']}>
-          <MailIcon className={styles['settings-icon-svg']} />
-        </div>
-        <div className={styles['settings-info']}>
-          <div className={styles['settings-label']}>Электронная почта</div>
-          <div className={styles['settings-value']}>{email}</div>
+        <div className={styles['settings-row']}>
+          <div className={styles['settings-icon']}>
+            <MailIcon className={styles['settings-icon-svg']} />
+          </div>
+          <div className={styles['settings-info']}>
+            <div className={styles['settings-label']}>Электронная почта</div>
+            <div className={styles['settings-value']}>{email}</div>
+          </div>
         </div>
       </div>
       <Button variant="primary" onClick={handleLogout} className={styles['account-page__logout-btn']}>
         Выйти из аккаунта
       </Button>
-    </div>
+    </>
   );
 
   return (

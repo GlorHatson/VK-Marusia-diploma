@@ -84,11 +84,11 @@ const Loader: React.FC<LoaderProps> = ({ size = 200, message = 'Загрузка
               >
                 <animate
                   attributeName="opacity"
-                  values="1; 1; 1; 0; 0; 1"
-                  keyTimes="0; 0.02; 0.07; 0.3; 0.5; 1"
-                  dur="1s"
+                  values="1; 1; 0; 0; 0; 1"
+                  keyTimes="0; 0.05; 0.2; 0.5; 0.6; 1"
+                  dur="1.6s"
                   begin="0.1s"
-                  repeatCount="2"
+                  repeatCount="1"
                 />
               </path>
 
@@ -100,11 +100,11 @@ const Loader: React.FC<LoaderProps> = ({ size = 200, message = 'Загрузка
               >
                 <animate
                   attributeName="opacity"
-                  values="0; 0; 0; 1; 0; 0"
-                  keyTimes="0; 0.02; 0.07; 0.3; 0.5; 1"
-                  dur="1s"
+                  values="0; 0; 1; 1; 1; 0"
+                  keyTimes="0; 0.05; 0.2; 0.5; 0.6; 1"
+                  dur="1.6s"
                   begin="0.1s"
-                  repeatCount="2"
+                  repeatCount="1"
                 />
               </path>
             </g>

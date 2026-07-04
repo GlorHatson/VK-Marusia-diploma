@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAppSelector, useAppDispatch } from '../../../../app/hooks';
 import { setAuthModalOpen } from '../../../../store/slices/uiSlice';
 import IconUser from '../../../../assets/images/icon-user.svg?react';
-import styles from './HeaderAuth.module.scss';
+import styles from '../Header.module.scss';
 
 const HeaderAuth: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -21,9 +21,9 @@ const HeaderAuth: React.FC = () => {
   return (
     <button
       onClick={handleClick}
-      className={`${styles.auth} ${isAuthenticated ? styles.active : ''}`}
+      className={`${styles.header__auth} ${styles['header__nav-link']} ${isAuthenticated ? styles['header__nav-link--active'] : ''}`}
     >
-      <IconUser className={styles.icon} />
+      <IconUser className={styles['nav-icon']} />
       <span>
         {isAuthenticated && user
           ? user.surname || user.email.split('@')[0] || 'Аккаунт'

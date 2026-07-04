@@ -1,15 +1,15 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import IconGenres from '../../../../assets/images/icon-genres.svg?react';
-import styles from './HeaderNav.module.scss';
+import styles from '../Header.module.scss';
 
 const HeaderNav: React.FC = () => {
   return (
-    <nav className={styles.nav}>
+    <nav className={styles.header__nav}>
       <NavLink
         to="/"
         className={({ isActive }) =>
-          `${styles.link} ${isActive ? styles.active : ''}`
+          `${styles['header__nav-link']} ${isActive ? styles['header__nav-link--active'] : ''}`
         }
         end
       >
@@ -18,10 +18,10 @@ const HeaderNav: React.FC = () => {
       <NavLink
         to="/genres"
         className={({ isActive }) =>
-          `${styles.link} ${isActive ? styles.active : ''}`
+          `${styles['header__nav-link']} ${isActive ? styles['header__nav-link--active'] : ''}`
         }
       >
-        <IconGenres className={styles.icon} />
+        <IconGenres className={styles['nav-icon']} />
         <span>Жанры</span>
       </NavLink>
     </nav>

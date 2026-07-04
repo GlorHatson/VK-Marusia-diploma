@@ -43,12 +43,12 @@ const Header: React.FC = () => {
 
   return (
     <>
-      <header className={styles.header}>
+      <header className={`${styles.header} ${isSearchOpen ? styles['header--no-blur'] : ''}`}>
         <Container>
-          <div className={styles.container}>
-            <div className={styles.logo}>
-              <Link to="/" className={styles.logoLink}>
-                <MarusiaLogo className={styles.logoImage} />
+          <div className={styles.header__container}>
+            <div className={styles.header__logo}>
+              <Link to="/" className={styles['header__logo-link']}>
+                <MarusiaLogo className={styles['header__logo-image']} />
               </Link>
             </div>
 

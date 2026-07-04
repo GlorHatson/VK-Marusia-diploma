@@ -22,7 +22,7 @@
   transition: transform 1s;
 
   &:hover {
-    transform: translate(4px,0) scale(1.4);
+    transform: translate(4px, 0) scale(1.4);
   }
 
   img {
@@ -71,12 +71,4 @@
   line-height: 20px;
   color: $color-text-tertiary;
   white-space: nowrap;
-}
-
-.rating--compact {
-  padding: 2px 8px;
-  font-size: 8px !important;
-  line-height: 16px;
-  border-radius: 16px;
-  gap: 4px;
 }

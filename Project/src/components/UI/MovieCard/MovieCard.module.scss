@@ -12,6 +12,15 @@
 
   &:hover {
     box-shadow: $shadow-card-hover;
+
+    .movie-card__remove {
+      opacity: 1;
+    }
+
+    .movie-card__rank {
+    background: $color-light-hover;
+    backdrop-filter: blur(5px);
+    }
   }
 }
 
@@ -30,7 +39,7 @@
   transition: transform 0.4s ease;
 
   &:hover {
-    transform: scale(1.1);
+    transform: scale(1.08);
   }
 }
 
@@ -61,7 +70,7 @@
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background: $color-light-default;
+  background: $color-light-focus;
   border: none;
   font-size: 18px;
   color: $color-text-light;
@@ -75,23 +84,18 @@
   opacity: 0;
 
   &:hover {
-    background: $color-error;
-    color: $color-text-primary;
+    background: $color-light-hover;
+    color: $color-text-light-hover;
+    backdrop-filter: blur(5px);
+    opacity: 1;
   }
 }
 
 // Для планшетов показываем кнопку удаления всегда
-@media (max-width: 1420px) {
+@media (max-width: 868px) {
   .movie-card__remove {
     opacity: 1;
-    background: rgba(255, 255, 255, 0.4);
-    backdrop-filter: blur(10px);
-  }
-}
-
-// Для мобилок показываем всегда
-@media (max-width: 620px) {
-  .movie-card__remove {
-    opacity: 1;
+    background: $color-light-hover;
+    backdrop-filter: blur(5px);
   }
 }
