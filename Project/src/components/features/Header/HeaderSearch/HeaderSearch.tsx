@@ -19,13 +19,14 @@ const HeaderSearch: React.FC<HeaderSearchProps> = ({
   onSelectMovie,
 }) => {
   const dispatch = useAppDispatch();
-  const { results, loading } = useAppSelector((state) => state.search);
+  const { results, loading, error } = useAppSelector((state) => state.search);
   const [searchQuery, setSearchQuery] = useState('');
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const searchRef = useRef<HTMLDivElement>(null);
 
   const debouncedQuery = useDebounce(searchQuery, 300);
 
+  // Поиск при изменении debouncedQuery
   useEffect(() => {
     if (debouncedQuery.trim()) {
       dispatch(searchMovies(debouncedQuery));
@@ -36,6 +37,7 @@ const HeaderSearch: React.FC<HeaderSearchProps> = ({
     }
   }, [debouncedQuery, dispatch]);
 
+  // Закрытие при клике вне
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
       if (searchRef.current && !searchRef.current.contains(e.target as Node)) {
@@ -46,6 +48,7 @@ const HeaderSearch: React.FC<HeaderSearchProps> = ({
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
+  // Закрытие по Escape
   useEffect(() => {
     const handleEsc = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
@@ -57,10 +60,10 @@ const HeaderSearch: React.FC<HeaderSearchProps> = ({
     return () => document.removeEventListener('keydown', handleEsc);
   }, [isSearchOpen, setIsSearchOpen]);
 
+  // Блокировка скролла при открытом мобильном поиске
   useEffect(() => {
     if (isSearchOpen) {
       document.body.style.overflow = 'hidden';
-      // Фокус на поле ввода при открытии мобильного поиска
       setTimeout(() => {
         const input = document.getElementById('mobile-search-input');
         if (input) input.focus();
@@ -97,10 +100,17 @@ const HeaderSearch: React.FC<HeaderSearchProps> = ({
     if (searchQuery.trim() !== '') {
       setSearchQuery('');
       dispatch(clearSearch());
-      // Не закрываем модалку, оставляем открытой
     } else {
-      // Если поле уже пустое – закрываем
       setIsSearchOpen(false);
+    }
+  };
+
+  // Функция для повторного открытия дропдауна по клику на иконку лупы
+  const handleSearchIconClick = () => {
+    if (searchQuery.trim() !== '') {
+      setIsDropdownOpen(true);
+      // Повторно запускаем поиск, чтобы обновить результаты (если нужно)
+      dispatch(searchMovies(searchQuery.trim()));
     }
   };
 
@@ -109,7 +119,10 @@ const HeaderSearch: React.FC<HeaderSearchProps> = ({
       {/* Десктопный поиск */}
       <div className={styles.header__search} ref={searchRef}>
         <div className={styles['header__search-wrapper']}>
-          <IconFind />
+          <IconFind
+            onClick={handleSearchIconClick}
+            className={searchQuery.trim() !== '' ? styles['search-icon--active'] : styles['search-icon']}
+          />
           <input
             type="text"
             placeholder="Поиск"
@@ -130,23 +143,19 @@ const HeaderSearch: React.FC<HeaderSearchProps> = ({
 
         {isDropdownOpen && (
           <div className={styles['search-dropdown']}>
-            {loading && <div className={styles['search-dropdown__loading']}>Загрузка...</div>}
-            {!loading && results.length === 0 && searchQuery.trim() !== '' && (
+            {error && <div className={styles['search-dropdown__error']}>Ошибка загрузки. Попробуйте позже.</div>}
+            {!error && loading && <div className={styles['search-dropdown__loading']}>Загрузка...</div>}
+            {!error && !loading && results.length === 0 && searchQuery.trim() !== '' && (
               <div className={styles['search-dropdown__empty']}>Ничего не найдено</div>
             )}
-            {!loading &&
-              results.slice(0, 10).map((movie) => (
-                <SearchDropdownItem
-                  key={movie.id}
-                  movie={movie}
-                  onClick={() => handleSelect(movie.id)}
-                />
-              ))}
+            {!error && !loading && Array.isArray(results) && results.slice(0, 10).map((movie) => (
+              <SearchDropdownItem key={movie.id} movie={movie} onClick={() => handleSelect(movie.id)} />
+            ))}
           </div>
         )}
       </div>
 
-      {/* Мобильное модальное окно поиска */}
+      {/* Мобильная кнопка поиска – в HeaderMobileActions, поэтому здесь только модалка */}
       {isSearchOpen && (
         <div
           className={styles['mobile-search-overlay']}
@@ -155,9 +164,11 @@ const HeaderSearch: React.FC<HeaderSearchProps> = ({
           }}
         >
           <div className={styles['mobile-search-modal']}>
-
             <div className={styles['mobile-search__field']}>
-              <IconFind className={styles['mobile-search__icon']} />
+              <IconFind
+                onClick={handleSearchIconClick}
+                className={searchQuery.trim() !== '' ? styles['search-icon--active'] : styles['search-icon']}
+              />
               <input
                 id="mobile-search-input"
                 type="text"
@@ -178,18 +189,14 @@ const HeaderSearch: React.FC<HeaderSearchProps> = ({
 
             {searchQuery.trim() !== '' && (
               <div className={styles['mobile-search__results']}>
-                {loading && <div className={styles['mobile-search__loading']}>Загрузка...</div>}
-                {!loading && results.length === 0 && (
+                {error && <div className={styles['mobile-search__error']}>Ошибка загрузки</div>}
+                {!error && loading && <div className={styles['mobile-search__loading']}>Загрузка...</div>}
+                {!error && !loading && results.length === 0 && (
                   <div className={styles['mobile-search__empty']}>Ничего не найдено</div>
                 )}
-                {!loading &&
-                  results.map((movie) => (
-                    <MobileSearchCard
-                      key={movie.id}
-                      movie={movie}
-                      onClick={() => handleSelect(movie.id)}
-                    />
-                  ))}
+                {!error && !loading && Array.isArray(results) && results.map((movie) => (
+                  <MobileSearchCard key={movie.id} movie={movie} onClick={() => handleSelect(movie.id)} />
+                ))}
               </div>
             )}
           </div>

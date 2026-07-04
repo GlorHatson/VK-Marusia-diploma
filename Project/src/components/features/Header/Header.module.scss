@@ -135,7 +135,21 @@
   transition: color 0.2s;
 
   &:hover {
-    color: #fff;
+    color: $color-accent-dark;
+  }
+}
+
+.search-icon {
+  cursor: pointer;
+  color: $color-text-disabled;
+}
+
+.search-icon--active {
+  cursor: pointer;
+  color: $color-accent;
+
+  &:hover {
+    color: $color-accent-dark;
   }
 }
 
@@ -173,6 +187,14 @@
   display: flex;
   flex-direction: column;
   gap: 2px;
+}
+
+.search-dropdown__error,
+.mobile-search__error {
+  padding: 8px;
+  text-align: center;
+  color: #ff7575;
+  font-size: 16px;
 }
 
 .header__mobile-actions {
@@ -349,7 +371,7 @@
   transition: color 0.2s;
 
   &:hover {
-    color: $color-text-primary;
+    color: $color-accent-dark;
   }
 }
 
