@@ -10,8 +10,8 @@ interface MovieDetailsProps {
 const MovieDetails: React.FC<MovieDetailsProps> = ({ movie }) => {
   const details = [
     { label: 'Язык оригинала', value: movie.language?.toUpperCase() },
-    { label: 'Бюджет', value: formatCurrency(movie.budget) },
-    { label: 'Выручка', value: formatCurrency(movie.revenue) },
+    { label: 'Бюджет', value: movie.budget != null ? formatCurrency(movie.budget) : undefined },
+    { label: 'Выручка', value: movie.revenue != null ? formatCurrency(movie.revenue) : undefined },
     { label: 'Режиссёр', value: movie.director },
     { label: 'Продакшен', value: movie.production },
     { label: 'Награды', value: movie.awardsSummary },

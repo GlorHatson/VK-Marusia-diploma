@@ -135,21 +135,21 @@
   transition: color 0.2s;
 
   &:hover {
-    color: $color-accent-dark;
+    color: $color-accent;
   }
 }
 
 .search-icon {
-  cursor: pointer;
+  cursor: auto;
   color: $color-text-disabled;
 }
 
 .search-icon--active {
   cursor: pointer;
-  color: $color-accent;
+  color: $color-text-disabled;
 
   &:hover {
-    color: $color-accent-dark;
+    color: $color-accent;
   }
 }
 
@@ -371,7 +371,7 @@
   transition: color 0.2s;
 
   &:hover {
-    color: $color-accent-dark;
+    color: $color-accent;
   }
 }
 
