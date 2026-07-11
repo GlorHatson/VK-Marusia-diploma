@@ -6,7 +6,8 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: $color-placeholder-light;
+  background: $color-modal;
+  backdrop-filter: blur(5px);
   display: flex;
   flex-direction: row;
   align-items: center;

@@ -190,11 +190,11 @@ const TrailerModal: React.FC<TrailerModalProps> = ({ isOpen, onClose, videoId, t
               className={styles['trailer-modal__control-btn']}
               onClick={handlePlayPause}
               aria-label={isPlaying ? 'Пауза' : 'Воспроизвести'}
-              icon={isPlaying ? <PauseIcon/> : <PlayIcon />}
+              icon={isPlaying ? <PauseIcon /> : <PlayIcon />}
             />
           )}
-          {showTitle && <div className={styles['trailer-modal__title']}>{title}</div>}
         </div>
+        {showTitle && <div className={styles['trailer-modal__title']}>{title}</div>}
         {showClose && (
           <Button
             variant="light"
