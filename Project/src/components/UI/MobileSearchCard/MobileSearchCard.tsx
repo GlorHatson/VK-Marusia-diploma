@@ -22,7 +22,14 @@ const MobileSearchCard: React.FC<MobileSearchCardProps> = ({ movie, onClick }) =
     <div className={styles.card} onClick={onClick}>
       <div className={styles.poster}>
         {movie.posterUrl ? (
-          <img src={movie.posterUrl} alt={movie.title} />
+          <img
+            src={movie.posterUrl}
+            alt={movie.title}
+            style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+            width={158}
+            height={206}
+            loading="lazy"
+          />
         ) : (
           <NoPoster title={movie.title} variant="compact" />
         )}

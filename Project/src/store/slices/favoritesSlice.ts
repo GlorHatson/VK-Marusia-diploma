@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { favoritesApi } from '../../services/favoritesApi';
+import { favoritesApi } from '../../api/favoritesApi';
 import type { Movie } from './moviesSlice';
 
 interface FavoritesState {

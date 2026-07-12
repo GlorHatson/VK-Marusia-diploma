@@ -60,9 +60,23 @@ const MovieHero: React.FC<MovieHeroProps> = ({
         </div>
         <div className={`${styles['main-page__random-poster-wrapper']} ${variant === 'detail' ? styles['main-page__random-poster-wrapper--detail'] : ''}`}>
           {movie.backdropUrl ? (
-            <img src={movie.backdropUrl} alt={movie.title} className={styles['main-page__random-poster']} />
+            <img
+              src={movie.backdropUrl}
+              alt={movie.title}
+              className={styles['main-page__random-poster']}
+              width={680}
+              height={552}
+              loading="lazy"
+            />
           ) : movie.posterUrl ? (
-            <img src={movie.posterUrl} alt={movie.title} className={styles['main-page__random-poster']} />
+            <img
+              src={movie.posterUrl}
+              alt={movie.title}
+              className={styles['main-page__random-poster']}
+              width={680}
+              height={552}
+              loading="lazy"
+            />
           ) : (
             <NoPoster title={movie.title} />
           )}

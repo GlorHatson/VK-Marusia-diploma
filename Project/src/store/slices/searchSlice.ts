@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { apiClient } from '../../services/axiosInstance';
+import { moviesApi } from '../../api/moviesApi';
 import type { Movie } from './moviesSlice';
 
 interface SearchState {
@@ -19,16 +19,13 @@ export const searchMovies = createAsyncThunk(
   async (title: string, { rejectWithValue }) => {
     if (!title.trim()) return [];
     try {
-      const response = await apiClient.get('/movie', {
-        params: { title: title.trim(), count: 10 },
-      });
+      const response = await moviesApi.searchMovies(title, 10);
       const data = response.data;
       if (Array.isArray(data)) {
         return data;
       }
-      // Если сервер вернул объект ошибки (например, Prisma ошибка)
       if (data && typeof data === 'object' && 'name' in data) {
-        return rejectWithValue(data.name || 'Ошибка сервера');
+        return rejectWithValue((data as any).name || 'Ошибка сервера');
       }
       return rejectWithValue('Неизвестная ошибка при поиске');
     } catch (error: any) {

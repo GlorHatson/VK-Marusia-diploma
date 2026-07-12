@@ -87,7 +87,7 @@ const Loader: React.FC<LoaderProps> = ({ size = 200, message = 'Загрузка
                   values="1; 1; 0; 0; 0; 1"
                   keyTimes="0; 0.05; 0.2; 0.5; 0.6; 1"
                   dur="1.6s"
-                  begin="0.1s"
+                  begin="0.5s"
                   repeatCount="1"
                 />
               </path>
@@ -103,7 +103,7 @@ const Loader: React.FC<LoaderProps> = ({ size = 200, message = 'Загрузка
                   values="0; 0; 1; 1; 1; 0"
                   keyTimes="0; 0.05; 0.2; 0.5; 0.6; 1"
                   dur="1.6s"
-                  begin="0.1s"
+                  begin="0.5s"
                   repeatCount="1"
                 />
               </path>

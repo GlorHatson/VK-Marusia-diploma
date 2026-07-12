@@ -7,7 +7,7 @@ export const favoritesApi = {
     const formData = new URLSearchParams();
     formData.append('id', movieId.toString());
     return apiClient.post('/favorites', formData, {
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
     });
   },
   removeFavorite: (movieId: number) => apiClient.delete(`/favorites/${movieId}`),

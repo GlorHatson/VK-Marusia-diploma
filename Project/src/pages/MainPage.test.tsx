@@ -8,13 +8,13 @@ import moviesReducer from '../store/slices/moviesSlice';
 import userReducer from '../store/slices/userSlice';
 import favoritesReducer from '../store/slices/favoritesSlice';
 import uiReducer from '../store/slices/uiSlice';
-import { apiClient } from '../services/axiosInstance';
-import * as moviesSlice from '../store/slices/moviesSlice';
+import { moviesApi } from '../api/moviesApi';
 
-// Мокаем apiClient
-vi.mock('../services/axiosInstance', () => ({
-  apiClient: {
-    get: vi.fn(),
+// Мокаем moviesApi
+vi.mock('../api/moviesApi', () => ({
+  moviesApi: {
+    fetchTop10: vi.fn(),
+    fetchRandomMovie: vi.fn(),
   },
 }));
 
@@ -70,15 +70,9 @@ const renderWithProviders = (ui: React.ReactElement, store = createTestStore()) 
 describe('MainPage', () => {
   beforeEach(() => {
     vi.clearAllMocks();
-    (apiClient.get as any).mockImplementation((url: string) => {
-      if (url === '/movie/top10') {
-        return Promise.resolve({ data: mockTop10 });
-      }
-      if (url === '/movie/random') {
-        return Promise.resolve({ data: mockRandomMovie });
-      }
-      return Promise.reject(new Error('Not found'));
-    });
+    // Настраиваем моки для успешного ответа
+    (moviesApi.fetchTop10 as any).mockResolvedValue({ data: mockTop10 });
+    (moviesApi.fetchRandomMovie as any).mockResolvedValue({ data: mockRandomMovie });
   });
 
   it('renders loader while loading', () => {
@@ -98,7 +92,6 @@ describe('MainPage', () => {
     await waitFor(() => {
       expect(screen.getByText('Random Movie')).toBeInTheDocument();
       expect(screen.getByText('Random plot')).toBeInTheDocument();
-      // Проверяем наличие карточек фильмов по alt
       expect(screen.getByAltText('Movie 1')).toBeInTheDocument();
       expect(screen.getByAltText('Movie 2')).toBeInTheDocument();
     });
@@ -108,33 +101,22 @@ describe('MainPage', () => {
     const store = createTestStore();
     renderWithProviders(<MainPage />, store);
     await waitFor(() => {
-      expect(apiClient.get).toHaveBeenCalledWith('/movie/top10');
-      expect(apiClient.get).toHaveBeenCalledWith('/movie/random');
+      expect(moviesApi.fetchTop10).toHaveBeenCalled();
+      expect(moviesApi.fetchRandomMovie).toHaveBeenCalled();
     });
   });
 
   it('shows error message on error', async () => {
-    // Мокаем thunk'и, чтобы они не меняли состояние и не вызывали apiClient
-    const fetchTop10Mock = vi.spyOn(moviesSlice, 'fetchTop10').mockReturnValue({
-      type: 'movies/fetchTop10/fulfilled',
-      payload: [],
-    } as any);
-    const fetchRandomMovieMock = vi.spyOn(moviesSlice, 'fetchRandomMovie').mockReturnValue({
-      type: 'movies/fetchRandomMovie/fulfilled',
-      payload: null,
-    } as any);
-
+    // Мокаем fetchTop10 и fetchRandomMovie чтобы они возвращали ошибку
+    (moviesApi.fetchTop10 as any).mockRejectedValue(new Error('Ошибка'));
     const store = createTestStore({
       error: { top10: 'Ошибка загрузки топ-10', random: null, current: null },
       loading: { top10: false, random: false, current: false },
     });
     renderWithProviders(<MainPage />, store);
-    // Ждём, пока компонент обработает состояние
+    // Ждём, что ErrorMessage отобразится
     await waitFor(() => {
       expect(screen.getByText(/Не удалось загрузить топ-10/)).toBeInTheDocument();
     });
-
-    fetchTop10Mock.mockRestore();
-    fetchRandomMovieMock.mockRestore();
   });
 });

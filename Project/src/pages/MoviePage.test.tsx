@@ -8,11 +8,11 @@ import moviesReducer from '../store/slices/moviesSlice';
 import userReducer from '../store/slices/userSlice';
 import favoritesReducer from '../store/slices/favoritesSlice';
 import uiReducer from '../store/slices/uiSlice';
-import { apiClient } from '../services/axiosInstance';
+import { moviesApi } from '../api/moviesApi';
 
-vi.mock('../services/axiosInstance', () => ({
-  apiClient: {
-    get: vi.fn(),
+vi.mock('../api/moviesApi', () => ({
+  moviesApi: {
+    fetchMovieById: vi.fn(),
   },
 }));
 
@@ -74,7 +74,7 @@ const renderWithProviders = (ui: React.ReactElement, store = createTestStore()) 
 describe('MoviePage', () => {
   beforeEach(() => {
     vi.clearAllMocks();
-    (apiClient.get as any).mockResolvedValue({ data: mockMovie });
+    (moviesApi.fetchMovieById as any).mockResolvedValue({ data: mockMovie });
   });
 
   it('renders loader while loading', () => {
@@ -102,10 +102,18 @@ describe('MoviePage', () => {
     const store = createTestStore();
     renderWithProviders(<MoviePage />, store);
     await waitFor(() => {
-      expect(apiClient.get).toHaveBeenCalledWith('/movie/1');
+      expect(moviesApi.fetchMovieById).toHaveBeenCalledWith(1);
     });
   });
 
-  // Пропускаем тест ошибки, так как он требует дополнительной настройки
-  it.skip('shows error message on error', () => {});
+  it('shows error message on error', async () => {
+    // Мокаем fetchMovieById, чтобы он возвращал ошибку
+    (moviesApi.fetchMovieById as any).mockRejectedValue(new Error('Ошибка загрузки'));
+    const store = createTestStore();
+    renderWithProviders(<MoviePage />, store);
+    // Ждём, пока компонент отобразит ошибку
+    await waitFor(() => {
+      expect(screen.getByText('Не удалось загрузить данный фильм')).toBeInTheDocument();
+    });
+  });
 });

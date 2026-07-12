@@ -13,7 +13,14 @@ interface NoPosterProps {
 const NoPoster: React.FC<NoPosterProps> = ({ title, className, variant = 'default' }) => {
   return (
     <div className={`${styles['no-poster']} ${styles[`no-poster--${variant}`]} ${className || ''}`}>
-      <img src={noPosterImg} alt="Нет постера" className={styles['no-poster__image']} />
+      <img
+        src={noPosterImg}
+        alt="Нет постера"
+        className={styles['no-poster__image']}
+        width={320}
+        height={240}
+        loading="lazy"
+      />
       <div className={styles['no-poster__text']}>
         {/* <span>Для фильма</span> */}
         <span className={styles['no-poster__title']}>«{title}»</span>

@@ -1,17 +1,19 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, Suspense, lazy } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from './app/hooks';
 import { checkAuth } from './store/slices/userSlice';
 import { fetchFavorites } from './store/slices/favoritesSlice';
 import Header from './components/features/Header/Header';
 import Footer from './components/features/Footer/Footer';
-import MainPage from './pages/MainPage';
-import GenresPage from './pages/GenresPage';
-import GenreMoviesPage from './pages/GenreMoviesPage';
-import MoviePage from './pages/MoviePage';
-import AccountPage from './pages/AccountPage';
 import PrivateRoute from './components/features/PrivateRoute';
 import Loader from './components/UI/Loader/Loader';
+
+// Ленивая загрузка страниц
+const MainPage = lazy(() => import('./pages/MainPage'));
+const GenresPage = lazy(() => import('./pages/GenresPage'));
+const GenreMoviesPage = lazy(() => import('./pages/GenreMoviesPage'));
+const MoviePage = lazy(() => import('./pages/MoviePage'));
+const AccountPage = lazy(() => import('./pages/AccountPage'));
 
 function App() {
   const dispatch = useAppDispatch();
@@ -35,39 +37,44 @@ function App() {
     return () => clearTimeout(timer);
   }, []);
 
-if (isInitialLoad) {
-  return (
-    <div
-      style={{
-        position: 'fixed',
-        inset: 0,
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: 'linear-gradient(178.73deg, rgba(39, 135, 245, 0.18) -17.53%, rgba(163, 147, 245, 0.18) 131.74%)',
-        zIndex: 9999,
-      }}
-    >
-      <Loader size={200} />
-    </div>
-  );
-}
+  if (isInitialLoad) {
+    return (
+      <div
+        style={{
+          position: 'fixed',
+          inset: 0,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          background: 'linear-gradient(178.73deg, rgba(39, 135, 245, 0.18) -17.53%, rgba(163, 147, 245, 0.18) 131.74%)',
+          zIndex: 9999,
+        }}
+      >
+        <Loader size={200} />
+      </div>
+    );
+  }
 
   return (
     <BrowserRouter>
       <Header />
       <main>
-        <Routes>
-          <Route path="/" element={<MainPage />} />
-          <Route path="/genres" element={<GenresPage />} />
-          <Route path="/genres/:genreName" element={<GenreMoviesPage />} />
-          <Route path="/movie/:id" element={<MoviePage />} />
-          <Route path="/account" element={
-            <PrivateRoute>
-              <AccountPage />
-            </PrivateRoute>
-          } />
-        </Routes>
+        <Suspense fallback={<Loader size={200} message="Загрузка страницы..." />}>
+          <Routes>
+            <Route path="/" element={<MainPage />} />
+            <Route path="/genres" element={<GenresPage />} />
+            <Route path="/genres/:genreName" element={<GenreMoviesPage />} />
+            <Route path="/movie/:id" element={<MoviePage />} />
+            <Route
+              path="/account"
+              element={
+                <PrivateRoute>
+                  <AccountPage />
+                </PrivateRoute>
+              }
+            />
+          </Routes>
+        </Suspense>
       </main>
       <Footer />
     </BrowserRouter>

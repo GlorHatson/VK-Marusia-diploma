@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
-import { apiClient } from '../../services/axiosInstance';
+import { genresApi } from '../../api/genresApi';
 
 export interface Genre {
   name: string;
@@ -23,8 +23,8 @@ export const fetchGenres = createAsyncThunk(
   'genres/fetchGenres',
   async (_, { rejectWithValue }) => {
     try {
-      const response = await apiClient.get('movie/genres');
-      const genresArray = response.data as string[];
+      const response = await genresApi.fetchGenres();
+      const genresArray = response.data;
       return genresArray.map((name) => ({ name }));
     } catch (error: any) {
       return rejectWithValue(error.response?.data?.message || 'Ошибка загрузки жанров');

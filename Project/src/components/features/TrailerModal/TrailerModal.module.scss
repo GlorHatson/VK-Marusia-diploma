@@ -8,6 +8,7 @@
     bottom: 0;
     width: 100%;
     background: $color-overlay;
+    backdrop-filter: blur(10px);
     display: flex;
     flex: 1 1 auto;
     align-items: center;
@@ -126,6 +127,7 @@
     .trailer-modal__player {
         width: calc(100vw - 150px);
         height: 100%;
+        max-height: 375px;
         aspect-ratio: 16 / 9;
     }
 

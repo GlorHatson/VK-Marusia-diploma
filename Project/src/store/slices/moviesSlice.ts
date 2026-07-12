@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
-import { apiClient } from '../../services/axiosInstance';
+import { moviesApi } from '../../api/moviesApi';
 
 export interface Movie {
   id: number;
@@ -55,8 +55,8 @@ export const fetchTop10 = createAsyncThunk(
   'movies/fetchTop10',
   async (_, { rejectWithValue }) => {
     try {
-      const response = await apiClient.get('/movie/top10');
-      return response.data as Movie[];
+      const response = await moviesApi.fetchTop10();
+      return response.data;
     } catch (error: any) {
       return rejectWithValue(error.response?.data?.message || 'Ошибка загрузки топ-10');
     }
@@ -67,8 +67,8 @@ export const fetchRandomMovie = createAsyncThunk(
   'movies/fetchRandomMovie',
   async (_, { rejectWithValue }) => {
     try {
-      const response = await apiClient.get('/movie/random');
-      return response.data as Movie;
+      const response = await moviesApi.fetchRandomMovie();
+      return response.data;
     } catch (error: any) {
       return rejectWithValue(error.response?.data?.message || 'Ошибка загрузки случайного фильма');
     }
@@ -79,8 +79,8 @@ export const fetchMovieById = createAsyncThunk(
   'movies/fetchMovieById',
   async (id: number, { rejectWithValue }) => {
     try {
-      const response = await apiClient.get(`/movie/${id}`);
-      return response.data as Movie;
+      const response = await moviesApi.fetchMovieById(id);
+      return response.data;
     } catch (error: any) {
       return rejectWithValue(error.response?.data?.message || 'Ошибка загрузки фильма');
     }

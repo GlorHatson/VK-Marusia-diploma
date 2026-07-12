@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../app/hooks';
 import { fetchGenres } from '../store/slices/genresSlice';
-import { apiClient } from '../services/axiosInstance';
+import { moviesApi } from '../api/moviesApi';
 import Container from '../components/UI/Container/Container';
 import Loader from '../components/UI/Loader/Loader';
 import ErrorMessage from '../components/UI/ErrorMessage/ErrorMessage';
@@ -57,12 +57,10 @@ const GenresPage = () => {
 
     const fetchFourPostersForGenre = async (genreName: string): Promise<string[]> => {
       try {
-        const response = await apiClient.get('/movie', {
-          params: { genre: genreName, count: 4 },
-        });
+        const response = await moviesApi.fetchMoviesByGenre(genreName, 1, 4);
         const movies = response.data;
         if (movies && movies.length) {
-          return movies.map((m: any) => m.posterUrl).filter(Boolean);
+          return movies.map((m) => m.posterUrl).filter((url): url is string => Boolean(url));
         }
         return [];
       } catch (err) {

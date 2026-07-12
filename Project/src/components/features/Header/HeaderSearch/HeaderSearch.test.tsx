@@ -6,16 +6,17 @@ import { configureStore } from '@reduxjs/toolkit';
 import { BrowserRouter } from 'react-router-dom';
 import HeaderSearch from './HeaderSearch';
 import searchReducer from '../../../../store/slices/searchSlice';
+import { moviesApi } from '../../../../api/moviesApi';
 
 // Мокаем useDebounce, чтобы он возвращал значение без задержки
 vi.mock('../../../../hooks/useDebounce', () => ({
   useDebounce: vi.fn((value) => value),
 }));
 
-// Мокаем apiClient, чтобы запросы не уходили на сервер
-vi.mock('../../../../services/axiosInstance', () => ({
-  apiClient: {
-    get: vi.fn(() => Promise.resolve({ data: [{ id: 1, title: 'Test Movie' }] })),
+// Мокаем moviesApi
+vi.mock('../../../../api/moviesApi', () => ({
+  moviesApi: {
+    searchMovies: vi.fn(),
   },
 }));
 
@@ -24,7 +25,6 @@ const createTestStore = (preloadedState = {}) => {
     reducer: {
       search: searchReducer,
     },
-    middleware: (getDefaultMiddleware) => getDefaultMiddleware(),
     preloadedState: {
       search: { results: [], loading: false, error: null, ...preloadedState },
     },
@@ -42,6 +42,8 @@ const renderWithProviders = (ui: React.ReactElement, store = createTestStore()) 
 describe('HeaderSearch', () => {
   beforeEach(() => {
     vi.clearAllMocks();
+    // Настраиваем мок по умолчанию
+    (moviesApi.searchMovies as any).mockResolvedValue({ data: [{ id: 1, title: 'Test Movie' }] });
   });
 
   it('renders search input and icon', () => {
@@ -54,10 +56,8 @@ describe('HeaderSearch', () => {
 
   it('opens dropdown when typing', async () => {
     const user = userEvent.setup();
-    const store = createTestStore();
     renderWithProviders(
-      <HeaderSearch isSearchOpen={false} setIsSearchOpen={vi.fn()} onSelectMovie={vi.fn()} />,
-      store
+      <HeaderSearch isSearchOpen={false} setIsSearchOpen={vi.fn()} onSelectMovie={vi.fn()} />
     );
     const input = screen.getByPlaceholderText('Поиск');
     await user.type(input, 'test');
@@ -68,10 +68,8 @@ describe('HeaderSearch', () => {
 
   it('clears search and closes dropdown on clear button click', async () => {
     const user = userEvent.setup();
-    const store = createTestStore({ results: [{ id: 1, title: 'Test Movie' }] });
     renderWithProviders(
-      <HeaderSearch isSearchOpen={false} setIsSearchOpen={vi.fn()} onSelectMovie={vi.fn()} />,
-      store
+      <HeaderSearch isSearchOpen={false} setIsSearchOpen={vi.fn()} onSelectMovie={vi.fn()} />
     );
     const input = screen.getByPlaceholderText('Поиск');
     await user.type(input, 'test');
@@ -104,21 +102,20 @@ describe('HeaderSearch', () => {
 
   it('reopens dropdown on search icon click when there is text', async () => {
     const user = userEvent.setup();
-    const store = createTestStore({ results: [{ id: 1, title: 'Test Movie' }] });
-    const { container } = renderWithProviders(
-      <HeaderSearch isSearchOpen={false} setIsSearchOpen={vi.fn()} onSelectMovie={vi.fn()} />,
-      store
+    renderWithProviders(
+      <HeaderSearch isSearchOpen={false} setIsSearchOpen={vi.fn()} onSelectMovie={vi.fn()} />
     );
     const input = screen.getByPlaceholderText('Поиск');
     await user.type(input, 'test');
     await waitFor(() => {
       expect(screen.getByText('Test Movie')).toBeInTheDocument();
     });
+    // Закрываем кликом вне
     await user.click(document.body);
     expect(screen.queryByText('Test Movie')).not.toBeInTheDocument();
-    const icon = container.querySelector('svg');
-    expect(icon).toBeInTheDocument();
-    await user.click(icon!);
+    // Клик на лупу
+    const icon = document.querySelector('svg') as SVGElement;
+    await user.click(icon);
     await waitFor(() => {
       expect(screen.getByText('Test Movie')).toBeInTheDocument();
     });
@@ -127,10 +124,8 @@ describe('HeaderSearch', () => {
   it('selects a movie and closes dropdown', async () => {
     const user = userEvent.setup();
     const onSelectMovie = vi.fn();
-    const store = createTestStore({ results: [{ id: 1, title: 'Test Movie' }] });
     renderWithProviders(
-      <HeaderSearch isSearchOpen={false} setIsSearchOpen={vi.fn()} onSelectMovie={onSelectMovie} />,
-      store
+      <HeaderSearch isSearchOpen={false} setIsSearchOpen={vi.fn()} onSelectMovie={onSelectMovie} />
     );
     const input = screen.getByPlaceholderText('Поиск');
     await user.type(input, 'test');

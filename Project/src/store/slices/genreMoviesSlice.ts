@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import type { Movie } from './moviesSlice';
-import { apiClient } from '../../services/axiosInstance';
+import { moviesApi } from '../../api/moviesApi';
 
 interface GenreMoviesState {
   movies: Movie[];
@@ -25,17 +25,14 @@ export const fetchMoviesByGenre = createAsyncThunk(
   async ({ genre, page }: { genre: string; page: number }, { rejectWithValue }) => {
     try {
       const count = 10;
-      const response = await apiClient.get('/movie', {
-        params: { genre, page, count },
-      });
-      const movies = response.data as Movie[];
+      const response = await moviesApi.fetchMoviesByGenre(genre, page, count);
+      const movies = response.data;
       return { movies, page, hasMore: movies.length === count };
     } catch (error: any) {
       return rejectWithValue(error.response?.data?.message || 'Ошибка загрузки фильмов');
     }
   }
 );
-
 const genreMoviesSlice = createSlice({
   name: 'genreMovies',
   initialState,

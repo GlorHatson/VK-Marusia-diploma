@@ -40,7 +40,14 @@ const MovieCard: React.FC<MovieCardProps> = ({
       )}
       <div className={styles['movie-card__poster-container']}>
         {movie.posterUrl ? (
-          <img src={movie.posterUrl} alt={movie.title} className={styles['movie-card__poster']} />
+          <img
+            src={movie.posterUrl}
+            alt={movie.title}
+            className={styles['movie-card__poster']}
+            width={200}
+            height={300}
+            loading="lazy"
+          />
         ) : (
           <NoPoster title={movie.title} variant="compact" />
         )}

@@ -1,8 +1,8 @@
 import { apiClient } from './axiosInstance';
 
 export interface RegisterData {
-  name: string;      // вместо firstName
-  surname: string;   // вместо lastName
+  name: string;
+  surname: string;
   email: string;
   password: string;
 }
@@ -17,7 +17,7 @@ export interface User {
   name: string;
   surname: string;
   email: string;
-  favorites?: string[]; // массив ID фильмов в виде строк
+  favorites?: string[];
 }
 
 export const authApi = {
