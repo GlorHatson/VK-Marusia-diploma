@@ -42,50 +42,19 @@
 
 ## Структура проекта
 src/
-├── api/                    # API-запросы
-│   ├── axiosInstance.ts
-│   ├── moviesApi.ts
-│   ├── genresApi.ts
-│   ├── authApi.ts
-│   └── favoritesApi.ts
-├── app/                    # Redux store, хуки
-│   ├── store.ts
-│   └── hooks.ts
-├── assets/                 # Иконки, изображения
-│   └── images/
-├── components/             # React-компоненты
-│   ├── features/           # Сложные компоненты
-│   │   ├── Header/
-│   │   ├── AuthModal/
-│   │   ├── TrailerModal/
-│   │   └── Footer/
-│   └── UI/                 # Переиспользуемые UI-компоненты
-│       ├── Button/
-│       ├── Input/
-│       ├── Rating/
-│       ├── MovieCard/
-│       ├── MovieGrid/
-│       ├── MovieHero/
-│       └── ...
-├── hooks/                  # Кастомные хуки
-│   └── useDebounce.ts
-├── pages/                  # Страницы приложения
-│   ├── MainPage/
-│   ├── MoviePage/
-│   ├── GenresPage/
-│   ├── GenreMoviesPage/
-│   └── AccountPage/
-├── store/                  # Redux слайсы
+├── api/
+├── app/
+├── assets/
+├── components/
+│   ├── features/
+│   └── UI/
+├── hooks/
+├── pages/
+├── store/
 │   └── slices/
-├── styles/                 # Глобальные стили и переменные
-│   ├── global.scss
-│   ├── _variables.scss
-│   └── _button-base.scss
-├── utils/                  # Утилиты
-│   └── format.ts
-├── test/                   # Тестовые утилиты и настройки
-│   ├── setup.ts
-│   └── utils.tsx
+├── styles/
+├── utils/
+├── test/
 └── main.tsx
 
 ## Основные компоненты
