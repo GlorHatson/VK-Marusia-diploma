@@ -41,21 +41,21 @@
    ```   
 
 ## Структура проекта
-src/
-├── api/
-├── app/
-├── assets/
-├── components/
-│   ├── features/
-│   └── UI/
-├── hooks/
-├── pages/
-├── store/
-│   └── slices/
-├── styles/
-├── utils/
-├── test/
-└── main.tsx
+
+**Основные папки:**
+
+- `src/api/` – API-запросы (axiosInstance, moviesApi, genresApi, authApi, favoritesApi)
+- `src/app/` – Redux store и хуки
+- `src/assets/` – иконки, изображения
+- `src/components/features/` – сложные компоненты (Header, AuthModal, TrailerModal, Footer)
+- `src/components/UI/` – переиспользуемые UI-компоненты (Button, Input, Rating, MovieCard и др.)
+- `src/hooks/` – кастомные хуки (useDebounce)
+- `src/pages/` – страницы приложения (MainPage, MoviePage, GenresPage, GenreMoviesPage, AccountPage)
+- `src/store/slices/` – Redux слайсы
+- `src/styles/` – глобальные стили и переменные
+- `src/utils/` – утилиты (format)
+- `src/test/` – тестовые утилиты и настройки
+- `src/main.tsx` – точка входа
 
 ## Основные компоненты
 - `MovieHero` – блок с фильмом (случайный или детальный)
