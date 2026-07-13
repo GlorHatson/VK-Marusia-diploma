@@ -22,7 +22,6 @@ const NoPoster: React.FC<NoPosterProps> = ({ title, className, variant = 'defaul
         loading="lazy"
       />
       <div className={styles['no-poster__text']}>
-        {/* <span>Для фильма</span> */}
         <span className={styles['no-poster__title']}>«{title}»</span>
         <span>постер не найден</span>
       </div>

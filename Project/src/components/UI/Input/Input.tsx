@@ -9,8 +9,8 @@ interface InputProps {
   type?: string;
   className?: string;
   onBlur?: () => void;
-  icon?: React.ReactNode;          // иконка слева
-  theme?: 'dark' | 'light';        // тема: тёмная (по умолчанию) или светлая
+  icon?: React.ReactNode;          
+  theme?: 'dark' | 'light';        
   name?: string;
   autoComplete?: string;
 }

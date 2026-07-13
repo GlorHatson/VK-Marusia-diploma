@@ -1,8 +1,4 @@
-// ============================================
 // COLOR VARIABLES
-// Based on UI-kit design system
-// ============================================
-
 // ---------- Primary (основные) ----------
 $color-primary-default: #67A5EB;      // основной цвет кнопок, акцентов
 $color-primary-hover: #5590d0;
@@ -40,6 +36,8 @@ $color-text-tertiary: rgba(255, 255, 255, 0.7);
 $color-text-disabled: rgba(255, 255, 255, 0.5);
 $color-loader: rgba(0, 0, 0, 0.5);
 $color-modal:rgba(0, 0, 0, 0.7);
+$color-ripple:rgba(0, 0, 0, 0.8);
+$color-overlay-button:rgba(139, 139, 139, 0.3);
 
 // ---------- Accent (акцентные элементы) ----------
 $color-accent: rgb(180, 169, 255);
@@ -48,8 +46,10 @@ $color-accent-border: #DC5DFC;
 $color-accent-ripple:#d534fd;
 
 // ---------- Status / Feedback ----------
-$color-success: #308E21;
-$color-warning: #A59400;
+$color-rating-green: #308E21;
+$color-rating-gold: #A59400;
+$color-rating-gray:#777777;
+$color-rating-red:#C82020;
 $color-error: #FF7575;
 $color-info: #67A5EB;
 
@@ -65,6 +65,7 @@ $shadow-card-hover: 0 0 1px 1px #B4A9FF, 0px 0px 60px #B4A9FF;
 $shadow-modal: 0 2px 8px rgba(0, 0, 0, 0.1);
 $shadow-button: 0 2px 4px rgba(0, 0, 0, 0.2);
 $shadow-modal: 0 4px 20px rgba(0,0,0,0.3);
+$shadow-dropdown: 0 8px 20px rgba(0, 0, 0, 0.5);
 
 // ---------- Borders ----------
 $border-radius-sm: 8px;

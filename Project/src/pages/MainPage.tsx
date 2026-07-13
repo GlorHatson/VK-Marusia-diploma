@@ -58,7 +58,6 @@ const MainPage = () => {
           onTrailerClick={handleOpenTrailer}
           onMoreClick={handleMoreClick}
           onRefresh={handleRefreshRandom}
-          // className={styles.hero}
         />
       )}
 

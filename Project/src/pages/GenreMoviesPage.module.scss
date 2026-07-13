@@ -55,7 +55,7 @@
   width: 80px;
   height: 80px;
   border-radius: 50%;
-  background: rgba(139, 139, 139, 0.3);
+  background: $color-overlay-button;
   backdrop-filter: blur(10px);
   color: $color-placeholder-dark;
   border: none;

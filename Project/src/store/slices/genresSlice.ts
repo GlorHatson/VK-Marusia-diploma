@@ -4,7 +4,7 @@ import { genresApi } from '../../api/genresApi';
 
 export interface Genre {
   name: string;
-  image?: string; // опционально, позже подставим картинки
+  image?: string; 
 }
 
 interface GenresState {

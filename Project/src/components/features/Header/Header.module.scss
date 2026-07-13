@@ -38,6 +38,15 @@
   align-items: end;
   gap: 8px;
   text-decoration: none;
+
+  &:focus-visible {
+    color: $color-accent;
+    outline: none;
+
+    .header__logo-image {
+      color: $color-accent;
+    }
+  }
 }
 
 .header__logo-image {
@@ -46,6 +55,10 @@
   width: auto;
   display: block;
   color: $color-text-primary;
+
+  &:hover {
+    color: $color-accent;
+  }
 }
 
 .header__nav-link {
@@ -69,6 +82,11 @@
   &:hover {
     color: $color-accent;
   }
+
+  &:focus-visible {
+    color: $color-accent;
+    outline: none;
+  }
 }
 
 .header__nav-link--active {
@@ -87,10 +105,16 @@
   align-items: center;
   background: $color-secondary-default;
   color: $color-placeholder-dark;
+  border: 1px solid transparent;
   border-radius: 8px;
   padding: 0 16px;
   height: 48px;
   gap: 12px;
+
+  &:focus-within,
+  &:hover {
+    border-color: $color-accent;
+   }
 }
 
 .header__search-wrapper svg {
@@ -161,9 +185,9 @@
   display: flex;
   flex-direction: column;
   gap: 2px;
-  background: #393B3C;
+  background: $color-secondary-default;
   border-radius: 8px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+  box-shadow: $shadow-dropdown;
   max-height: 476px;
   overflow-y: auto;
   z-index: 999;
@@ -180,7 +204,7 @@
 .search-dropdown__empty {
   padding: 8px;
   text-align: center;
-  color: rgba(255, 255, 255, 0.7);
+  color: $color-text-tertiary;
 }
 
 .search-dropdown__list {
@@ -193,7 +217,7 @@
 .mobile-search__error {
   padding: 8px;
   text-align: center;
-  color: #ff7575;
+  color: $color-error;
   font-size: 16px;
 }
 
@@ -218,6 +242,11 @@
 
   &:hover {
     color: $color-accent;
+  }
+
+  &:focus-visible {
+    color: $color-accent;
+    outline: none;
   }
 }
 

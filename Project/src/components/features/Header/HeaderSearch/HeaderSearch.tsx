@@ -155,7 +155,6 @@ const HeaderSearch: React.FC<HeaderSearchProps> = ({
         )}
       </div>
 
-      {/* Мобильная кнопка поиска – в HeaderMobileActions, поэтому здесь только модалка */}
       {isSearchOpen && (
         <div
           className={styles['mobile-search-overlay']}

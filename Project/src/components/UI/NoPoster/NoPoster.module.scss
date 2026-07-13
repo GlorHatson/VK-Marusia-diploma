@@ -59,15 +59,15 @@
 
 @media (max-width: 375px) {
   .no-poster--default .no-poster__image {
-    max-width: 100px; /* уменьшаем изображение */
+    max-width: 100px; 
   }
 
   .no-poster--default .no-poster__text {
-    font-size: 16px; /* увеличиваем читаемость */
+    font-size: 16px; 
     gap: 4px;
   }
 
   .no-poster__title {
-    font-size: 18px; /* выделяем название */
+    font-size: 18px; 
   }
 }

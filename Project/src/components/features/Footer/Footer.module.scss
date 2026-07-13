@@ -33,9 +33,11 @@
   font-size: 20px;
 }
 
-.footer__social-link:hover {
+.footer__social-link:hover, 
+.footer__social-link:focus-visible{
   color: $color-accent;
   border: 1px solid $color-accent;
+  outline: none;
 }
 
 .footer__social-link svg {

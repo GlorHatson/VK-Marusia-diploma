@@ -17,28 +17,28 @@
 }
 
 .rating--gold {
-  background-color: #A59400;
-  color: #fff;
+  background-color: $color-rating-gold;
+  color: $color-text-primary;
 }
 
 .rating--green {
-  background-color: #308E21;
-  color: #fff;
+  background-color: $color-rating-green;
+  color: $color-text-primary;
 }
 
 .rating--gray {
-  background-color: #777777;
-  color: #fff;
+  background-color: $color-rating-gray;
+  color: $color-text-primary;
 }
 
 .rating--red {
-  background-color: #C82020;
-  color: #fff;
+  background-color: $color-rating-red;
+  color: $color-text-primary;
 }
 
 .rating--black {
-  background-color: #000000;
-  color: #fff;
+  background-color: $color-black;
+  color: $color-text-primary;
 }
 
 .rating--compact {
