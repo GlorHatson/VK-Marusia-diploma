@@ -1,9 +1,37 @@
 @use '@/styles/variables' as *;
 
+@font-face {
+  font-family: 'Play';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Play Regular'), local('Play-Regular'),
+       url('https://fonts.gstatic.com/s/play/v19/6aez4K2oVqwIvtU2Hw.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Play';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: local('Play Bold'), local('Play-Bold'),
+       url('https://fonts.gstatic.com/s/play/v19/6ae84K2oVqwItm4TOpM.woff2') format('woff2');
+}
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
 }
 
 html,
@@ -51,3 +79,6 @@ select {
   font-family: inherit;
 }
 
+footer {
+  min-height: 80px; 
+}

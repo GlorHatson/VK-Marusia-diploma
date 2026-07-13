@@ -8,6 +8,14 @@ import favoritesReducer from '../../../store/slices/favoritesSlice';
 import uiReducer from '../../../store/slices/uiSlice';
 import * as uiActions from '../../../store/slices/uiSlice';
 import * as favoritesActions from '../../../store/slices/favoritesSlice';
+import type { Movie } from '../../../store/slices/moviesSlice';
+
+// Mock-объект фильма для тестов
+const mockMovie: Movie = {
+  id: 1,
+  title: 'Test Movie',
+  posterUrl: 'https://example.com/poster.jpg',
+};
 
 // Создаём store для тестов
 const createTestStore = (isAuthenticated = false, isFavorite = false) => {
@@ -19,7 +27,7 @@ const createTestStore = (isAuthenticated = false, isFavorite = false) => {
     },
     preloadedState: {
       user: { isAuthenticated, user: null, loading: false, error: null },
-      favorites: { items: isFavorite ? [{ id: 1, title: 'Test Movie' }] : [], loading: false, error: null },
+      favorites: { items: isFavorite ? [mockMovie] : [], loading: false, error: null },
       ui: { isAuthModalOpen: false },
     },
   });
@@ -37,7 +45,7 @@ describe('FavoriteButton', () => {
     const store = createTestStore(false, false);
     render(
       <Provider store={store}>
-        <FavoriteButton movieId={1} />
+        <FavoriteButton movieId={mockMovie.id} movie={mockMovie} />
       </Provider>
     );
     const button = screen.getByRole('button', { name: /Добавить в избранное/i });
@@ -49,31 +57,31 @@ describe('FavoriteButton', () => {
     const store = createTestStore(true, false);
     render(
       <Provider store={store}>
-        <FavoriteButton movieId={1} />
+        <FavoriteButton movieId={mockMovie.id} movie={mockMovie} />
       </Provider>
     );
     const button = screen.getByRole('button', { name: /Добавить в избранное/i });
     fireEvent.click(button);
-    expect(favoritesActions.addToFavorites).toHaveBeenCalledWith(1);
+    expect(favoritesActions.addToFavorites).toHaveBeenCalledWith(mockMovie);
   });
 
   it('removes from favorites when user is authenticated and is favorite', async () => {
     const store = createTestStore(true, true);
     render(
       <Provider store={store}>
-        <FavoriteButton movieId={1} />
+        <FavoriteButton movieId={mockMovie.id} movie={mockMovie} />
       </Provider>
     );
     const button = screen.getByRole('button', { name: /Удалить из избранного/i });
     fireEvent.click(button);
-    expect(favoritesActions.removeFromFavorites).toHaveBeenCalledWith(1);
+    expect(favoritesActions.removeFromFavorites).toHaveBeenCalledWith(mockMovie.id);
   });
 
   it('renders active state when movie is favorite', () => {
     const store = createTestStore(true, true);
     render(
       <Provider store={store}>
-        <FavoriteButton movieId={1} />
+        <FavoriteButton movieId={mockMovie.id} movie={mockMovie} />
       </Provider>
     );
     const button = screen.getByRole('button', { name: /Удалить из избранного/i });
@@ -84,7 +92,7 @@ describe('FavoriteButton', () => {
     const store = createTestStore(true, false);
     render(
       <Provider store={store}>
-        <FavoriteButton movieId={1} />
+        <FavoriteButton movieId={mockMovie.id} movie={mockMovie} />
       </Provider>
     );
     const button = screen.getByRole('button', { name: /Добавить в избранное/i });
@@ -105,7 +113,7 @@ describe('FavoriteButton', () => {
     });
     render(
       <Provider store={store}>
-        <FavoriteButton movieId={1} />
+        <FavoriteButton movieId={mockMovie.id} movie={mockMovie} />
       </Provider>
     );
     const button = screen.getByRole('button');

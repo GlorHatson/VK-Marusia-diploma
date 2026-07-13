@@ -21,7 +21,13 @@ const SearchDropdownItem: React.FC<SearchDropdownItemProps> = ({ movie, onClick 
     <div className={styles['search-item']} onClick={onClick}>
       <div className={styles['search-item__poster']}>
         {movie.posterUrl ? (
-          <img src={movie.posterUrl} alt={movie.title} />
+          <img
+            src={movie.posterUrl}
+            alt={movie.title}
+            width={40}
+            height={52}
+            loading="lazy"
+          />
         ) : (
           <div className={styles['search-item__no-poster']}>Нет постера</div>
         )}

@@ -24,5 +24,5 @@ export const authApi = {
   register: (data: RegisterData) => apiClient.post('/user', data),
   login: (data: LoginData) => apiClient.post('/auth/login', data),
   logout: () => apiClient.get('/auth/logout'),
-  getProfile: () => apiClient.get('/profile'),
+  getProfile: () => apiClient.get('/profile', { validateStatus: (status) => status < 500 }),
 };

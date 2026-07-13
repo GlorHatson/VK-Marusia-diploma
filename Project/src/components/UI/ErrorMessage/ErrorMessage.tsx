@@ -17,7 +17,13 @@ const ErrorMessage: React.FC<ErrorMessageProps> = ({
 }) => {
   return (
     <div className={styles.errorContainer}>
-      <img src={errorImage} alt="Ошибка" className={styles.errorImage} />
+      <img
+        src={errorImage}
+        alt="Ошибка"
+        className={styles.errorImage}
+        width={200}
+        height="auto"
+      />
       <h2 className={styles.errorTitle}>{title}</h2>
       <p className={styles.errorMessage}>{message}</p>
       {onRetry && (

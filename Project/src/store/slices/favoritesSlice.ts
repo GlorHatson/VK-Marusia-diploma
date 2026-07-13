@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { favoritesApi } from '../../api/favoritesApi';
+import type {PayloadAction } from '@reduxjs/toolkit';
 import type { Movie } from './moviesSlice';
 
 interface FavoritesState {
@@ -26,13 +27,13 @@ export const fetchFavorites = createAsyncThunk(
   }
 );
 
+// Теперь принимает объект фильма
 export const addToFavorites = createAsyncThunk(
   'favorites/addToFavorites',
-  async (movieId: number, { dispatch, rejectWithValue }) => {
+  async (movie: Movie, { rejectWithValue }) => {
     try {
-      await favoritesApi.addFavorite(movieId);
-      await dispatch(fetchFavorites()); // перезагружаем список
-      return movieId;
+      await favoritesApi.addFavorite(movie.id);
+      return movie;
     } catch (error: any) {
       return rejectWithValue(error.response?.data?.message || 'Ошибка добавления');
     }
@@ -41,10 +42,9 @@ export const addToFavorites = createAsyncThunk(
 
 export const removeFromFavorites = createAsyncThunk(
   'favorites/removeFromFavorites',
-  async (movieId: number, { dispatch, rejectWithValue }) => {
+  async (movieId: number, { rejectWithValue }) => {
     try {
       await favoritesApi.removeFavorite(movieId);
-      await dispatch(fetchFavorites());
       return movieId;
     } catch (error: any) {
       return rejectWithValue(error.response?.data?.message || 'Ошибка удаления');
@@ -56,6 +56,14 @@ const favoritesSlice = createSlice({
   name: 'favorites',
   initialState,
   reducers: {
+    addFavoriteLocally: (state, action: PayloadAction<Movie>) => {
+      if (!state.items.some(m => m.id === action.payload.id)) {
+        state.items.push(action.payload);
+      }
+    },
+    removeFavoriteLocally: (state, action: PayloadAction<number>) => {
+      state.items = state.items.filter(m => m.id !== action.payload);
+    },
     clearFavorites: (state) => {
       state.items = [];
       state.error = null;
@@ -75,8 +83,17 @@ const favoritesSlice = createSlice({
         state.loading = false;
         state.error = action.payload as string;
       })
+      .addCase(addToFavorites.fulfilled, (state, action) => {
+        const movie = action.payload;
+        if (!state.items.some(m => m.id === movie.id)) {
+          state.items.push(movie);
+        }
+      })
       .addCase(addToFavorites.rejected, (state, action) => {
         state.error = action.payload as string;
+      })
+      .addCase(removeFromFavorites.fulfilled, (state, action) => {
+        state.items = state.items.filter(m => m.id !== action.payload);
       })
       .addCase(removeFromFavorites.rejected, (state, action) => {
         state.error = action.payload as string;
@@ -84,5 +101,5 @@ const favoritesSlice = createSlice({
   },
 });
 
-export const { clearFavorites } = favoritesSlice.actions;
+export const { addFavoriteLocally, removeFavoriteLocally, clearFavorites } = favoritesSlice.actions;
 export default favoritesSlice.reducer;

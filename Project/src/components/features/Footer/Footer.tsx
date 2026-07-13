@@ -10,17 +10,45 @@ const Footer = () => {
     <footer className={styles.footer}>
       <Container className={styles.footer__container}>
         <div className={styles['footer__social-list']}>
-          <a href="#" target="_blank" rel="noopener noreferrer" className={styles['footer__social-link']} aria-label="VK">
-            <IconVk/>
+          <a
+            href="#"
+            target="_blank"
+            rel="noopener noreferrer"
+            className={styles['footer__social-link']}
+            aria-label="VK"
+          >
+            <IconVk aria-hidden="true" />
+            <span className="visually-hidden">VK</span>
           </a>
-          <a href="#" target="_blank" rel="noopener noreferrer" className={styles['footer__social-link']} aria-label="YouTube">
-            <IconYoutube/>
+          <a
+            href="#"
+            target="_blank"
+            rel="noopener noreferrer"
+            className={styles['footer__social-link']}
+            aria-label="YouTube"
+          >
+            <IconYoutube aria-hidden="true" />
+            <span className="visually-hidden">YouTube</span>
           </a>
-          <a href="#" target="_blank" rel="noopener noreferrer" className={styles['footer__social-link']} aria-label="OK">
-            <IconOk/>
+          <a
+            href="#"
+            target="_blank"
+            rel="noopener noreferrer"
+            className={styles['footer__social-link']}
+            aria-label="OK"
+          >
+            <IconOk aria-hidden="true" />
+            <span className="visually-hidden">OK</span>
           </a>
-          <a href="#" target="_blank" rel="noopener noreferrer" className={styles['footer__social-link']} aria-label="Telegram">
-            <IconTelegram />
+          <a
+            href="#"
+            target="_blank"
+            rel="noopener noreferrer"
+            className={styles['footer__social-link']}
+            aria-label="Telegram"
+          >
+            <IconTelegram aria-hidden="true" />
+            <span className="visually-hidden">Telegram</span>
           </a>
         </div>
       </Container>

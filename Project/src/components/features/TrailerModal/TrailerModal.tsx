@@ -31,6 +31,7 @@ function loadYouTubeAPI() {
   }
   const tag = document.createElement('script');
   tag.src = 'https://www.youtube.com/iframe_api';
+  tag.async = true;
   const firstScriptTag = document.getElementsByTagName('script')[0];
   firstScriptTag.parentNode?.insertBefore(tag, firstScriptTag);
   window.onYouTubeIframeAPIReady = () => {
@@ -48,48 +49,99 @@ const TrailerModal: React.FC<TrailerModalProps> = ({ isOpen, onClose, videoId, t
   const [isHovered, setIsHovered] = useState(false);
   const [isCloseHovered, setIsCloseHovered] = useState(false);
   const [showCloseDelayed, setShowCloseDelayed] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    if (!isOpen) return;
+    if (!isOpen) {
+      setError(null);
+      return;
+    }
+
     const initPlayer = () => {
-      if (!containerRef.current) return;
-      playerRef.current = new window.YT.Player(containerRef.current, {
-        videoId,
-        playerVars: {
-          autoplay: 1,
-          controls: 0,
-          modestbranding: 1,
-          rel: 0,
-          fs: 0,
-          playsinline: 1,
-          iv_load_policy: 3,
-          disablekb: 1,
-          origin: window.location.origin,
-        },
-        events: {
-          onReady: () => {
-            setIsPlayerReady(true);
-            setIsPlaying(true);
+      try {
+        if (!containerRef.current) {
+          throw new Error('Контейнер плеера не найден');
+        }
+        if (!window.YT || !window.YT.Player) {
+          throw new Error('YouTube API не загружена');
+        }
+
+        playerRef.current = new window.YT.Player(containerRef.current, {
+          videoId,
+          playerVars: {
+            autoplay: 1,
+            controls: 0,
+            modestbranding: 1,
+            rel: 0,
+            fs: 0,
+            playsinline: 1,
+            iv_load_policy: 3,
+            disablekb: 1,
+            origin: window.location.origin,
           },
-          onStateChange: (event: any) => {
-            if (event.data === window.YT.PlayerState.PLAYING) {
+          events: {
+            onReady: () => {
+              setIsPlayerReady(true);
               setIsPlaying(true);
-            } else if (event.data === window.YT.PlayerState.PAUSED) {
-              setIsPlaying(false);
-            }
+              setError(null);
+            },
+            onStateChange: (event: any) => {
+              if (event.data === window.YT.PlayerState.PLAYING) {
+                setIsPlaying(true);
+              } else if (event.data === window.YT.PlayerState.PAUSED) {
+                setIsPlaying(false);
+              }
+            },
+            onError: (event: any) => {
+              const errorCode = event.data;
+              let message = 'Не удалось воспроизвести трейлер.';
+              if (errorCode === 2) message = 'Неверный ID видео.';
+              else if (errorCode === 5) message = 'Плеер не может воспроизвести видео.';
+              else if (errorCode === 100) message = 'Видео недоступно.';
+              else if (errorCode === 101 || errorCode === 150) message = 'Видео не может быть воспроизведено на этом сайте.';
+              setError(message);
+              setIsPlayerReady(false);
+              console.error('YouTube Player error:', event);
+            },
           },
-        },
-      });
+        });
+      } catch (err: any) {
+        setError(err.message || 'Ошибка инициализации плеера');
+        console.error('Ошибка инициализации YouTube плеера:', err);
+      }
     };
+
     if (window.YT && window.YT.Player) {
       initPlayer();
     } else {
-      ytCallbacks.push(initPlayer);
+      // Подписываемся на загрузку API, но с таймаутом
+      let timeoutId: ReturnType<typeof setTimeout>;
+      const callback = () => {
+        clearTimeout(timeoutId);
+        initPlayer();
+      };
+      ytCallbacks.push(callback);
       loadYouTubeAPI();
+
+      // Если API не загрузилась через 10 секунд, показываем ошибку
+      timeoutId = setTimeout(() => {
+        const index = ytCallbacks.indexOf(callback);
+        if (index > -1) ytCallbacks.splice(index, 1);
+        setError('Не удалось загрузить YouTube плеер. Проверьте соединение.');
+      }, 10000);
+
+      return () => {
+        clearTimeout(timeoutId);
+        const index = ytCallbacks.indexOf(callback);
+        if (index > -1) ytCallbacks.splice(index, 1);
+      };
     }
+
     return () => {
       if (playerRef.current) {
-        playerRef.current.destroy();
+        try {
+          playerRef.current.destroy();
+        } catch (e) { /* ignore */ }
         playerRef.current = null;
       }
       if (closeTimer.current) clearTimeout(closeTimer.current);
@@ -98,15 +150,19 @@ const TrailerModal: React.FC<TrailerModalProps> = ({ isOpen, onClose, videoId, t
       setIsHovered(false);
       setIsCloseHovered(false);
       setShowCloseDelayed(false);
+      setError(null);
     };
   }, [isOpen, videoId]);
 
+  // Остальные эффекты (блокировка скролла, клавиша Escape) остаются без изменений
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = 'hidden';
     } else {
       document.body.style.overflow = '';
-      if (playerRef.current) playerRef.current.pauseVideo();
+      if (playerRef.current) {
+        try { playerRef.current.pauseVideo(); } catch (e) { /* ignore */ }
+      }
     }
     return () => {
       document.body.style.overflow = '';
@@ -121,13 +177,21 @@ const TrailerModal: React.FC<TrailerModalProps> = ({ isOpen, onClose, videoId, t
     return () => document.removeEventListener('keydown', handleEsc);
   }, [isOpen, onClose]);
 
-  const isLoading = !isPlayerReady;
-
+  // Логика показа кнопок
   useEffect(() => {
-    if (isLoading || !isPlaying) {
+    if (error) {
       setShowCloseDelayed(true);
-      if (closeTimer.current) clearTimeout(closeTimer.current);
-    } else if (isPlaying && (isHovered || isCloseHovered)) {
+      return;
+    }
+    if (!isPlayerReady) {
+      setShowCloseDelayed(true);
+      return;
+    }
+    if (!isPlaying) {
+      setShowCloseDelayed(true);
+      return;
+    }
+    if (isPlaying && (isHovered || isCloseHovered)) {
       setShowCloseDelayed(true);
       if (closeTimer.current) clearTimeout(closeTimer.current);
     } else if (isPlaying && !isHovered && !isCloseHovered) {
@@ -139,35 +203,41 @@ const TrailerModal: React.FC<TrailerModalProps> = ({ isOpen, onClose, videoId, t
     return () => {
       if (closeTimer.current) clearTimeout(closeTimer.current);
     };
-  }, [isPlaying, isHovered, isCloseHovered, isLoading]);
+  }, [isPlaying, isHovered, isCloseHovered, isPlayerReady, error]);
 
   const handlePlayPause = () => {
-    if (!playerRef.current) return;
-    if (isPlaying) {
-      playerRef.current.pauseVideo();
-    } else {
-      playerRef.current.playVideo();
+    if (!playerRef.current || !isPlayerReady) return;
+    try {
+      if (isPlaying) {
+        playerRef.current.pauseVideo();
+      } else {
+        playerRef.current.playVideo();
+      }
+    } catch (err) {
+      console.warn('Ошибка управления плеером:', err);
     }
   };
 
   if (!isOpen) return null;
 
-  let showPlayPause = false;
-  let showClose = false;
-  let showTitle = false;
-
-  if (isLoading) {
-    showClose = true;
-  } else if (!isPlaying) {
-    showPlayPause = true;
-    showClose = true;
-    showTitle = true;
-  } else {
-    if (isHovered) {
-      showPlayPause = true;
-    }
-    showClose = showCloseDelayed;
+  // Если есть ошибка, показываем сообщение
+  if (error) {
+    return (
+      <div className={styles['trailer-modal__overlay']} onClick={onClose}>
+        <div className={styles['trailer-modal__container']} onClick={(e) => e.stopPropagation()}>
+          <div className={styles['trailer-modal__video-wrapper']} style={{ padding: '40px', textAlign: 'center' }}>
+            <p style={{ color: '#fff', fontSize: '20px' }}>{error}</p>
+            <Button variant="primary" onClick={onClose} style={{ marginTop: '20px' }}>
+              Закрыть
+            </Button>
+          </div>
+        </div>
+      </div>
+    );
   }
+
+  const showPlayPause = isPlayerReady && !isPlaying;
+  const showClose = error || !isPlayerReady || showCloseDelayed;
 
   return (
     <div className={styles['trailer-modal__overlay']} onClick={onClose}>
@@ -178,7 +248,7 @@ const TrailerModal: React.FC<TrailerModalProps> = ({ isOpen, onClose, videoId, t
           onMouseLeave={() => setIsHovered(false)}
         >
           <div ref={containerRef} className={styles['trailer-modal__player']} />
-          {isLoading && (
+          {!isPlayerReady && !error && (
             <div className={styles['trailer-modal__loader']}>
               <div className={styles['trailer-modal__spinner']}></div>
             </div>
@@ -194,7 +264,7 @@ const TrailerModal: React.FC<TrailerModalProps> = ({ isOpen, onClose, videoId, t
             />
           )}
         </div>
-        {showTitle && <div className={styles['trailer-modal__title']}>{title}</div>}
+        {isPlayerReady && <div className={styles['trailer-modal__title']}>{title}</div>}
         {showClose && (
           <Button
             variant="light"

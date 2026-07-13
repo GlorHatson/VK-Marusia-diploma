@@ -7,6 +7,7 @@ import Header from './components/features/Header/Header';
 import Footer from './components/features/Footer/Footer';
 import PrivateRoute from './components/features/PrivateRoute';
 import Loader from './components/UI/Loader/Loader';
+import ErrorBoundary from './components/features/ErrorBoundary/ErrorBoundary';
 
 // Ленивая загрузка страниц
 const MainPage = lazy(() => import('./pages/MainPage'));
@@ -56,28 +57,30 @@ function App() {
   }
 
   return (
-    <BrowserRouter>
-      <Header />
-      <main>
-        <Suspense fallback={<Loader size={200} message="Загрузка страницы..." />}>
-          <Routes>
-            <Route path="/" element={<MainPage />} />
-            <Route path="/genres" element={<GenresPage />} />
-            <Route path="/genres/:genreName" element={<GenreMoviesPage />} />
-            <Route path="/movie/:id" element={<MoviePage />} />
-            <Route
-              path="/account"
-              element={
-                <PrivateRoute>
-                  <AccountPage />
-                </PrivateRoute>
-              }
-            />
-          </Routes>
-        </Suspense>
-      </main>
-      <Footer />
-    </BrowserRouter>
+    <ErrorBoundary>
+      <BrowserRouter>
+        <Header />
+        <main>
+          <Suspense fallback={<Loader size={200} message="Загрузка страницы..." />}>
+            <Routes>
+              <Route path="/" element={<MainPage />} />
+              <Route path="/genres" element={<GenresPage />} />
+              <Route path="/genres/:genreName" element={<GenreMoviesPage />} />
+              <Route path="/movie/:id" element={<MoviePage />} />
+              <Route
+                path="/account"
+                element={
+                  <PrivateRoute>
+                    <AccountPage />
+                  </PrivateRoute>
+                }
+              />
+            </Routes>
+          </Suspense>
+        </main>
+        <Footer />
+      </BrowserRouter>
+    </ErrorBoundary>
   );
 }
 

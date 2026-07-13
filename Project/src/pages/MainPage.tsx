@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../app/hooks';
 import { fetchTop10, fetchRandomMovie } from '../store/slices/moviesSlice';
@@ -11,7 +11,7 @@ import Loader from '../components/UI/Loader/Loader';
 import ErrorMessage from '../components/UI/ErrorMessage/ErrorMessage';
 import styles from './MainPage.module.scss';
 
-const MainPage = () => {
+const MainPage: React.FC = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const { top10, randomMovie, loading, error } = useAppSelector((state) => state.movies);
@@ -22,11 +22,13 @@ const MainPage = () => {
     dispatch(fetchRandomMovie());
   }, [dispatch]);
 
-  const handleRefreshRandom = () => dispatch(fetchRandomMovie());
-  const handleOpenTrailer = () => setIsTrailerOpen(true);
-  const handleCloseTrailer = () => setIsTrailerOpen(false);
-  const handleMoreClick = () => randomMovie && navigate(`/movie/${randomMovie.id}`);
-  const handleCardClick = (id: number) => navigate(`/movie/${id}`);
+  const handleRefreshRandom = useCallback(() => dispatch(fetchRandomMovie()), [dispatch]);
+  const handleOpenTrailer = useCallback(() => setIsTrailerOpen(true), []);
+  const handleCloseTrailer = useCallback(() => setIsTrailerOpen(false), []);
+  const handleMoreClick = useCallback(() => {
+    if (randomMovie) navigate(`/movie/${randomMovie.id}`);
+  }, [randomMovie, navigate]);
+  const handleCardClick = useCallback((id: number) => navigate(`/movie/${id}`), [navigate]);
 
   if (loading.top10 || loading.random) {
     return <Loader size={200} message="Загрузка страницы..." />;
@@ -80,4 +82,4 @@ const MainPage = () => {
   );
 };
 
-export default MainPage;
+export default React.memo(MainPage);

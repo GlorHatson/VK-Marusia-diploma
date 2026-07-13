@@ -60,6 +60,9 @@ export const checkAuth = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const response = await authApi.getProfile();
+      if (response.status === 401) {
+        return null; // неавторизован
+      }
       return response.data as User;
     } catch (error: any) {
       return rejectWithValue(null);
@@ -116,7 +119,7 @@ const userSlice = createSlice({
       .addCase(checkAuth.fulfilled, (state, action) => {
         state.loading = false;
         state.user = action.payload;
-        state.isAuthenticated = true;
+        state.isAuthenticated = !!action.payload;
       })
       .addCase(checkAuth.rejected, (state) => {
         state.loading = false;

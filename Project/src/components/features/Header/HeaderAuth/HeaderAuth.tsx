@@ -18,10 +18,13 @@ const HeaderAuth: React.FC = () => {
     }
   };
 
+  const buttonLabel = isAuthenticated ? 'Аккаунт' : 'Войти';
+
   return (
     <button
       onClick={handleClick}
       className={`${styles.header__auth} ${styles['header__nav-link']} ${isAuthenticated ? styles['header__nav-link--active'] : ''}`}
+      aria-label={buttonLabel}
     >
       <IconUser className={styles['nav-icon']} />
       <span>

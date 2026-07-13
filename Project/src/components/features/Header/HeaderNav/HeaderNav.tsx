@@ -12,6 +12,7 @@ const HeaderNav: React.FC = () => {
           `${styles['header__nav-link']} ${isActive ? styles['header__nav-link--active'] : ''}`
         }
         end
+        aria-label="Главная"
       >
         <span>Главная</span>
       </NavLink>
@@ -20,6 +21,7 @@ const HeaderNav: React.FC = () => {
         className={({ isActive }) =>
           `${styles['header__nav-link']} ${isActive ? styles['header__nav-link--active'] : ''}`
         }
+        aria-label="Жанры"
       >
         <IconGenres className={styles['nav-icon']} />
         <span>Жанры</span>

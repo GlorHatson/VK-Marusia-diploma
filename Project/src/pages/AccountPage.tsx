@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../app/hooks';
 import { logout, checkAuth } from '../store/slices/userSlice';
@@ -14,7 +14,7 @@ import Loader from '../components/UI/Loader/Loader';
 import ErrorMessage from '../components/UI/ErrorMessage/ErrorMessage';
 import styles from './AccountPage.module.scss';
 
-const AccountPage = () => {
+const AccountPage: React.FC = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const { user, isAuthenticated, loading: userLoading, error: userError } = useAppSelector((state) => state.user);
@@ -33,15 +33,29 @@ const AccountPage = () => {
     }
   }, [dispatch, isAuthenticated]);
 
-  const handleLogout = async () => {
+  const handleLogout = useCallback(async () => {
     await dispatch(logout());
     navigate('/');
-  };
+  }, [dispatch, navigate]);
 
-  const handleRemoveFavorite = async (e: React.MouseEvent, movieId: number) => {
+  const handleRemoveFavorite = useCallback(async (e: React.MouseEvent, movieId: number) => {
     e.stopPropagation();
     await dispatch(removeFromFavorites(movieId));
-  };
+  }, [dispatch]);
+
+  const fullName = useMemo(() => {
+    const name = user?.name || '';
+    const surname = user?.surname || '';
+    return (name && surname) ? `${name} ${surname}` : (user?.email || '');
+  }, [user]);
+
+  const initials = useMemo(() => {
+    const name = user?.name || '';
+    const surname = user?.surname || '';
+    return (name && surname)
+      ? `${name[0]}${surname[0]}`.toUpperCase()
+      : (user?.email?.[0] || 'U').toUpperCase();
+  }, [user]);
 
   if (userLoading) {
     return <div className={styles['account-page__loader']}><Loader size={200} message="Загрузка профиля..." /></div>;
@@ -64,14 +78,6 @@ const AccountPage = () => {
       />
     );
   }
-
-  const name = user.name || '';
-  const surname = user.surname || '';
-  const email = user.email || '';
-  const fullName = (name && surname) ? `${name} ${surname}` : email;
-  const initials = (name && surname)
-    ? `${name[0]}${surname[0]}`.toUpperCase()
-    : (email[0] || 'U').toUpperCase();
 
   const renderFavorites = () => {
     if (favLoading) {
@@ -112,7 +118,7 @@ const AccountPage = () => {
           </div>
           <div className={styles['settings-info']}>
             <div className={styles['settings-label']}>Электронная почта</div>
-            <div className={styles['settings-value']}>{email}</div>
+            <div className={styles['settings-value']}>{user.email}</div>
           </div>
         </div>
       </div>
@@ -152,4 +158,4 @@ const AccountPage = () => {
   );
 };
 
-export default AccountPage;
+export default React.memo(AccountPage);

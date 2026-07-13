@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { useParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../app/hooks';
 import { fetchMovieById, clearCurrentMovie } from '../store/slices/moviesSlice';
@@ -10,7 +10,7 @@ import Loader from '../components/UI/Loader/Loader';
 import ErrorMessage from '../components/UI/ErrorMessage/ErrorMessage';
 import styles from './MoviePage.module.scss';
 
-const MoviePage = () => {
+const MoviePage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const dispatch = useAppDispatch();
   const { currentMovie: movie, loading, error } = useAppSelector((state) => state.movies);
@@ -25,8 +25,8 @@ const MoviePage = () => {
     };
   }, [dispatch, id]);
 
-  const handleOpenTrailer = () => setIsTrailerOpen(true);
-  const handleCloseTrailer = () => setIsTrailerOpen(false);
+  const handleOpenTrailer = useCallback(() => setIsTrailerOpen(true), []);
+  const handleCloseTrailer = useCallback(() => setIsTrailerOpen(false), []);
 
   if (loading.current) {
     return <Loader size={200} message="Загрузка фильма..." />;
@@ -69,4 +69,4 @@ const MoviePage = () => {
   );
 };
 
-export default MoviePage;
+export default React.memo(MoviePage);

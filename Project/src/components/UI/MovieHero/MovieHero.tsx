@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import type { Movie } from '../../../store/slices/moviesSlice';
 import Rating from '../Rating/Rating';
 import Button from '../Button/Button';
@@ -26,6 +26,7 @@ const MovieHero: React.FC<MovieHeroProps> = ({
   className = '',
 }) => {
   const isRandom = variant === 'random';
+  const formattedRuntime = useMemo(() => formatRuntime(movie.runtime), [movie.runtime]);
 
   return (
     <section className={`${styles['main-page__random']} ${className}`}>
@@ -35,7 +36,7 @@ const MovieHero: React.FC<MovieHeroProps> = ({
             <Rating value={movie.tmdbRating} />
             <span className={styles['main-page__random-year']}>{movie.releaseYear ?? '—'}</span>
             <span className={styles['main-page__random-genre']}>{movie.genres?.[0] ?? '—'}</span>
-            <span className={styles['main-page__random-duration']}>{formatRuntime(movie.runtime)}</span>
+            <span className={styles['main-page__random-duration']}>{formattedRuntime}</span>
           </div>
           <h1 className={styles['main-page__random-title']}>{movie.title}</h1>
           <p className={`${styles['main-page__random-description']} ${variant === 'detail' ? styles['main-page__random-description--detail'] : ''}`}>
@@ -53,7 +54,8 @@ const MovieHero: React.FC<MovieHeroProps> = ({
                   О фильме
                 </Button>
               )}
-              <FavoriteButton movieId={movie.id} />
+              {/* Передаём и id, и объект фильма */}
+              <FavoriteButton movieId={movie.id} movie={movie} />
               {isRandom && onRefresh && <RefreshButton onClick={onRefresh} />}
             </div>
           </div>
@@ -66,7 +68,8 @@ const MovieHero: React.FC<MovieHeroProps> = ({
               className={styles['main-page__random-poster']}
               width={680}
               height={552}
-              loading="lazy"
+              fetchPriority="high"
+              loading="eager"
             />
           ) : movie.posterUrl ? (
             <img
@@ -75,7 +78,8 @@ const MovieHero: React.FC<MovieHeroProps> = ({
               className={styles['main-page__random-poster']}
               width={680}
               height={552}
-              loading="lazy"
+              fetchPriority="high"
+              loading="eager"
             />
           ) : (
             <NoPoster title={movie.title} />

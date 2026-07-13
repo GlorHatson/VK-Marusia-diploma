@@ -47,8 +47,8 @@ const Header: React.FC = () => {
         <Container>
           <div className={styles.header__container}>
             <div className={styles.header__logo}>
-              <Link to="/" className={styles['header__logo-link']}>
-                <MarusiaLogo className={styles['header__logo-image']} />
+              <Link to="/" className={styles['header__logo-link']} aria-label="На главную">
+                <MarusiaLogo className={styles['header__logo-image']} aria-hidden="true" />
               </Link>
             </div>
 
