@@ -1,73 +1,70 @@
-# React + TypeScript + Vite
+# ВК Маруся — каталог фильмов
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Приложение для просмотра каталога фильмов, поиска по названию и ведения избранного. Проект использует публичное API `cinemaguide.skillbox.cc`, авторизацию по сессии и прокси-эндпойнты Nuxt для получения данных без проблем с CORS.
 
-Currently, two official plugins are available:
+## Функциональность
+- Главная страница с топ-10 фильмов и случайным фильмом
+- Поиск фильмов с дебаунсом и мобильной адаптацией
+- Страница жанров с постерами
+- Страница фильма с трейлером (YouTube Iframe API)
+- Авторизация (регистрация, вход, выход)
+- Избранное (добавление/удаление)
+- Личный кабинет с настройками и списком избранного
+- Адаптивная вёрстка (десктоп, планшеты, мобильные)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Технологии
+- **React 18** + **TypeScript**
+- **Redux Toolkit** + **React-Redux**
+- **React Router v6**
+- **Vite** (сборка)
+- **Vitest** + **Testing Library** (тесты)
+- **SCSS Modules** (стилизация)
+- **Axios** (запросы к API)
 
-## React Compiler
+## Установка и запуск
+1. Установите зависимости:
+   ```bash
+   npm install
+   ```
+2. Запустите режим разработки:
+   ```bash
+   npm run dev
+   ```
+3. Сборка и предпросмотр продакшн‑версии:
+   ```bash
+   npm run build
+   npm run preview
+   ```
+4. Тестирование:
+   ```bash
+   npm test
+   ```   
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Структура проекта
+src/
+├── api/               # API-запросы
+├── app/               # Redux store, хуки
+├── assets/            # Иконки, изображения
+├── components/        # React-компоненты
+│   ├── features/      # Сложные компоненты (Header, AuthModal, TrailerModal)
+│   └── UI/            # Переиспользуемые UI-компоненты (Button, Input, Rating)
+├── hooks/             # Кастомные хуки (useDebounce)
+├── pages/             # Страницы приложения
+├── store/             # Redux слайсы
+├── styles/            # Глобальные стили и переменные
+└── utils/             # Утилиты (форматирование)
 
-## Expanding the ESLint configuration
+## Основные компоненты
+- `MovieHero` – блок с фильмом (случайный или детальный)
+- `MovieCard` – карточка фильма
+- `MovieGrid` – сетка/лента фильмов
+- `HeaderSearch` – поиск с выпадающим списком
+- `AuthModal` – модалка авторизации
+- `TrailerModal` – модалка с трейлером
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## API
+Базовый URL: https://cinemaguide.skillbox.cc/
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
-
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## Лицензия
+Проект распространяется под свободной лицензией, если иное не указано в репозитории.
