@@ -1,0 +1,71 @@
+@use '@/styles/variables' as *;
+
+.errorContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  text-align: center;
+  min-height: 60vh;
+  gap: 16px;
+  width: 100%;
+}
+
+.errorImage {
+  max-width: 200px;
+  height: auto;
+  opacity: 0.8;
+}
+
+.errorTitle {
+  font-weight: 700;
+  font-size: 28px;
+  line-height: 36px;
+  color: $color-text-primary;
+  margin: 0;
+}
+
+.errorMessage {
+  font-size: 18px;
+  line-height: 26px;
+  color: $color-text-tertiary;
+  max-width: 500px;
+  margin: 0;
+}
+
+.errorButton {
+  margin-top: 8px;
+  background: $color-primary-default;
+  border: none;
+  border-radius: 28px;
+  padding: 14px 48px;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 24px;
+  color: $color-text-primary;
+  cursor: pointer;
+  transition: background 0.2s;
+  &:hover {
+    background: $color-primary-hover;
+  }
+}
+
+/* Адаптив */
+@media (max-width: 520px) {
+  .errorTitle {
+    font-size: 24px;
+    line-height: 32px;
+  }
+  .errorMessage {
+    font-size: 16px;
+    line-height: 22px;
+  }
+  .errorImage {
+    max-width: 150px;
+  }
+  .errorButton {
+    padding: 12px 32px;
+    font-size: 16px;
+  }
+}

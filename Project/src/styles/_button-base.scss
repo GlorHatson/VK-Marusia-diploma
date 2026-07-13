@@ -1,0 +1,59 @@
+@use '@/styles/variables' as *;
+
+@mixin button-base {
+  border: 1px solid transparent;
+  border-radius: $border-radius-xl;
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 24px;
+  background: $color-primary-default;
+  color: $color-text-primary;
+
+  &:hover {
+    background: $color-primary-hover;
+  }
+
+  &:focus-visible {
+    outline: none;
+    background: $color-primary-focus;
+    color: $color-text-disabled;
+  }
+
+  &:disabled {
+    background: $color-secondary-disabled;
+    color: $color-text-disabled;
+    cursor: not-allowed;
+  }
+}
+
+@mixin button-text {
+  padding: 16px 48px;
+}
+
+@mixin button-icon {
+  width: 68px;
+  height: 56px;
+  padding: 0;
+}
+
+@mixin button-icon-secondary {
+  @include button-base;
+  @include button-icon;
+  background: $color-secondary-default;
+  color: $color-text-secondary; // цвет иконки
+
+  &:hover {
+    background: $color-secondary-hover;
+    color: $color-text-secondary;
+  }
+
+  &:focus-visible {
+    background: $color-secondary-focus;
+    color: $color-text-secondary;
+  }
+}

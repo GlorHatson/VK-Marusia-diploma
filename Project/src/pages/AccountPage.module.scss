@@ -1,0 +1,225 @@
+@use '@/styles/variables' as *;
+
+.account-page {
+  padding: 32px 0 80px;
+}
+
+.account-page__title {
+  font-weight: 700;
+  font-size: 48px;
+  line-height: 56px;
+  color: $color-text-primary;
+  margin-bottom: 64px;
+}
+
+.account-page__tabs {
+  display: flex;
+  gap: 64px;
+  margin-bottom: 60px;
+}
+
+.account-page__tab {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: transparent;
+  border: none;
+  padding: 8px 0;
+  font-size: 24px;
+  line-height: 32px;
+  color: $color-text-primary;
+  cursor: pointer;
+  transition: all 0.2s;
+  border-bottom: 2px solid transparent;
+
+  &--active {
+    border-bottom-color: $color-accent-border;
+  }
+
+  &:hover {
+    color: $color-accent;
+  }
+}
+
+.account-page__tab-icon {
+  width: 24px;
+  height: 24px;
+  display: block;
+}
+
+.tab-text-short {
+  display: none;
+}
+
+.tab-text-full {
+  display: inline;
+}
+
+.account-page__settings {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 40px;
+  max-width: 482px;
+  margin-bottom: 64px;
+}
+
+.settings-row {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.settings-avatar {
+  width: 60px;
+  height: 60px;
+  background: $color-placeholder-dark;
+  border-radius: 30px;
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 32px;
+  color: $color-text-primary;
+}
+
+.settings-icon {
+  width: 60px;
+  height: 60px;
+  background: $color-placeholder-dark;
+  border-radius: 30px;
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+}
+
+.settings-icon-svg {
+  width: 24px;
+  height: 24px;
+  color: $color-text-primary;
+}
+
+.settings-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.settings-label {
+  font-size: 18px;
+  line-height: 24px;
+  color: $color-text-primary;
+}
+
+.settings-value {
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 32px;
+  color: $color-text-primary;
+}
+
+.account-page__favorites-empty,
+.account-page__loader {
+  text-align: center;
+  padding: 80px;
+  font-size: 20px;
+  color: $color-text-primary;
+}
+
+.account-page__logout-btn {
+  width: auto;
+  justify-content: center;
+}
+
+//---- Мобильные разрешения ---
+@media (max-width: 620px) {
+  .account-page {
+    padding: 24px 0 80px;
+  }
+
+  .account-page__title {
+    font-size: 24px;
+    line-height: 32px;
+    margin-bottom: 40px;
+  }
+
+  .account-page__tabs {
+    gap: 26px;
+    margin-bottom: 40px;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+
+  .account-page__tab {
+    flex: 0 0 auto;
+    font-size: 24px;
+    line-height: 32px;
+    padding: 8px 0;
+    gap: 8px;
+    border-bottom-width: 1.5px;
+    white-space: nowrap;
+
+    &--active {
+      border-bottom: 1.5px solid $color-accent-border;
+    }
+  }
+
+  .account-page__tab-icon {
+    width: 24px;
+    height: 24px;
+  }
+
+  .tab-text-full {
+    display: none;
+  }
+
+  .tab-text-short {
+    display: inline;
+  }
+
+  .account-page__settings {
+    max-width: 100%;
+    gap: 40px;
+    margin-bottom: 40px;
+  }
+
+  .settings-row {
+    gap: 16px;
+    align-items: flex-start;
+  }
+
+  .settings-avatar,
+  .settings-icon {
+    width: 48px;
+    height: 48px;
+  }
+
+  .settings-icon-svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  .settings-label {
+    font-size: 14px;
+    line-height: 20px;
+  }
+
+  .settings-value {
+    font-size: 18px;
+    line-height: 24px;
+  }
+
+  .account-page__logout-btn {
+    width: 100%;
+  }
+}

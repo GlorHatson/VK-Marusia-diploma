@@ -1,0 +1,84 @@
+@use '@/styles/variables' as *;
+
+@font-face {
+  font-family: 'Play';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Play Regular'), local('Play-Regular'),
+       url('https://fonts.gstatic.com/s/play/v19/6aez4K2oVqwIvtU2Hw.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Play';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: local('Play Bold'), local('Play-Bold'),
+       url('https://fonts.gstatic.com/s/play/v19/6ae84K2oVqwItm4TOpM.woff2') format('woff2');
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+html,
+body {
+  height: 100%;
+  min-width: 375px;
+}
+
+body {
+  font-family: 'Play', sans-serif;
+  font-weight: 400;
+  line-height: 1.5;
+  color: $color-white;
+  background: $color-black;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: -1;
+  background: $gradient-hero, $gradient-black;
+}
+
+main {
+  min-height: calc(100vh - 234px);
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  align-items: center;
+  overflow-x: hidden;
+}
+
+input,
+textarea,
+button,
+select {
+  font-family: inherit;
+}
+
+footer {
+  min-height: 80px; 
+}

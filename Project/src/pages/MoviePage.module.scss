@@ -1,0 +1,11 @@
+@use '@/styles/variables' as *;
+
+.movie-page {
+  padding-bottom: 120px;
+}
+
+@media (max-width: 520px) {
+  .movie-page {
+    padding-bottom: 24px;
+  }
+}

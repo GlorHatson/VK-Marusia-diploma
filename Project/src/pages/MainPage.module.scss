@@ -1,0 +1,41 @@
+@use '@/styles/variables' as *;
+
+.main-page__top {
+  padding: 0 0 120px;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.main-page__top-title {
+  font-weight: 700;
+  font-size: 40px;
+  line-height: 48px;
+  margin-bottom: 64px;
+}
+
+@media (max-width: 1380px) {
+  .main-page__top-title {
+    font-size: 36px;
+    line-height: 42px;
+    margin-bottom: 48px;
+  }
+}
+
+@media (max-width: 868px) {
+  .main-page__top {
+    padding: 0 0 35px;
+  }
+  .main-page__top-title {
+    font-size: 32px;
+    line-height: 38px;
+    margin-bottom: 40px;
+  }
+}
+
+@media (max-width: 375px) {
+  .main-page__top-title {
+    font-size: 24px;
+    line-height: 32px;
+    margin-bottom: 39px;
+  }
+}

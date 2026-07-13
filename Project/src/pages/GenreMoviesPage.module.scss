@@ -1,0 +1,142 @@
+@use '@/styles/variables' as *;
+
+.genre-movies {
+  display: flex;
+  flex-direction: column;
+  padding: 32px 0 80px;
+}
+
+.genre-movies__header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 64px;
+}
+
+.genre-movies__back {
+  display: flex;
+  align-items: center;
+  background: none;
+  border: none;
+  height: 40px;
+  width: 40px;
+  padding: 12px;
+  font-size: 40px;
+  color: $color-light-default;
+  cursor: pointer;
+  transition: color 0.2s;
+
+  &:hover {
+    color: $color-light-hover;
+  }
+}
+
+.genre-movies__title {
+  font-weight: 700;
+  font-size: 48px;
+  line-height: 56px;
+  color: $color-text-primary;
+  margin: 0;
+}
+
+.genre-movies__load-more {
+  display: flex;
+  justify-content: center;
+  margin-top: 64px;
+}
+
+.scroll-to-top {
+  position: fixed;
+  bottom: 80px;
+  right: 80px;
+  margin-left: auto;
+  margin-right: 0;
+  right: calc((100vw - 1280px) / 2 + 20px);
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: $color-overlay-button;
+  backdrop-filter: blur(10px);
+  color: $color-placeholder-dark;
+  border: none;
+  cursor: pointer;
+  transition: opacity 0.2s;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.7;
+
+  &:hover {
+    opacity: 1;
+    color: $color-text-primary;
+  }
+}
+
+.scroll-to-top__icon {
+  width: 48px;
+  height: 48px;
+}
+
+/* ---------- АДАПТИВНОСТЬ ---------- */
+
+/* ≤ 1280px */
+@media (max-width: 1280px) {
+  .genre-movies__title {
+    font-size: 36px;
+    line-height: 42px;
+  }
+
+  .scroll-to-top {
+    right: 60px;
+  }
+}
+
+/* ≤ 1024px */
+@media (max-width: 1024px) {
+  .genre-movies__header {
+    margin-bottom: 40px;
+  }
+
+  .genre-movies__title {
+    font-size: 28px;
+    line-height: 34px;
+  }
+
+  .scroll-to-top {
+    right: 40px;
+  }
+}
+
+/* ≤ 520px (мобильная версия) */
+@media (max-width: 520px) {
+  .genre-movies {
+    padding: 24px 0 80px;
+  }
+
+  .genre-movies__header {
+    margin-bottom: 40px;
+    gap: 8px;
+  }
+
+  .genre-movies__title {
+    font-size: 24px;
+    line-height: 32px;
+  }
+
+  .genre-movies__back {
+    height: 32px;
+    width: 32px;
+  }
+
+  .scroll-to-top {
+    right: 20px;
+    width: 60px;
+    height: 60px;
+  }
+
+  .scroll-to-top__icon {
+    width: 36px;
+    height: 36px;
+  }
+}

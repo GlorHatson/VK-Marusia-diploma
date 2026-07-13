@@ -1,0 +1,139 @@
+@use '@/styles/variables' as *;
+
+.genres-page {
+  padding: 32px 0 80px;
+}
+
+.genres-page__title {
+  font-weight: 700;
+  font-size: 48px;
+  line-height: 56px;
+  margin-bottom: 64px;
+  color: $color-text-primary;
+}
+
+.genres-page__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 64px 40px;
+}
+
+.genres-page__card {
+  position: relative;
+  width: auto;
+  aspect-ratio: 1 / 1.05;
+  background: $color-dark-bg;
+  box-shadow: $shadow-card;
+  border-radius: 24px;
+  overflow: hidden;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease, box-shadow 0.2s ease;
+
+  &:hover {
+    transform: scale(1.04);
+    box-shadow: $shadow-card-hover;
+  }
+}
+
+.genres-page__card-grid {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+}
+
+.genres-page__card-image {
+  width: 100%;
+  aspect-ratio: 1 / 0.9;
+  object-fit: cover;
+  object-position: center;
+}
+
+// .genres-page__card-placeholder {
+//   background: #2a2a2a;
+//   width: 100%;
+//   height: 100%;
+// }
+
+.genres-page__card-title {
+  position: absolute;
+  min-height: 84px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: $gradient-title;
+  backdrop-filter: blur(4px);
+  color: $color-text-primary;
+  font-size: 24px;
+  font-weight: 700;
+  text-align: center;
+  padding: 20px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  border-radius: 0 0 24px 24px;
+
+  &:hover {
+    color: $color-accent;
+  }
+}
+
+.genres-page__loader,
+.genres-page__error {
+  text-align: center;
+  padding: 40px;
+  font-size: 20px;
+  color: $color-text-primary;
+}
+
+/* ---------- (≤ 1280px) ---------- */
+@media (max-width: 1280px) {
+  .genres-page__title {
+    font-size: 36px;
+    line-height: 36px;
+    margin-bottom: 54px;
+  }
+
+  .genres-page__grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 48px 32px;
+  }
+}
+
+/* ---------- (≤ 768px) ---------- */
+@media (max-width: 768px) {
+  .genres-page__title {
+    font-size: 28px;
+    line-height: 34px;
+    margin-bottom: 40px;
+  }
+
+  .genres-page__grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 32px;
+  }
+}
+
+
+/* ---------- МОБИЛЬНАЯ ВЕРСИЯ (≤ 520px) ---------- */
+@media (max-width: 520px) {
+
+  .genres-page {
+    padding: 24px 0 80px;
+  }
+
+  .genres-page__title {
+    font-size: 24px;
+    line-height: 32px;
+  }
+
+  .genres-page__grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .genres-page__card {
+    aspect-ratio: 1 / 0.91;
+  }
+}
