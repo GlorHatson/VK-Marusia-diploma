@@ -127,8 +127,6 @@ const GenresPage = () => {
                       src={poster}
                       alt=""
                       className={styles['genres-page__card-image']}
-                      width={300}
-                      height={270}
                       loading="lazy"
                       onError={(e) => {
                         (e.target as HTMLImageElement).src = '/images/no-poster.png';

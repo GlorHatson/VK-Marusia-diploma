@@ -236,8 +236,10 @@ const TrailerModal: React.FC<TrailerModalProps> = ({ isOpen, onClose, videoId, t
     );
   }
 
-  const showPlayPause = isPlayerReady && !isPlaying;
+  const showPlayPause = isPlayerReady && (!isPlaying || isHovered);
   const showClose = error || !isPlayerReady || showCloseDelayed;
+  const showTitle = isPlayerReady && !isPlaying;
+
 
   return (
     <div className={styles['trailer-modal__overlay']} onClick={onClose}>
@@ -264,7 +266,7 @@ const TrailerModal: React.FC<TrailerModalProps> = ({ isOpen, onClose, videoId, t
             />
           )}
         </div>
-        {isPlayerReady && <div className={styles['trailer-modal__title']}>{title}</div>}
+        {showTitle && <div className={styles['trailer-modal__title']}>{title}</div>}
         {showClose && (
           <Button
             variant="light"
