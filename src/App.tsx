@@ -58,7 +58,7 @@ function App() {
 
   return (
     <ErrorBoundary>
-      <BrowserRouter>
+      <BrowserRouter basename={import.meta.env.BASE_URL}>
         <Header />
         <main>
           <Suspense fallback={<Loader size={200} message="Загрузка страницы..." />}>
