@@ -5,6 +5,7 @@ import path from 'path';
 
 export default defineConfig({
   plugins: [react(), svgr()],
+  base: 'VK-Marusia-diploma',
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
