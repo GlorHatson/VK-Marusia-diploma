@@ -1,6 +1,16 @@
 # ВК Маруся — каталог фильмов
+![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
+![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)
+![Redux Toolkit](https://img.shields.io/badge/Redux_Toolkit-764ABC?style=for-the-badge&logo=redux&logoColor=white)
+![Vite](https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white)
+![Sass](https://img.shields.io/badge/Sass-CC6699?style=for-the-badge&logo=sass&logoColor=white)
 
 Приложение для просмотра каталога фильмов, поиска по названию и ведения избранного. Проект использует публичное API `cinemaguide.skillbox.cc` с авторизацией по сессии.
+<p align="start">
+  <a href="https://glorhatson.github.io/VK-Marusia-diploma/">
+    <img src="https://img.shields.io/badge/Посмотреть_демо-Ссылка-4285F4?style=for-the-badge" alt="Демо">
+  </a>
+</p>
 
 ## Функциональность
 - Главная страница с топ-10 фильмов и случайным фильмом
