@@ -6,7 +6,7 @@
   font-weight: 400;
   font-display: swap;
   src: local('Play Regular'), local('Play-Regular'),
-       url('https://fonts.gstatic.com/s/play/v19/6aez4K2oVqwIvtU2Hw.woff2') format('woff2');
+       url('@/assets/fonts/play.woff2') format('woff2');
 }
 @font-face {
   font-family: 'Play';
@@ -14,7 +14,7 @@
   font-weight: 700;
   font-display: swap;
   src: local('Play Bold'), local('Play-Bold'),
-       url('https://fonts.gstatic.com/s/play/v19/6ae84K2oVqwItm4TOpM.woff2') format('woff2');
+       url('@/assets/fonts/play-bold.woff2') format('woff2');
 }
 
 * {
