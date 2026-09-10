@@ -50,6 +50,16 @@ const TrailerModal: React.FC<TrailerModalProps> = ({ isOpen, onClose, videoId, t
   const [isCloseHovered, setIsCloseHovered] = useState(false);
   const [showCloseDelayed, setShowCloseDelayed] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const touchHideTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const handleWrapperPointerDown = (e: React.PointerEvent) => {
+    if (e.pointerType !== 'touch') return;
+    setIsHovered(true);
+    if (touchHideTimer.current) clearTimeout(touchHideTimer.current);
+    touchHideTimer.current = setTimeout(() => {
+      setIsHovered(false);
+    }, 3000);
+  };
 
   useEffect(() => {
     if (!isOpen) {
@@ -145,6 +155,7 @@ const TrailerModal: React.FC<TrailerModalProps> = ({ isOpen, onClose, videoId, t
         playerRef.current = null;
       }
       if (closeTimer.current) clearTimeout(closeTimer.current);
+      if (touchHideTimer.current) clearTimeout(touchHideTimer.current);
       setIsPlayerReady(false);
       setIsPlaying(true);
       setIsHovered(false);
@@ -154,7 +165,6 @@ const TrailerModal: React.FC<TrailerModalProps> = ({ isOpen, onClose, videoId, t
     };
   }, [isOpen, videoId]);
 
-  // Остальные эффекты (блокировка скролла, клавиша Escape) остаются без изменений
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = 'hidden';
@@ -212,6 +222,9 @@ const TrailerModal: React.FC<TrailerModalProps> = ({ isOpen, onClose, videoId, t
         playerRef.current.pauseVideo();
       } else {
         playerRef.current.playVideo();
+        setIsHovered(false);
+        setIsCloseHovered(false);
+        if (touchHideTimer.current) clearTimeout(touchHideTimer.current);
       }
     } catch (err) {
       console.warn('Ошибка управления плеером:', err);
@@ -248,6 +261,7 @@ const TrailerModal: React.FC<TrailerModalProps> = ({ isOpen, onClose, videoId, t
           className={styles['trailer-modal__video-wrapper']}
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
+          onPointerDown={handleWrapperPointerDown}
         >
           <div ref={containerRef} className={styles['trailer-modal__player']} />
           {!isPlayerReady && !error && (
